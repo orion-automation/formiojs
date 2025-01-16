@@ -1,0 +1,12 @@
+<div class="{{(ctx.component.type||'').toLowerCase()}}">
+    <div ref="placeTable" style="padding: 10px;width: 100%;align-items: center;justify-content: center">
+        empty table
+    </div>
+    <div style="display: flex;flex-direction: column;width: 100%;align-items: center">
+        <h3 ref="tableTitle"></h3>
+        <p ref="tableDesc1" style="margin-bottom: 0"></p>
+        <p ref="tableDesc2" style="margin-bottom: 1rem"></p>
+        <table style="width: 100%;overflow: auto" ref="tableEmpty">
+        </table>
+    </div>
+</div>

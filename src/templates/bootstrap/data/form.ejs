@@ -1,0 +1,37 @@
+<div class="data-container {{(ctx.component.type||'').toLowerCase()}}"
+     ref="dataContainer"
+     style="cursor:{{ctx.component['click-event-type']?'pointer':'default'}};
+     border-radius: 6px;
+     background-color: {{ctx.component.bgColor||'#ffffff'}};
+     border: 1px solid #E6E4E6;padding: 16px;display: flex;flex-direction: column;height: 100%;">
+    <div style="display: flex;flex-direction: row;align-items: center;margin-bottom: 25px;align-items: center">
+        <div style="display: flex;flex: 1;width: 0;flex-direction: column;">
+            <div style="color: #312651;font-size: 14px;font-weight: bold">
+                {{ctx.component['header']}}
+                {% if (ctx.component['click-event-type']) { %}
+                <i class="fa-solid fa-chevron-right" style="color: #FF7754"></i>
+                {% } %}
+            </div>
+            <div style="color: #B1ABB6;font-size: 12px;">
+                {{ctx.component['sub-header']}}
+            </div>
+        </div>
+        {% if (ctx.component['icon-field']) { %}
+        <i class="fa-fw {{ctx.component['icon-field']}}"
+           style="color:{{ctx.component['icon-color']||'#000000'}};font-size: 18px;width: 32px;height: 32px;line-height: 32px;background-color: #E6E4E6;border-radius: 6px"></i>
+        {% } %}
+    </div>
+    <div style="flex: 1;height: 0"></div>
+    <div style="display: flex;flex-direction: row;align-items: end">
+        <div style="display: flex;flex-direction: column;flex: 1;width: 0">
+            <h2 style="z-index: 1;font-weight: bold;margin-bottom: 0;line-height: 1;font-size: 36px;color: {{ctx.component['value-color']||'#101010'}}"></h2>
+            <div class="unit-container" style="z-index: 1;color: {{ctx.component['subValue-color']||'#B1ABB6'}};font-size: 12px"></div>
+        </div>
+        <div style="display: flex;flex-direction: column;align-items: end">
+            <div class="sparkline-container" style="z-index: 0;margin-top: auto;width: fit-content;margin-bottom: auto"></div>
+            <div style="color: #B1ABB6;font-size: 12px;text-align: end">
+                {{ctx.component['sparkLine-title']}}
+            </div>
+        </div>
+    </div>
+</div>

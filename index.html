@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Form.io Premium Components</title>
+  <link rel="stylesheet" href="app/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="dist/formio.full.css">
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-11">
+      <h3 class="text-center text-muted">The <a href="https://github.com/formio/formio.js" target="_blank">Form
+          Builder</a> allows you to build a <select class="form-control" id="form-select"
+          style="display: inline-block; width: 150px;">
+          <option value="form">Form</option>
+          <option value="wizard">Wizard</option>
+          <option value="pdf">PDF</option>
+        </select></h3>
+      <div id="builder"></div>
+    </div>
+    <div class="col-11">
+      <h3 class="text-center text-muted">as JSON Schema</h3>
+      <div class="card card-body bg-light jsonviewer">
+        <pre id="json"></pre>
+      </div>
+    </div>
+  </div>
+  <div style="display: none;" class="row mt-4 ml-4 mr-4"
+    style="display: flex;align-items: center; justify-content: center;">
+    <button onclick="onBuild()">build</button>
+  </div>
+  <div style="" class="row mt-4 ml-4 mr-4"
+    style="display: flex;align-items: center; justify-content: center;">
+    <div id="formio" class="card card-body bg-light"></div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="row mt-4" style="display: none;">
+    <div class="col-sm-8 offset-sm-2">
+      <h3 class="text-center text-muted">which creates a Submission JSON</h3>
+      <div class="card card-body bg-light jsonviewer">
+        <pre id="subjson"></pre>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <script src="app/jquery-2.2.4.js"></script>
+  <script src="app/jquery.dataTables.js"></script>
+  <script src="dist/formio.full.min.js"></script>
+  <script type="text/javascript">
+    window.scanCodeByFormio=function(formId,componentKey) {
+      console.log(`start scan code for ${formId} ${componentKey}`);
+      let form=Formio.forms[formId];
+      form.getComponent(componentKey).setValue("jaxhuan");
+    };
+    window.openTaskListByDrawer=function(formId) {
+      console.log(`start scan code for ${formId}`);
+    };
+    var jsonElement = document.getElementById('json');
+    var formElement = document.getElementById('formio');
+    var subJSON = document.getElementById('subjson');
+    console.log(/\$\{(.+?)}/g.exec("${data.table}")[1]);
+    var builder = new Formio.FormBuilder(document.getElementById("builder"), {
+      display: 'form',
+      components:
+        [
+          {
+            "label": "Html Editor",
+            "editor": "ckeditor",
+            "isUploadEnabled": false,
+            "tableView": true,
+            "key": "htmlEditor",
+            "type": "htmlEditor",
+            "input": true,
+            "defaultValue": {
+              "html": ""
+            }
+          }
+        ],
+      settings: {
+        pdf: {
+          "id": "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
+          "src": "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0"
+        }
+      }
+    }, {
+      baseUrl: 'https://examples.form.io',
+      language: "zh",
+    });
+
+    var onForm = function (form) {
+      form.submission = {
+        data: {
+          workbenchDomain: "https://ibanker.qa.cicc.com.cn",
+          htmlEditor:[{html:"PHA+dmVydmVydmJlcjwvcD4="},{html:"amF4LWRlbW8="}],
+          userFile:[
+            {
+              "storage": "url",
+              "name": "---e3278634-7d08-4f76-bf8b-c26affc5f472.docx",
+              "url": "https://ibanker.qa.cicc.com.cn/ib/workbench/api/ibsdata/api/file/download/filename/20240506160521738测试.docx",
+              "size": 11801,
+              "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              "data": {
+                "id": -992030718,
+                "appId": "ibsdg",
+                "realFilename": "测试.docx",
+                "filename": "20240506160521738测试.docx",
+                "filePath": "http://ib-dev.bjyzhcp01.cicc.group/DEV-ibsdg/20240506160521738%E6%B5%8B%E8%AF%95.docx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240506T080522Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604800&X-Amz-Credential=REVWLWlic2Rn%2F20240506%2F%2Fs3%2Faws4_request&X-Amz-Signature=ba3d36d0cf7c392461995cfe6ee339f3422a630727a258ad34bc541500e533eb",
+                "md5Base64": null,
+                "md5Hex": "3b958c67fc2f2484cf138b3a8d854ffe",
+                "fileSize": 11801,
+                "contentType": "application/octet-stream",
+                "versionId": "109758894201921",
+                "createuser": null,
+                "createdate": null,
+                "updateuser": null,
+                "updatedate": null,
+                "instanceId": null,
+                "businessId": null,
+                "baseUrl": "https://api.form.io",
+                "project": "",
+                "form": ""
+              },
+              "originalName": "测试.docx",
+              "hash": "3b958c67fc2f2484cf138b3a8d854ffe"
+            }
+          ],
+          title: 'Joe',
+          table:{
+            "submitId": "2023120400063",
+            "submitUser": "jaxhuan",
+            "submitUserTeam": "jaxhuan-group",
+            "phoneNumber": "17051295233",
+            "emailAddress": "jaxhuan@foxmail.com",
+            "curveSource": "中金国际",
+            "remark": "注意哦",
+            "submitTime": "",
+            "total": 10,
+            "curveList": [
+              {
+                "id": "1",
+                "cvCode": "1",
+                "curveMId": "",
+                "cvType": "转移",
+                "sDate": "2024-01-02",
+                "eDate": "2024-10-02",
+                "cvName": "曲线1",
+                "currency": "RMB",
+                "lpCode": "",
+                "curveSId": "",
+                "termRate": [
+                  {
+                    "rate": "0.03%",
+                    "term": "O/N"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  }
+                ]
+              },
+              {
+                "id": "2",
+                "cvCode": "2",
+                "curveMId": "",
+                "cvType": "转移",
+                "sDate": "2024-01-02",
+                "eDate": "2024-10-03",
+                "cvName": "曲线2",
+                "currency": "RMB",
+                "lpCode": "",
+                "curveSId": "",
+                "termRate": [
+                  {
+                    "rate": "0.03%",
+                    "term": "O/N"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  },
+                  {
+                    "rate": "0.03%",
+                    "term": "O/M"
+                  }
+                ]
+              }
+            ]
+          },
+          demo:{
+            table: {
+              "submitId": "2023120400063",
+              "submitUser": "jaxhuan",
+              "submitUserTeam": "jaxhuan-group",
+              "phoneNumber": "17051295233",
+              "emailAddress": "jaxhuan@foxmail.com",
+              "curveSource": "中金国际",
+              "remark": "注意哦",
+              "submitTime": "",
+              "total": 10,
+              "curveList": [
+                {
+                  "id": "1",
+                  "cvCode": "1",
+                  "curveMId": "",
+                  "cvType": "转移",
+                  "sDate": "2024-01-02",
+                  "eDate": "2024-10-02",
+                  "cvName": "曲线1",
+                  "currency": "RMB",
+                  "lpCode": "",
+                  "curveSId": "",
+                  "termRate": [
+                    {
+                      "rate": "0.03%",
+                      "term": "O/N"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    }
+                  ]
+                },
+                {
+                  "id": "2",
+                  "cvCode": "2",
+                  "curveMId": "",
+                  "cvType": "转移",
+                  "sDate": "2024-01-02",
+                  "eDate": "2024-10-03",
+                  "cvName": "曲线2",
+                  "currency": "RMB",
+                  "lpCode": "",
+                  "curveSId": "",
+                  "termRate": [
+                    {
+                      "rate": "0.03%",
+                      "term": "O/N"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    },
+                    {
+                      "rate": "0.03%",
+                      "term": "O/M"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          lists:[
+            {
+              table: {
+                "submitId": "2023120400063",
+                "submitUser": "jaxhuan",
+                "submitUserTeam": "jaxhuan-group",
+                "phoneNumber": "17051295233",
+                "emailAddress": "jaxhuan@foxmail.com",
+                "curveSource": "中金国际",
+                "remark": "注意哦",
+                "submitTime": "",
+                "total": 10,
+                "curveList": [
+                  {
+                    "id": "1",
+                    "cvCode": "1",
+                    "curveMId": "",
+                    "cvType": "转移",
+                    "sDate": "2024-01-02",
+                    "eDate": "2024-10-02",
+                    "cvName": "曲线1",
+                    "currency": "RMB",
+                    "lpCode": "",
+                    "curveSId": "",
+                    "termRate": [
+                      {
+                        "rate": "0.03%",
+                        "term": "O/N"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "2",
+                    "cvCode": "2",
+                    "curveMId": "",
+                    "cvType": "转移",
+                    "sDate": "2024-01-02",
+                    "eDate": "2024-10-03",
+                    "cvName": "曲线2",
+                    "currency": "RMB",
+                    "lpCode": "",
+                    "curveSId": "",
+                    "termRate": [
+                      {
+                        "rate": "0.03%",
+                        "term": "O/N"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      },
+                      {
+                        "rate": "0.03%",
+                        "term": "O/M"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      };
+      form.on('change', function () {
+        subJSON.innerHTML = '';
+        subJSON.appendChild(document.createTextNode(JSON.stringify(form.submission, null, 4)));
+      });
+    };
+
+    var onBuild = function (build) {
+      console.log("onBuild")
+      jsonElement.innerHTML = '';
+      formElement.innerHTML = '';
+      jsonElement.appendChild(document.createTextNode(JSON.stringify(builder.instance.schema, null, 4)));
+      Formio.createForm(formElement, builder.instance.form).then(onForm);
+    };
+
+
+    var onReady = function () {
+      console.log(/\$\{.+?}/g.exec("${data.table}"));
+      var jsonElement = document.getElementById('json');
+      var formElement = document.getElementById('formio');
+      builder.instance.on('saveComponent', onBuild);
+      builder.instance.on('editComponent', onBuild);
+    };
+
+    var setDisplay = function (display) {
+      builder.setDisplay(display).then(onReady);
+    };
+
+    // Handle the form selection.
+    var formSelect = document.getElementById('form-select');
+    formSelect.addEventListener("change", function () {
+      setDisplay(this.value);
+    });
+
+    builder.instance.ready.then(onReady);
+
+    //https://nocodb.eorionsolution.com/api/v1/db/data/v1/pr73ph1qk78aibz/DevForm
+    //https://nocodb.eorionsolution.com/api/v1/db/data/noco/pr73ph1qk78aibz/m51f0wjb3kqe9dp/views/vwijautm9xzzzu3v?offset=0&limit=25
+  </script>
+</body>
+
+</html>

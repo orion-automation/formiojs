@@ -1,0 +1,416 @@
+.formio-component-flex .flex-container .flex-child-container .formio-component,.formio-component-flex .flex-container .flex-child-container .builder-components {
+  width: 100%;
+  height: 100%;
+  .builder-component {
+    width: 100%;
+    height: 100%;
+  }
+
+  > .formio-component-data {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0
+  }
+
+  > .formio-component-newsData {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0
+  }
+
+  > .drag-and-drop-alert{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0
+  }
+
+  > .drag-and-drop-alert{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0
+  }
+
+  > .data-container{
+    width: 100%;
+    height: 100%
+  }
+
+  > .news-data-container{
+    width: 100%;
+    height: 100%
+  }
+}
+
+.formio-component-customTable {
+  table, th, td {
+    border: 1px solid black;
+  }
+  th, td {
+    padding: 8px 5px;
+    text-align: center;
+    font-weight: normal;
+  }
+  .td-empty {
+    color: transparent;
+  }
+}
+.formio-component-tree .tree-container {
+  ul,
+  #myUL {
+    list-style-type: none;
+  }
+
+  .tree-input {
+    margin-right: 6px;
+    border-radius: 0.25em;
+    width: 15px;
+    height: 15px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .tree-input::after {
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    color: #fff;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    visibility: visible;
+    padding-left: 0px;
+    text-align: center;
+    content: " ";
+    border-radius: 2px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+  }
+
+  .tree-input:checked::after {
+    content: "";
+    background-color: #037df3;
+    border-color: #037df3;
+    background-color: #037df3;
+  }
+
+  .tree-input:checked::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 3px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    z-index: 1;
+  }
+
+  #myUL {
+    margin: 0;
+    padding: 0;
+  }
+
+  .box {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+  }
+
+  .box::before {
+    content: "\2610";
+    color: black;
+    display: none;
+    margin-right: 6px;
+  }
+
+  .check-box::before {
+    content: "\2611";
+    display: none;
+    color: dodgerblue;
+  }
+
+  .nested {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+}
+
+.formio-component-department .department-container {
+  ul,
+  #myUL {
+    list-style-type: none;
+  }
+
+  .tree-input {
+    margin-right: 6px;
+    border-radius: 0.25em;
+    width: 15px;
+    height: 15px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .tree-input::after {
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    color: #fff;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    visibility: visible;
+    padding-left: 0px;
+    text-align: center;
+    content: " ";
+    border-radius: 2px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+  }
+
+  .tree-input:checked::after {
+    content: "";
+    background-color: #037df3;
+    border-color: #037df3;
+    background-color: #037df3;
+  }
+
+  .tree-input:checked::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 3px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    z-index: 1;
+  }
+
+  #myUL {
+    margin: 0;
+    padding: 0;
+  }
+
+  .box {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+  }
+
+  .box::before {
+    content: "\2610";
+    color: black;
+    display: none;
+    margin-right: 6px;
+  }
+
+  .check-box::before {
+    content: "\2611";
+    display: none;
+    color: dodgerblue;
+  }
+
+  .nested {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+}
+
+.formio-component-customFile .fileSelector {
+  position: relative;
+  padding: 15px;
+  border: 2px dashed #ddd;
+  text-align: center;
+
+  .loader-wrapper {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    .loader {
+      height: 45px;
+      width: 45px;
+      margin-top: -23px;
+      margin-left: -23px;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.formio-component-customFile .fileSelector.fileDragOver {
+  border-color: #127abe;
+}
+
+.formio-component-customFile .fileSelector .glyphicon,
+.formio-component-customFile .fileSelector .fa {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+[dir="rtl"] .formio-component-customFile .fileSelector .fa,
+[dir="rtl"] .formio-component-customFile .fileSelector .glyphicon {
+  margin-right: unset;
+  margin-left: 5px;
+}
+
+.formio-component-nocodbFile .fileSelector .browse {
+  cursor: pointer;
+}
+
+.formio-component-nocodbFile .fileSelector {
+  position: relative;
+  padding: 15px;
+  border: 2px dashed #ddd;
+  text-align: center;
+
+  .loader-wrapper {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    .loader {
+      height: 45px;
+      width: 45px;
+      margin-top: -23px;
+      margin-left: -23px;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.formio-component-nocodbFile .fileSelector.fileDragOver {
+  border-color: #127abe;
+}
+
+.formio-component-nocodbFile .fileSelector .glyphicon,
+.formio-component-nocodbFile .fileSelector .fa {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+[dir="rtl"] .formio-component-nocodbFile .fileSelector .fa,
+[dir="rtl"] .formio-component-nocodbFile .fileSelector .glyphicon {
+  margin-right: unset;
+  margin-left: 5px;
+}
+
+.formio-component-nocodbFile .fileSelector .browse {
+  cursor: pointer;
+}
+
+.formio-component-editTable .editgrid-table-container table.table {
+  color: rgba(0, 0, 0, 0.87);
+  border-color: gray;
+  line-height: 48px;
+}
+
+.formio-component-editTable
+  .editgrid-table-container
+  table.table
+  .editgrid-table-head
+  .editgrid-table-column {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+  user-select: none;
+  margin: 0;
+  padding: 0 16px;
+}
+
+.formio-component-editTable
+  .editgrid-table-container
+  table.table
+  .editgrid-table-body
+  .editgrid-table-column {
+  border-bottom: thin solid rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+  margin: 0;
+  padding: 0 16px;
+}
+
+.formio-component-editTable
+  .editgrid-table-container
+  table.table
+  .editgrid-table-body
+  > tr:hover,
+.formio-component-editTable
+  .editgrid-table-container
+  table.table
+  .editgrid-table-body
+  .editgrid-table-column:hover {
+  background-color: #f5f5f5;
+}
+
+td.editgrid-table-mobile-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+td.editgrid-table-mobile-row:last-child {
+  border-bottom: 1px solid black;
+}
+
+.editgrid-table-mobile-header {
+  font-weight: 600;
+  padding-right: 16px;
+}
+
+.editgrid-table-mobile-cell {
+  text-align: right;
+}
+
+.editgrid-table-container {
+  max-width: unset;
+}
+
+.processtable {
+  // width: 100%;
+  overflow-x: scroll;
+}
+
+.dataTables_wrapper .dataTables_create {
+  float: right;
+  text-align: right;
+  margin: 0 15px;
+}
+.dataTables_wrapper .dataTables_create button {
+  // border: 1px solid #aaa;
+  // border-radius: 3px;
+  // padding: 5px;
+  // background-color: transparent;
+  // color: inherit;
+}
+table.dataTable td button {
+  color: #fff;
+  margin-right: 5px;
+}
+table.dataTable td button i.fa{
+  color: #fff;
+}
+
+table.dataTable td button.btn-link {
+  text-decoration: unset;
+}

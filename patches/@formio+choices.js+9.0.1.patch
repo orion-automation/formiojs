@@ -1,0 +1,22 @@
+diff --git a/node_modules/@formio/choices.js/public/assets/scripts/choices.js b/node_modules/@formio/choices.js/public/assets/scripts/choices.js
+index 7b6b710..2e5e934 100644
+--- a/node_modules/@formio/choices.js/public/assets/scripts/choices.js
++++ b/node_modules/@formio/choices.js/public/assets/scripts/choices.js
+@@ -4569,7 +4569,7 @@ function () {
+       });
+     }
+ 
+-    this.input.element.addEventListener('keyup', this._onKeyUp, {
++    this.input.element.addEventListener('input', this._onKeyUp, {
+       passive: true
+     });
+     this.input.element.addEventListener('focus', this._onFocus, {
+@@ -4602,7 +4602,7 @@ function () {
+       this.containerOuter.element.removeEventListener('blur', this._onBlur);
+     }
+ 
+-    this.input.element.removeEventListener('keyup', this._onKeyUp);
++    this.input.element.removeEventListener('input', this._onKeyUp);
+     this.input.element.removeEventListener('focus', this._onFocus);
+     this.input.element.removeEventListener('blur', this._onBlur);
+ 

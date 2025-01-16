@@ -1,0 +1,92 @@
+<div class="{{(ctx.component.type||'').toLowerCase()}}">
+    <table style="width: 100%">
+        <tr>
+            <td colspan="12" style="text-align: end;padding: 8px 5px">编号:{{ ctx.data.submitId }}</td>
+        </tr>
+        <tr>
+            <th colspan="12" style="text-align: center;padding: 8px 5px">基础信息</th>
+        </tr>
+        <tr>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">申请人</th>
+            <td colspan="3" style="padding: 8px 5px">{{ ctx.data.submitUser }}</td>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">所属团队</th>
+            <td colspan="3" style="padding: 8px 5px">{{ ctx.data.submitUserTeam }}</td>
+        </tr>
+        <tr>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">电话</th>
+            <td colspan="3" style="padding: 8px 5px">{{ ctx.data.phoneNumber }}</td>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">所属系统</th>
+            <td colspan="3" style="padding: 8px 5px">{{ ctx.data.emailAddress }}</td>
+        </tr>
+        <tr>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">邮件</th>
+            <td colspan="9" style="text-align: center;padding: 8px 5px">{{ ctx.data.emailAddress }}</td>
+        </tr>
+        <tr>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">曲线所属实体</th>
+            <td colspan="9" style="text-align: center;padding: 8px 5px">{{ ctx.data.curveSource }}</td>
+        </tr>
+        <tr>
+            <th colspan="12" style="text-align: center;padding: 8px 5px">待发布曲线信息</th>
+        </tr>
+        <tr>
+            <th colspan="4" style="text-align: center;padding: 8px 5px">曲线名称</th>
+            <th colspan="2" style="text-align: center;padding: 8px 5px">曲线类型</th>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">起止日期</th>
+            <th colspan="3" style="text-align: center;padding: 8px 5px">期限价格</th>
+        </tr>
+        {% ctx.data.curveList.forEach(function(curve, index) { %}
+        <tr>
+            <td rowspan="{{ curve.showLines }}" colspan="4" style="text-align: center;padding: 8px 5px">{{
+                curve.cvName }}
+            </td>
+            <td rowspan="{{ curve.showLines }}" colspan="2" style="text-align: center;padding: 8px 5px">{{
+                curve.cvType }}
+            </td>
+            <td rowspan="{{ curve.showLines/2 }}" colspan="1"
+                style="text-align: center;padding: 8px 5px"><p style="width: 20px;margin: 0;
+  display: inline-block;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;">起始日</p>
+            </td>
+            <td rowspan="{{ curve.showLines/2 }}" colspan="2"
+                style="text-align: center;padding: 8px 5px">{{ curve.sDate }}
+            </td>
+            <td rowspan="1" colspan="1" style="text-align: center;padding: 8px 5px">{{
+                curve.termRate.length>0?curve.termRate[0].term:"" }}
+            </td>
+            <td rowspan="1" colspan="2" style="text-align: center;padding: 8px 5px">{{
+                curve.termRate.length>0?curve.termRate[0].rate:"" }}
+            </td>
+        </tr>
+        {% for(var i = 1; i < curve.showLines; i++){ %}
+        <tr>
+            {% if(i==curve.showLines/2){ %}
+            <td colspan="1"
+                rowspan="{{ curve.showLines/2 }}"
+                style="text-align: center"><p style="width: 20px;margin: 0;
+  display: inline-block;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;">终止日</p>
+            </td>
+            <td colspan="2"
+                rowspan="{{ curve.showLines/2 }}"
+                style="text-align: center">{{
+                curve.eDate }}
+            </td>
+            {% } %}
+            <td rowspan="1" colspan="1" style="text-align: center;padding: 8px 5px;empty-cells: show">{{
+                curve.termRate[i]?curve.termRate[i].term:"" }}
+            </td>
+            <td rowspan="1" colspan="2" style="text-align: center;padding: 8px 5px;empty-cells: show">{{
+                curve.termRate[i]?curve.termRate[i].rate:"" }}
+            </td>
+        </tr>
+        {% } %}
+        {% }) %}
+        <tr>
+            <th style="text-align: center;" colspan="3">备注</th>
+            <td colspan="9" style="padding: 40px 20px">{{ ctx.data.remark }}</td>
+        </tr>
+    </table>
+</div>

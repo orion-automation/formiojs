@@ -1,0 +1,43 @@
+{% if (ctx.component['bg-img-scale-type']=='auto') { %}
+<div class="news-data-container {{(ctx.component.type||'').toLowerCase()}}"
+     style="cursor:{{ctx.component['click-url']?'pointer':'default'}};
+     border-radius: 6px;
+     height: 100%;
+     min-height: 10rem;
+     background-size: {{ctx.component['bg-img-scale-type-width']}} {{ctx.component['bg-img-scale-type-height']}};
+     background-repeat: no-repeat;
+     background-image:  url({{ ctx.component['bg-img'] }});
+border: 1px solid #E6E4E6;display: flex;flex-direction: column;">
+    <div style="flex: 1;height: 0"></div>
+    <div style="height: fit-content;
+    backdrop-filter:blur(2px);
+    background-color: rgba(49, 38, 81, 0.58);color: white;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px">
+        <div style="display: flex;width: 100%;height: 100%;flex-direction: column;padding: 10px 15px;">
+            <div style="font-size: 16px;color: white;font-weight: bold">{{ctx.component['header']}}</div>
+            <div style="font-size: 12px;color: white;">{{ctx.component['sub-header']}}</div>
+            <div style="font-size: 12px;color: white;">{{ctx.component['footer']}}</div>
+        </div>
+    </div>
+</div>
+{% } else { %}
+<div class="news-data-container {{(ctx.component.type||'').toLowerCase()}}"
+     style="cursor:{{ctx.component['click-url']?'pointer':'default'}};
+     border-radius: 6px;
+     height: 100%;
+     min-height: 10rem;
+     background-size: {{ctx.component['bg-img-scale-type']}};
+     background-repeat: no-repeat;
+     background-image:  url({{ ctx.component['bg-img'] }});
+border: 1px solid #E6E4E6;display: flex;flex-direction: column;">
+    <div style="flex: 1;height: 0"></div>
+    <div style="height: fit-content;
+    backdrop-filter:blur(2px);
+    background-color: rgba(49, 38, 81, 0.58);color: white;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px">
+        <div style="display: flex;width: 100%;height: 100%;flex-direction: column;padding: 10px 15px;">
+            <div style="font-size: 16px;color: white;font-weight: bold">{{ctx.component['header']}}</div>
+            <div style="font-size: 12px;color: white;">{{ctx.component['sub-header']}}</div>
+            <div style="font-size: 12px;color: white;">{{ctx.component['footer']}}</div>
+        </div>
+    </div>
+</div>
+{% } %}

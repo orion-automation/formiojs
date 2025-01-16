@@ -1,0 +1,11 @@
+<div class="flex-container"
+     style="display: flex;flex-direction: row;flex-wrap: wrap;width: 100%;min-height: 11rem;gap: 10px">
+    {% ctx.component.columns.forEach(function(column, index) { %}
+    <div ref="{{ctx.columnKey}}"
+         class="flex-child-container"
+         style="height:11rem;width:{{ column['ratio']=='1'?'13':'22' }}rem">
+        {{ctx.columnComponents[index]}}
+    </div>
+    {% }) %}
+</div>
+
