@@ -17,7 +17,7 @@ To find out more about this library as well as see a demonstration of what you c
 To install this SDK into your project, you can use the following command within your terminal.
 
 ```
-npm install --save formiojs
+npm install --save formiojs-eorion
 ```
  
 ## Form Building
@@ -177,7 +177,7 @@ In addition to having a Form Renderer within this application, you can also use 
 You can also use this within an ES6 application as follows.
 
 ```js
-import Formio from 'formiojs';
+import Formio from 'formiojs-eorion';
 let formio = new Formio('https://examples.form.io/example');
 formio.loadForm((form) => {
   console.log(form);

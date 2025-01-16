@@ -1,6 +1,6 @@
 {
   "name": "formiojs-eorion",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "JavaScript powered Forms with JSON Form Builder",
   "main": "index.js",
   "types": "index.d.ts",
