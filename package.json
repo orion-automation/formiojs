@@ -1,11 +1,19 @@
 {
   "name": "formiojs-eorion",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "JavaScript powered Forms with JSON Form Builder",
   "main": "index.js",
   "types": "index.d.ts",
   "files": [
-    "lib/"
+    "dist",
+    "lib",
+    "utils.js",
+    "wizard.js",
+    "form.js",
+    "embed.js",
+    "full.js",
+    "types",
+    "index.d.ts"
   ],
   "pre-commit": [],
   "scripts": {
