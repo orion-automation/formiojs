@@ -81,6 +81,7 @@ export default class Data extends Component {
    * @returns {boolean}
    */
   setValue() {
+    let self=this;
     const container = this.element.querySelector('.chart-container');
     let header=this.component.header;
     let element;
@@ -107,11 +108,10 @@ export default class Data extends Component {
       this.interval = null;
     }
     const isSetting = this.element.parentElement.parentElement.parentElement.className === 'component-preview';
-    if (!isSetting && this.component.interval) {
+    if (!isSetting && this.component.interval && this.component.interval.trim().length>0 && this.component.interval !== "0") {
       const interval = window.setInterval(function() {
-        const src = element.src;
-        element.src = src;
-      }, this.component.interval * 2000);
+        element.src = JSON.parse(self.parseTpl(JSON.stringify({url:self.component.url}), {data: self.rootValue}, null)).url;
+      }, this.component.interval * 1000);
       this.interval = interval;
     }
 
