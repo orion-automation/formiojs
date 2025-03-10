@@ -110,88 +110,15 @@ export default [
     },
   },
   {
-    type: 'select',
+    type: 'textfield',
     key: 'page',
     label: 'Page',
     input: true,
-    tooltip: 'Select the page of formio.',
+    tooltip: 'page resource id',
     dataSrc: 'values',
     weight: 140,
     conditional: {
       json: { '===': [{ var: 'data.action' }, 'openPage'] },
-    },
-    data: {
-      values: [
-
-        {
-          "value": 920,
-          "label": "团队管理"
-        },
-        {
-          "value": 916,
-          "label": "New Leads for Partner"
-        },
-        {
-          "value": 915,
-          "label": "Partner Portal Account Assign"
-        },
-        {
-          "value": 914,
-          "label": "Partner Application Review"
-        },
-        {
-          "value": 912,
-          "label": "Partner Application"
-        },
-        {
-          "value": 888,
-          "label": "Trial Survey"
-        },
-        {
-          "value": 887,
-          "label": "Leads Followup"
-        },
-        {
-          "value": 886,
-          "label": "New Leads"
-        },
-        {
-          "value": 884,
-          "label": "Trial followup"
-        },
-        {
-          "value": 883,
-          "label": "Review Contactus"
-        },
-        {
-          "value": 881,
-          "label": "Contact us"
-        },
-        {
-          "value": 880,
-          "label": "Trial Review"
-        },
-        {
-          "value": 878,
-          "label": "Trial Application"
-        },
-        {
-          "value": 877,
-          "label": "售前支持"
-        },
-        {
-          "value": 876,
-          "label": "销售活动"
-        },
-        {
-          "value": 873,
-          "label": "商机管理"
-        },
-        {
-          "value": 826,
-          "label": "contact us"
-        }
-      ],
     },
   },
 
