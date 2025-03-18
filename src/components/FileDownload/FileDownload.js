@@ -1,6 +1,6 @@
 import Button from '../button/Button';
 import Component from '../_classes/field/Field';
-import _ from 'lodash';
+import { getExtensionFromMimeType } from '../../utils/utils';
 
 export default class FileDownload extends Component {
   constructor(component, options, data) {
@@ -40,7 +40,7 @@ export default class FileDownload extends Component {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `../engine-rest/history/variable-instance/${file.id}/data`, true);
         xhr.responseType = 'blob';
-        let cookie=self.readCookie();
+        let cookie = self.readCookie();
         xhr.setRequestHeader('Authorization', cookie.basicToken);
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.onload = function() {
@@ -48,7 +48,14 @@ export default class FileDownload extends Component {
           if (status == '200') {
             let result = xhr.response;
             const blob = new Blob([result]);
-            const fileName = file.filename;
+            let fileName = file.filename;
+            // 自动添加文件后缀
+            if (file.mimeType) {
+              let extension = getExtensionFromMimeType(file.mimeType);
+              if (extension && extension.length > 0 && !fileName.endsWith(extension)) {
+                fileName = `${fileName}.${extension}`;
+              }
+            }
             const elink = document.createElement('a');
             elink.download = fileName;
             elink.style.display = 'none';
@@ -67,7 +74,8 @@ export default class FileDownload extends Component {
   setValue(value) {
     if (this.refs.downloadLink && value && value.filename) {
       this.refs.downloadLink.innerHTML = value.filename;
-    } else {
+    }
+    else {
       this.refs.downloadLink.innerHTML = '没有文件';
     }
   }

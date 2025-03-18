@@ -46,6 +46,47 @@ function setPathToComponentAndPerentSchema(component) {
 }
 
 /**
+ * 根据mimeType返回文件后缀 ex:image/jpeg=>jpg
+ * @param mimeType
+ * @returns {*|string}
+ */
+export function getExtensionFromMimeType(mimeType) {
+  // 创建一个映射表，将 MIME 类型映射到文件后缀
+  const mimeTypeToExtensionMap = {
+    'text/plain': 'txt',
+    'text/html': 'html',
+    'text/css': 'css',
+    'application/javascript': 'js',
+    'application/json': 'json',
+    'text/xml': 'xml',
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/gif': 'gif',
+    'image/bmp': 'bmp',
+    'image/x-icon': 'ico',
+    'audio/mpeg': 'mp3',
+    'audio/wav': 'wav',
+    'video/mp4': 'mp4',
+    'video/quicktime': 'mov',
+    'video/x-msvideo': 'avi',
+    'application/pdf': 'pdf',
+    'application/msword': 'doc',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+    'application/vnd.ms-powerpoint': 'ppt',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
+    'application/vnd.ms-excel': 'xls',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+    'application/zip': 'zip',
+    'application/gzip': 'gz',
+    'application/x-tar': 'tar',
+    'application/x-rar-compressed': 'rar'
+  };
+
+  // 根据 MIME 类型获取对应的文件后缀
+  return mimeTypeToExtensionMap[mimeType] || '';
+}
+
+/**
  * Evaluate a method.
  *
  * @param func
