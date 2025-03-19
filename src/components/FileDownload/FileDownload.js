@@ -75,7 +75,7 @@ export default class FileDownload extends Component {
     if (this.refs.downloadLink && value && value.filename) {
       this.refs.downloadLink.innerHTML = value.filename;
     }
-    else {
+    else if (this.refs.downloadLink){
       this.refs.downloadLink.innerHTML = '没有文件';
     }
   }

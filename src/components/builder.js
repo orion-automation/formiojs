@@ -63,7 +63,13 @@ import FileDownloadForm from './FileDownload/FileDownload.form';
 import TaskCalendarForm from './TaskCalendar/TaskCalendar.form';
 import LocationInputTextFieldForm from './LocationInputTextField/LocationInputTextField.form';
 import NocodbFileForm from './NocodbFile/NocodbFile.form';
+import DataChinaGridForm from './DataChinaGrid/Data.form';
+import DataChinaGridRowForm from './DataChinaGridRow/Data.form';
+import CustomTabsForm from './CustomTabs/Tabs.form';
 
+Components.customTabs.editForm = CustomTabsForm;
+Components.data_china_grid_row.editForm = DataChinaGridRowForm;
+Components.data_china_grid.editForm = DataChinaGridForm;
 Components.nocodbFile.editForm = NocodbFileForm;
 Components.fileDownload.editForm = FileDownloadForm;
 Components.htmlEditor.editForm = HtmlEditorForm;

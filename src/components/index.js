@@ -71,6 +71,9 @@ import DataSourceComponent from './DataSource/DataSource';
 import LocationInputTextFieldComponent from './LocationInputTextField/LocationInputTextField';
 import MapComponent from './map/Map';
 import NocodbFileComponent from './NocodbFile/NocodbFile';
+import DataChinaGridComponent from './DataChinaGrid/Data';
+import DataChinaGridRowComponent from './DataChinaGridRow/Data';
+import CustomTabsComponent from './CustomTabs/Tabs';
 
 export default {
   map: MapComponent,
@@ -146,5 +149,8 @@ export default {
   well: WellComponent,
   actionButton: ActionButtonComponent,
   dataSource: DataSourceComponent,
-  nocodbFile: NocodbFileComponent
+  nocodbFile: NocodbFileComponent,
+  data_china_grid: DataChinaGridComponent,
+  data_china_grid_row: DataChinaGridRowComponent,
+  customTabs: CustomTabsComponent
 };

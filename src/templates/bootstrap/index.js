@@ -72,6 +72,9 @@ import qrCode from './qrCode';
 import actionButton from './button';
 import fileDownload from './fileDownload';
 import customMap from './customMap';
+import dataChinaGrid from './dataChinaGrid';
+import dataChinaGridRow from './dataChinaGridRow';
+import customTab from './customTab';
 
 export default {
   transform(type, text) {
@@ -147,5 +150,19 @@ export default {
   wizardNav,
   errorsList,
   alert,
-  data, chart, customUrl, department, processTable, tree, flex, newsData, qrCode, actionButton, fileDownload, customMap
+  data,
+  chart,
+  customUrl,
+  department,
+  processTable,
+  tree,
+  flex,
+  newsData,
+  qrCode,
+  actionButton,
+  fileDownload,
+  customMap,
+  dataChinaGrid,
+  dataChinaGridRow,
+  customTab
 };

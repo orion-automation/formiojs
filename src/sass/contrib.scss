@@ -41,6 +41,33 @@
   }
 }
 
+.formio-component-customTabs {
+  .tab-header {
+    .tab-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      color: #999;
+      &:hover {
+        color: #333;
+      }
+      &.active {
+        color: #333;
+      }
+      &.disabled {
+        color: #ddd;
+        cursor: default;
+      }
+    }
+    .tab-line {
+      position: absolute;
+      height: 2px;
+      transition: all 0.3s;
+    }
+  }
+}
+
 .formio-component-customTable {
   table, th, td {
     border: 1px solid black;

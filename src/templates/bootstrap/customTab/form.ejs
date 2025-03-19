@@ -1,0 +1,26 @@
+<div style="width: 100%;">
+    {% if (!ctx.component['hideHeader']) { %}
+    <div class="tab-header" style="background-color: {{ctx.component['headerBackgroundColor']}};padding: 10px 15px">
+        <div style="display: flex;flex-direction: row;width: 100%;justify-content: {{ctx.component['headerAlign']}};gap: 10px">
+            {% ctx.component.components.forEach(function(tab, index) { %}
+            <div class="tab-item {{ ctx.currentTab === index ? ' active' : ''}}" ref="{{ctx.tabLinkKey}}">{{ctx.t(tab.label, { _userInput: true })}}</div>
+            {% }) %}
+        </div>
+        <span
+                class="tab-line"
+                ref="tabLine"
+                style="width: 46px; transform: translateX(77px);background: {{ctx.component['headerColor']}}"
+        ></span>
+    </div>
+    {% } %}
+    {% ctx.component.components.forEach(function(tab, index) { %}
+    <div
+            role="tabpanel"
+            class="card-body tab-pane{{ ctx.currentTab === index ? ' active' : ''}}"
+            style="display: {{ctx.currentTab === index ? 'block' : 'none'}}"
+            ref="{{ctx.tabKey}}"
+    >
+        {{ctx.tabComponents[index]}}
+    </div>
+    {% }) %}
+</div>
