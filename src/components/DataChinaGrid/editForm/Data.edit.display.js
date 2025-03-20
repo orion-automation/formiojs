@@ -94,6 +94,13 @@ export default [
         defaultValue: '#000000',
         label: '字体大小'
       },
+      {
+        key: 'value-font-weight',
+        type: 'input',
+        input: true,
+        defaultValue: 'bold',
+        label: '字体粗细'
+      },
     ]
   },
   {

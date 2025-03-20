@@ -6,13 +6,13 @@
      border: 1px solid #E6E4E6;padding: 16px;display: flex;flex-direction: row;height: 100%;align-items: end">
 
     <div style="display: flex;flex-direction: column;height: 100%;flex: 1;width: 0">
-        <div style="display: flex;flex-direction: row;justify-content: {{ctx.component['title-align']||'center'}};margin-bottom: 25px;">
+        <div style="display: flex;flex-direction: row;justify-content: {{ctx.component['title-align']||'center'}};margin-bottom: 15px;">
             <div class="title-container"
                  style="color: {{ ctx.component['title-color']||'#312651' }};font-size: {{ctx.component['title-font-size']||'10px'}};font-weight: {{ctx.component['title-font-weight']||'bold'}};">
             </div>
         </div>
         <div class="value-container"
-             style="display: flex;flex-direction: row;justify-content: {{ctx.component['value-align']||'center'}};color: {{ctx.component['value-color']||'#000000'}};font-size: {{ctx.component['value-size']||'#000000'}};align-items: baseline">
+             style="display: flex;flex-direction: row;justify-content: {{ctx.component['value-align']||'center'}};color: {{ctx.component['value-color']||'#000000'}};margin-bottom: 8px;font-size: {{ctx.component['value-size']||'#000000'}};align-items: baseline;font-weight: {{ctx.component['value-font-weight']}};">
         </div>
         <div style="display: flex;flex-direction: row;justify-content: {{ctx.component['footer-align']||'center'}}">
             <div style="display: flex;flex-direction: row;flex: 1;width: 0;justify-content: {{ctx.component['footer-align']||'center'}};color: {{ctx.component['footer-color']||'#000000'}};font-size: {{ctx.component['footer-size']||'#000000'}};align-items: baseline">
@@ -20,7 +20,7 @@
                 <div class="footer-container-value2" style="margin-left: 5px;margin-right: 5px"></div>
                 {% if (ctx.component['footer-content3']) { %}
                 {% if (ctx.component['footer-content3-style']=='text') { %}
-                <div class="footer-container-value3">
+                <div class="footer-container-value3" style="color: {{ctx.component['footer-content3-color']}};">
                 </div>
                 {% } else { %}
                 <div class="footer-container-value3" style="border: 1px solid {{ctx.component['footer-content3-color']}};color: {{ctx.component['footer-content3-color']}};border-radius: {{ctx.component['footer-content3-radius']||'10px'}};text-align: center;padding-left: 10px;padding-right: 10px">
@@ -32,9 +32,9 @@
     </div>
 
     {% if (ctx.component['enable-sparkline']) { %}
-    <div style="flex: {{ ctx.component['sparkLine-flex-width'] }};width: 0;height: 100%">
+    <div id="sparkline-container-parent" style="flex: {{ ctx.component['sparkLine-flex-width'] }};width: 0;height: 100%;display: flex;justify-content: end;flex-direction: row">
         <div class="sparkline-container"
-             style="z-index: 0;margin-top: auto;width: fit-content;margin-bottom: auto"></div>
+             style="z-index: 0;margin-top: auto;width: fit-content;"></div>
     </div>
     {% } %}
 

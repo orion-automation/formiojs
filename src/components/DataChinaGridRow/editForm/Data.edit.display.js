@@ -94,6 +94,13 @@ export default [
         defaultValue: '#000000',
         label: '字体大小'
       },
+      {
+        key: 'value-font-weight',
+        type: 'input',
+        input: true,
+        defaultValue: 'bold',
+        label: '字体粗细'
+      },
     ]
   },
   {
@@ -241,8 +248,8 @@ export default [
         label: 'width',
         key: 'sparkLine-width',
         input: true,
-        tooltip: '',
-        defaultValue: 32,
+        defaultValue:0.8,
+        tooltip: '占剩余空间所占比例,0-1.0',
       },
       {
         type: 'number',

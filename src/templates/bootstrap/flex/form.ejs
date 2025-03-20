@@ -1,11 +1,27 @@
 <div class="flex-container"
-     style="display: flex;flex-direction: row;flex-wrap: wrap;width: 100%;min-height: 11rem;gap: 10px">
+     style="display: flex;flex-direction: row;
+     flex-wrap: {{ ctx.component['flex-wrap']?'wrap':'nowrap' }};
+     width: 100%;
+     overflow-x: {{ ctx.component['flex-scrollable']?'auto':'hidden' }};
+     min-height: {{ ctx.component['column-height']||10 }}rem;gap: 10px">
     {% ctx.component.columns.forEach(function(column, index) { %}
+    {% if (!ctx.component['flex-wrap'] && !ctx.component['flex-scrollable']) { %}
     <div ref="{{ctx.columnKey}}"
          class="flex-child-container"
-         style="height:11rem;width:{{ column['ratio']=='1'?'13':'22' }}rem">
+         style="height:{{ ctx.component['column-height'] || 10}}rem;
+                flex: {{ column['ratio']=='1'?1:2 }};
+                width:0">
         {{ctx.columnComponents[index]}}
     </div>
+    {% } %}
+    {% if(ctx.component['flex-wrap'] || ctx.component['flex-scrollable']){ %}
+    <div ref="{{ctx.columnKey}}"
+         class="flex-child-container"
+         style="height:{{ ctx.component['column-height'] || 10}}rem;
+                width:{{ column['ratio']=='1'? ctx.component['column-height']:ctx.component['column-height']*2 }}rem">
+        {{ctx.columnComponents[index]}}
+    </div>
+    {% } %}
     {% }) %}
 </div>
 

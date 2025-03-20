@@ -41,6 +41,20 @@ export default [
   },
   {
     weight: 150,
+    type: 'checkbox',
+    key: 'flex-wrap',
+    defaultValue: false,
+    label: '可换行'
+  },
+  {
+    weight: 150,
+    type: 'checkbox',
+    key: 'flex-scrollable',
+    defaultValue: false,
+    label: '可滚动'
+  },
+  {
+    weight: 150,
     type: 'datagrid',
     input: true,
     key: 'columns',

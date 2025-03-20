@@ -4,7 +4,6 @@
  * Get the base component class by referencing Formio.Components.components map.
  */
 import Component from '../_classes/field/Field';
-import $ from 'jquery';
 import 'peity';
 import _ from 'lodash';
 
@@ -24,7 +23,13 @@ export default class DataChinaGrid extends Component {
 
   static schema(...extend) {
     return Component.schema({
-      type: 'data_china_grid', icon: '', color: '#ff7754', header: '', url: '', field: ''
+      type: 'data_china_grid',
+      "title-content": "低压问题综合治理率 <i class=\"fa fa-info-circle\" aria-hidden=\"true\"></i>",
+      "value-content": "160 <i style='font-size: 10px;color: #0a6ebd'>%</i>",
+      "footer-content1": "name",
+      "footer-content2": "<div style='color:red'>up</div>",
+      "footer-content3": "info",
+      "footer-content": "开始时间",
     }, ...extend);
   }
 
@@ -152,17 +157,30 @@ export default class DataChinaGrid extends Component {
         }
         // values
         container.querySelector('.sparkline-container').innerHTML = `<span class="line">${self.parseTpl(self.component['sparkLine-value'],{data:self.rootValue})}</span>`;
-        // @ts-ignore
-        $(container).find('.line').peity(sparkLineType, {
-          fill: fillColor,
-          height: self.component['sparkLine-height'],
-          max: self.component['sparkLine-max-value-count'],
-          min: 0,
-          stroke: self.component['sparkLine-stroke-color'],
-          strokeWidth: 2,
-          width: self.component['sparkLine-width']
-        });
-        self.isLoadingSparkLine = false;
+        try {
+          // @ts-ignore
+          $(container).find('.line').peity(sparkLineType, {
+            fill: fillColor,
+            height: self.component['sparkLine-height'],
+            max: self.component['sparkLine-max-value-count'],
+            min: 0,
+            stroke: self.component['sparkLine-stroke-color'],
+            strokeWidth: 2,
+            width: self.component['sparkLine-width']
+          });
+          self.isLoadingSparkLine = false;
+        }catch (e) {
+          container.querySelectorAll(".line").forEach(e => peity(e, sparkLineType, {
+            fill: fillColor,
+            height: self.component['sparkLine-height'],
+            max: self.component['sparkLine-max-value-count'],
+            min: 0,
+            stroke: self.component['sparkLine-stroke-color'],
+            strokeWidth: 2,
+            width: self.component['sparkLine-width']
+          }))
+          self.isLoadingSparkLine = false;
+        }
       }
     } catch (e) {
       console.log(e);

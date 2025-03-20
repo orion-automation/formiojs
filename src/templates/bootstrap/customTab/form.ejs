@@ -16,7 +16,7 @@
     {% ctx.component.components.forEach(function(tab, index) { %}
     <div
             role="tabpanel"
-            class="card-body tab-pane{{ ctx.currentTab === index ? ' active' : ''}}"
+            class="tab-pane{{ ctx.currentTab === index ? ' active' : ''}}"
             style="display: {{ctx.currentTab === index ? 'block' : 'none'}}"
             ref="{{ctx.tabKey}}"
     >
