@@ -75,6 +75,7 @@ import customMap from './customMap';
 import dataChinaGrid from './dataChinaGrid';
 import dataChinaGridRow from './dataChinaGridRow';
 import customTab from './customTab';
+import progress from './progress';
 
 export default {
   transform(type, text) {
@@ -164,5 +165,6 @@ export default {
   customMap,
   dataChinaGrid,
   dataChinaGridRow,
-  customTab
+  customTab,
+  progress
 };

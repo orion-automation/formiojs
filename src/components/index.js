@@ -74,6 +74,7 @@ import NocodbFileComponent from './NocodbFile/NocodbFile';
 import DataChinaGridComponent from './DataChinaGrid/Data';
 import DataChinaGridRowComponent from './DataChinaGridRow/Data';
 import CustomTabsComponent from './CustomTabs/Tabs';
+import ProgressComponent from './progress/Progress';
 
 export default {
   map: MapComponent,
@@ -152,5 +153,5 @@ export default {
   nocodbFile: NocodbFileComponent,
   data_china_grid: DataChinaGridComponent,
   data_china_grid_row: DataChinaGridRowComponent,
-  customTabs: CustomTabsComponent
+  customTabs: CustomTabsComponent,
 };
