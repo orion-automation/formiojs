@@ -6,7 +6,6 @@ export default class ECharts extends FieldComponent {
 
   constructor(component, options, data) {
     super(component, options, data);
-    this.chartInstance=null;
   }
 
   static schema(...extend) {
@@ -75,15 +74,16 @@ export default class ECharts extends FieldComponent {
    * @returns {boolean}
    */
   setValue(value) {
-    if (!this.chartInstance){
+    let canvas = this.element.querySelector('#echarts-container');
+    let chartInstance=echarts.getInstanceByDom(canvas);
+    if (!chartInstance){
       // 初始化 ECharts 实例
-      var canvas = this.element.querySelector('#echarts-container');
-      this.chartInstance = echarts.init(canvas);
+      chartInstance = echarts.init(canvas);
     }
     let optionsStr=this.component["option-value"];
     optionsStr=this.parseTpl(optionsStr,{data:this.rootValue});
     // 使用配置项渲染图表
-    this.chartInstance.setOption(JSON.parse(optionsStr),true);
+    chartInstance.setOption(JSON.parse(optionsStr),true);
     return true;
   }
 }
