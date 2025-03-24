@@ -122,6 +122,13 @@ export default class DataChinaGrid extends Component {
     const self = this;
     try {
       const container = this.element.querySelector('.data-container');
+      try {
+        let customStyle=JSON.parse(this.component["custom-style"]||{});
+        _.forEach(customStyle,(value,key)=>{
+          this.refs.dataContainer.style[key]=value;
+        })
+      }catch (e) {
+      }
       // 标题设置
       let element = container.querySelector('.title-container');
       element.innerHTML=self.parseTpl(self.component['title-content'],{data:self.rootValue});

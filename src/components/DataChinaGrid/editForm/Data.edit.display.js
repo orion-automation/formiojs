@@ -286,6 +286,16 @@ export default [
     ]
   },
   {
+    type: 'textarea',
+    label: '自定义样式',
+    key: 'custom-style',
+    editor: 'ace',
+    input: true,
+    defaultValue: {},
+    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    weight: 2
+  },
+  {
     type: 'input',
     label: 'BackgroundColor',
     key: 'bgColor',
