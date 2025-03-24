@@ -75,6 +75,7 @@ import DataChinaGridComponent from './DataChinaGrid/Data';
 import DataChinaGridRowComponent from './DataChinaGridRow/Data';
 import CustomTabsComponent from './CustomTabs/Tabs';
 import ProgressComponent from './progress/Progress';
+import EChartsComponent from './echarts/ECharts';
 
 export default {
   map: MapComponent,
@@ -154,4 +155,5 @@ export default {
   data_china_grid: DataChinaGridComponent,
   data_china_grid_row: DataChinaGridRowComponent,
   customTabs: CustomTabsComponent,
+  echarts: EChartsComponent
 };

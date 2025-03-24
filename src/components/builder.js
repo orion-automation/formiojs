@@ -66,7 +66,9 @@ import NocodbFileForm from './NocodbFile/NocodbFile.form';
 import DataChinaGridForm from './DataChinaGrid/Data.form';
 import DataChinaGridRowForm from './DataChinaGridRow/Data.form';
 import CustomTabsForm from './CustomTabs/Tabs.form';
+import EChartsForm from './echarts/ECharts.form';
 
+Components.echarts.editForm = EChartsForm;
 Components.customTabs.editForm = CustomTabsForm;
 Components.data_china_grid_row.editForm = DataChinaGridRowForm;
 Components.data_china_grid.editForm = DataChinaGridForm;

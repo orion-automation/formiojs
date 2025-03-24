@@ -1,0 +1,74 @@
+export default [
+  {
+    type: 'textfield',
+    label: '宽度',
+    key: 'width',
+    input: true,
+    weight: 1,
+    defaultValue: "100%",
+  },
+  {
+    type: 'textfield',
+    label: '高度',
+    key: 'height',
+    input: true,
+    weight: 1,
+    defaultValue: "50px",
+  },
+  {
+    type: 'textarea',
+    label: '配置项',
+    key: 'option-value',
+    editor: 'ace',
+    input: true,
+    tooltip: 'echarts配置项(json格式)',
+    weight: 1,
+    validate: {
+      required: true
+    }
+  },
+  {
+    key: 'labelPosition',
+    ignore: true
+  },
+  {
+    key: 'customClass',
+    ignore: false
+  },
+  {
+    key: 'placeholder',
+    ignore: true
+  },
+  {
+    key: 'hidden',
+    ignore: true
+  },
+  {
+    key: 'modalEdit',
+    ignore: true
+  },
+  {
+    key: 'tableView',
+    ignore: true
+  },
+  {
+    key: 'description',
+    ignore: true
+  },
+  {
+    key: 'autofocus',
+    ignore: true
+  },
+  {
+    key: 'tooltip',
+    ignore: true
+  },
+  {
+    key: 'tabindex',
+    ignore: true
+  },
+  {
+    key: 'disabled',
+    ignore: true
+  }
+];

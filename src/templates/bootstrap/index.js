@@ -76,6 +76,7 @@ import dataChinaGrid from './dataChinaGrid';
 import dataChinaGridRow from './dataChinaGridRow';
 import customTab from './customTab';
 import progress from './progress';
+import echarts from './echarts';
 
 export default {
   transform(type, text) {
@@ -166,5 +167,6 @@ export default {
   dataChinaGrid,
   dataChinaGridRow,
   customTab,
-  progress
+  progress,
+  echarts
 };
