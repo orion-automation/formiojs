@@ -112,6 +112,57 @@ export default class DataChinaGrid extends Component {
     return this.component.field;
   }
 
+  resetSparkLine(){
+    let self=this;
+    const container = this.element.querySelector('.data-container');
+    if (self.component['enable-sparkline']){
+      if (self.isLoadingSparkLine) {
+        return true;
+      }
+      self.isLoadingSparkLine = true;
+      const sparkLineType = this.component['sparkLine-type'] || 'line';
+      let fillColor;
+      if (self.component['sparkLine-fill-color']) {
+        switch (sparkLineType) {
+          case 'line':
+            fillColor = self.component['sparkLine-fill-color'].split(',')[0];
+            break;
+          case 'pie':
+          case 'donut':
+          case 'bar':
+            fillColor = self.component['sparkLine-fill-color'].split(',');
+            break;
+        }
+      }
+      // values
+      container.querySelector('.sparkline-container').innerHTML = `<span class="line">${self.parseTpl(self.component['sparkLine-value'],{data:self.rootValue})}</span>`;
+      try {
+        // @ts-ignore
+        $(container).find('.line').peity(sparkLineType, {
+          fill: fillColor,
+          height: self.component['sparkLine-height'],
+          max: self.component['sparkLine-max-value-count'],
+          min: 0,
+          stroke: self.component['sparkLine-stroke-color'],
+          strokeWidth: 2,
+          width: self.component['sparkLine-width']
+        });
+        self.isLoadingSparkLine = false;
+      }catch (e) {
+        container.querySelectorAll(".line").forEach(e => peity(e, sparkLineType, {
+          fill: fillColor,
+          height: self.component['sparkLine-height'],
+          max: self.component['sparkLine-max-value-count'],
+          min: 0,
+          stroke: self.component['sparkLine-stroke-color'],
+          strokeWidth: 2,
+          width: self.component['sparkLine-width']
+        }))
+        self.isLoadingSparkLine = false;
+      }
+    }
+  }
+
   /**
    * Set the value of the component into the dom elements.
    *
@@ -143,52 +194,7 @@ export default class DataChinaGrid extends Component {
         element.innerHTML=self.parseTpl(self.component['footer-content3'],{data:self.rootValue});
       }
       // 图标
-      if (self.component['enable-sparkline']){
-        if (self.isLoadingSparkLine) {
-          return true;
-        }
-        self.isLoadingSparkLine = true;
-        const sparkLineType = this.component['sparkLine-type'] || 'line';
-        let fillColor;
-        if (self.component['sparkLine-fill-color']) {
-          switch (sparkLineType) {
-            case 'line':
-              fillColor = self.component['sparkLine-fill-color'].split(',')[0];
-              break;
-            case 'pie':
-            case 'donut':
-            case 'bar':
-              fillColor = self.component['sparkLine-fill-color'].split(',');
-              break;
-          }
-        }
-        // values
-        container.querySelector('.sparkline-container').innerHTML = `<span class="line">${self.parseTpl(self.component['sparkLine-value'],{data:self.rootValue})}</span>`;
-        try {
-          // @ts-ignore
-          $(container).find('.line').peity(sparkLineType, {
-            fill: fillColor,
-            height: self.component['sparkLine-height'],
-            max: self.component['sparkLine-max-value-count'],
-            min: 0,
-            stroke: self.component['sparkLine-stroke-color'],
-            strokeWidth: 2,
-            width: self.component['sparkLine-width']
-          });
-          self.isLoadingSparkLine = false;
-        }catch (e) {
-          container.querySelectorAll(".line").forEach(e => peity(e, sparkLineType, {
-            fill: fillColor,
-            height: self.component['sparkLine-height'],
-            max: self.component['sparkLine-max-value-count'],
-            min: 0,
-            stroke: self.component['sparkLine-stroke-color'],
-            strokeWidth: 2,
-            width: self.component['sparkLine-width']
-          }))
-          self.isLoadingSparkLine = false;
-        }
-      }
+      self.resetSparkLine();
     } catch (e) {
       console.log(e);
     }

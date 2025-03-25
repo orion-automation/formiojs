@@ -259,6 +259,9 @@ export default class CustomTabsComponent extends NestedComponent {
         if (['echarts','taskCalendar'].includes(item.type)){
           this.tabs[this.currentTab][index].refresh(new Date().getTime());
         }
+        if (['data_china_grid_row','data_china_grid'].includes(item.type)){
+          this.tabs[this.currentTab][index].resetSparkLine();
+        }
       });
     }
 
