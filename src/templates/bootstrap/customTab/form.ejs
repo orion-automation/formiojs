@@ -1,16 +1,34 @@
 <div style="width: 100%;">
     {% if (!ctx.component['hideHeader']) { %}
-    <div class="tab-header" style="background-color: {{ctx.component['headerBackgroundColor']}};padding: 10px 15px">
-        <div style="display: flex;flex-direction: row;width: 100%;justify-content: {{ctx.component['headerAlign']}};gap: 10px">
+    <div class="tab-header" ref="tabHeaderContainerScroll" style="background-color: {{ctx.component['headerBackgroundColor']}};overflow-x: auto;scrollbar-width:none;">
+        <div ref="tabHeaderContainer" style="display: flex;flex-direction: row;width: 100%;justify-content: {{ctx.component['headerAlign']}};gap: {{ctx.component['headerStyle']==='pills'?'10px':'0px'}}">
             {% ctx.component.components.forEach(function(tab, index) { %}
-            <div class="tab-item {{ ctx.currentTab === index ? ' active' : ''}}" ref="{{ctx.tabLinkKey}}">{{ctx.t(tab.label, { _userInput: true })}}</div>
+                {% if(ctx.component['headerStyle']=='normal') { %}
+                    <div class="tab-item {{ ctx.currentTab === index ? ' active' : ''}}" ref="{{ctx.tabLinkKey}}"
+                        style="padding-left: 10px;padding-right: 10px;padding-top: 8px;padding-bottom: 8px">{{ctx.t(tab.label, { _userInput: true })}}</div>
+                {% } %}
+                {% if(ctx.component['headerStyle']=='pills') { %}
+                    <div style="display: flex;flex-direction: column;width: fit-content;align-items: center" ref="{{ctx.tabLinkKey}}">
+                            <div class="tab-pills-item">
+                                {{ctx.t(tab.label, { _userInput: true })}}
+                            </div>
+                            <div class="triangle" style="transform: translateX5(-0%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid {{ ctx.component['headerColor'] }};"></div>
+                    </div>
+                {% } %}
             {% }) %}
         </div>
+        {% if(ctx.component['headerStyle']=='normal') { %}
         <span
                 class="tab-line"
                 ref="tabLine"
                 style="width: 46px; transform: translateX(77px);background: {{ctx.component['headerColor']}}"
         ></span>
+        {% } %}
     </div>
     {% } %}
     {% ctx.component.components.forEach(function(tab, index) { %}

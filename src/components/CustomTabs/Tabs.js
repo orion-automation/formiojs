@@ -105,6 +105,8 @@ export default class CustomTabsComponent extends NestedComponent {
         [this.tabKey]: 'multiple',
         [this.tabLikey]: 'multiple',
         'tabLine':'single',
+        'tabHeaderContainer': 'single',
+        'tabHeaderContainerScroll': 'single',
       },
     );
     ['change', 'error'].forEach(event => this.on(event, this.handleTabsValidation.bind(this)));
@@ -152,12 +154,39 @@ export default class CustomTabsComponent extends NestedComponent {
     _.each(this.refs[this.tabLinkKey], (tabLink, tabIndex) => {
       // 设置下划线位置 //设置颜色
       if (tabIndex===this.currentTab){
-        this.refs.tabLine.style.width = `${tabLink.offsetWidth}px`;
-        // 10是容器的padding
-        this.refs.tabLine.style.transform = `translateX(${tabLink.offsetLeft-15}px)`
-        tabLink.style.color=this.component["headerColor"];
+        // 检测tab标签是否完整显示
+        const rect=tabLink.getBoundingClientRect();
+        const rectScroll=this.refs.tabHeaderContainerScroll.getBoundingClientRect();
+        // 10px是左右的padding
+        if (rect.right>rectScroll.right){
+          // 右滑
+          this.refs.tabHeaderContainerScroll.scrollLeft=this.refs.tabHeaderContainerScroll.scrollLeft+(rect.right-rectScroll.right);
+        }
+        if (rect.left < rectScroll.left){
+          // 左滑
+          this.refs.tabHeaderContainerScroll.scrollLeft=this.refs.tabHeaderContainerScroll.scrollLeft-(rectScroll.left-rect.left);
+        }
+        if (this.refs.tabLine){
+          this.refs.tabLine.style.width = `${tabLink.offsetWidth}px`;
+          this.refs.tabLine.style.transform = `translateX(${tabLink.offsetLeft}px)`
+        }
+        if (this.component["headerStyle"]==="pills"){
+          tabLink.querySelector(".tab-pills-item").style.color="white";
+          tabLink.querySelector(".tab-pills-item").style["background-color"]=this.component["headerColor"];
+          tabLink.querySelector(".tab-pills-item").style.border=`1px solid ${this.component["headerColor"]}`;
+          tabLink.querySelector(".triangle").style.display="flex";
+        }else {
+          tabLink.style.color=this.component["headerColor"];
+        }
       } else {
-        tabLink.style.color=this.component["headerNormalColor"];
+        if (this.component["headerStyle"]==="pills"){
+          tabLink.querySelector(".tab-pills-item").style.color=this.component["headerNormalColor"];
+          tabLink.querySelector(".tab-pills-item").style.border=`1px solid ${this.component["headerNormalColor"]}`;
+          tabLink.querySelector(".tab-pills-item").style["background-color"]="transparent";
+          tabLink.querySelector(".triangle").style.display="none";
+        }else {
+          tabLink.style.color=this.component["headerNormalColor"];
+        }
       }
     });
   }

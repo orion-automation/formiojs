@@ -68,6 +68,20 @@ export default [
       },
       {
         type: 'select',
+        label: '样式',
+        data: {
+          values: [
+            { label: '普通', value: 'normal' },
+            { label: 'pills', value: 'pills' }
+          ],
+        },
+        key: 'headerStyle',
+        input: true,
+        defaultValue: 'normal',
+        dataSrc: 'values'
+      },
+      {
+        type: 'select',
         label: '对齐方式',
         data: {
           values: [

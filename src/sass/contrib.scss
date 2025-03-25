@@ -43,6 +43,9 @@
 
 .formio-component-customTabs {
   .tab-header {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
     .tab-item {
       display: flex;
       align-items: center;
@@ -61,10 +64,16 @@
       }
     }
     .tab-line {
-      position: absolute;
       height: 2px;
       margin-top: 5px;
       transition: all 0.3s;
+    }
+    .tab-pills-item {
+      display: table;
+      width: fit-content;
+      border-radius: .35rem;
+      padding: .5rem 1rem;
+      word-break: keep-all;
     }
   }
 }
