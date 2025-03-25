@@ -1,7 +1,6 @@
-<div style="width: 100%;display: flex;flex-direction: column">
-    <div class="progress" style="background-color: grey">
-        <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar" role="progressbar" style="width: 30%;background-color: red" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar" role="progressbar" style="width: 20%;background-color: yellow" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+<div style="width:{{ctx.component.width}};height:{{ctx.component.height}};display: flex;flex-direction: column;gap: 10px">
+    <div ref="titleContainer" style="display: flex;flex-direction: column;gap: 10px">
+    </div>
+    <div ref="progressContainer" class="progress" style="background-color: {{ ctx.component['progress-color'] }}">
     </div>
 </div>

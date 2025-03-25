@@ -155,5 +155,6 @@ export default {
   data_china_grid: DataChinaGridComponent,
   data_china_grid_row: DataChinaGridRowComponent,
   customTabs: CustomTabsComponent,
-  echarts: EChartsComponent
+  echarts: EChartsComponent,
+  progress: ProgressComponent
 };

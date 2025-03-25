@@ -55,12 +55,13 @@ export default class ECharts extends FieldComponent {
   parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      let strTmp=_.get(map, path);
-      if (strTmp===undefined){
-        strTmp=null;
-      }else {
-        if (_.isArray(strTmp)||_.isObject(strTmp)){
-          strTmp=JSON.stringify(strTmp);
+      let strTmp = _.get(map, path);
+      if (strTmp === undefined) {
+        strTmp = null;
+      }
+      else {
+        if (_.isArray(strTmp) || _.isObject(strTmp)) {
+          strTmp = JSON.stringify(strTmp);
         }
       }
       return strTmp;
@@ -75,15 +76,15 @@ export default class ECharts extends FieldComponent {
    */
   setValue(value) {
     let canvas = this.element.querySelector('#echarts-container');
-    let chartInstance=echarts.getInstanceByDom(canvas);
-    if (!chartInstance){
+    let chartInstance = echarts.getInstanceByDom(canvas);
+    if (!chartInstance) {
       // 初始化 ECharts 实例
       chartInstance = echarts.init(canvas);
     }
-    let optionsStr=this.component["option-value"];
-    optionsStr=this.parseTpl(optionsStr,{data:this.rootValue});
+    let optionsStr = this.component['option-value'];
+    optionsStr = this.parseTpl(optionsStr, { data: this.rootValue });
     // 使用配置项渲染图表
-    chartInstance.setOption(JSON.parse(optionsStr),true);
+    chartInstance.setOption(JSON.parse(optionsStr), true);
     return true;
   }
 }

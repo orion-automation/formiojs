@@ -1,4 +1,4 @@
-import nestedComponentForm from '../_classes/nested/NestedComponent.form';
+import nestedComponentForm from '../_classes/component/Component.form';
 import ProgressEditDisplay from './editForm/Progress.edit.display';
 export default function(...extend) {
   return nestedComponentForm([
