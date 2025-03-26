@@ -1,8 +1,11 @@
 <div class="flex-container"
+     ref="flexContainer"
      style="display: flex;flex-direction: row;
      flex-wrap: {{ ctx.component['flex-wrap']?'wrap':'nowrap' }};
      width: 100%;
      overflow-x: {{ ctx.component['flex-scrollable']?'auto':'hidden' }};
+     scrollbar-width:none;
+     justify-content: {{ ctx.component['headerAlign']||'start' }};
      min-height: {{ ctx.component['column-height']||10 }}rem;gap: 10px">
     {% ctx.component.columns.forEach(function(column, index) { %}
     {% if (!ctx.component['flex-wrap'] && !ctx.component['flex-scrollable']) { %}

@@ -1,0 +1,9 @@
+<div class="icon-button-container {{(ctx.component.type||'').toLowerCase()}}"
+     ref="iconButtonContainer"
+     style="display: flex;flex-direction: column;align-items: center;padding: 10px">
+
+    <img src="{{ ctx.component['icon-src'] }}"
+     style="width: {{ ctx.component['icon-width'] }};height:{{ ctx.component['icon-height'] }}"/>
+
+    <div ref="titleContainer" style="word-break: keep-all"></div>
+</div>

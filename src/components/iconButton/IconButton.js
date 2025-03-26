@@ -1,0 +1,123 @@
+import FieldComponent from '../_classes/field/Field';
+import _ from 'lodash';
+
+export default class IconButton extends FieldComponent {
+
+  constructor(component, options, data) {
+    super(component, options, data);
+  }
+
+  static schema(...extend) {
+    return FieldComponent.schema({
+      label: 'IconButton', key: 'iconButton', type: 'iconButton',
+    }, ...extend);
+  }
+
+  static builderInfo = {
+    title: 'IconButton',
+    group: 'advanced',
+    icon: 'icons',
+    weight: 70,
+    documentation: 'http://help.form.io/userguide/#iconButton',
+    schema: IconButton.schema()
+  };
+
+  render(children) {
+    return super.render(this.renderTemplate('iconButton'));
+  }
+
+  /**
+   * After the html string has been mounted into the dom, the dom element is returned here. Use refs to find specific
+   * elements to attach functionality to.
+   *
+   * @param element
+   * @returns {Promise}
+   */
+  attach(element) {
+    const refs = {
+      titleContainer:"single",
+      iconButtonContainer: "single"
+    };
+    this.loadRefs(element, refs);
+    const dataContainer = this.refs.iconButtonContainer;
+    if (dataContainer) {
+      const clickEventType = this.component['click-event-type'];
+      if (clickEventType) {
+        this.addEventListener(dataContainer, 'click', (event) => {
+          // 点击事件
+          switch (clickEventType) {
+            case 'newPage':
+              window.openNewPage(this.component['click-event-form-id']);
+              break;
+            case 'bottomSheet':
+              window.openBottomSheet(this.component['click-event-form-id']);
+              break;
+            case 'newIntent':
+              const elink = document.createElement('a');
+              elink.style.display = 'none';
+              elink.target = "_blank";
+              elink.href = this.component["click-event-url"];
+              document.body.appendChild(elink);
+              elink.click();
+              break;
+              break;
+          }
+        });
+      }
+    }
+    setTimeout(() => {
+      this.setValue();
+    }, 100);
+    return super.attach(element);
+  }
+
+  /**
+   * Get the value of the component from the dom elements.
+   *
+   * @returns {Array}
+   */
+  getValue() {
+    return this.component.value;
+  }
+
+  parseTpl(template, map) {
+    return template.replace(/\$\{.+?}/g, (match) => {
+      const path = match.substr(2, match.length - 3).trim();
+      let strTmp = _.get(map, path);
+      if (strTmp === undefined) {
+        strTmp = null;
+      }
+      else {
+        if (_.isArray(strTmp) || _.isObject(strTmp)) {
+          strTmp = JSON.stringify(strTmp);
+        }
+      }
+      return strTmp;
+    });
+  }
+
+  /**
+   * Set the value of the component into the dom elements.
+   *
+   * @param value
+   * @returns {boolean}
+   */
+  setValue(value) {
+    try {
+      let customContainerStyle=JSON.parse(this.component["container-custom-style"]||"{}");
+      _.forEach(customContainerStyle,(value,key)=>{
+        this.refs.iconButtonContainer.style[key]=value;
+      })
+    }catch (e) {
+    }
+    try {
+      let customStyle=JSON.parse(this.component["title-custom-style"]||"{}");
+      _.forEach(customStyle,(value,key)=>{
+        this.refs.titleContainer.style[key]=value;
+      })
+    }catch (e) {
+    }
+    this.refs.titleContainer.innerText=this.parseTpl(this.component['title'],{data:this.rootValue});
+    return true;
+  }
+}

@@ -32,6 +32,16 @@ export default [
     ignore: true
   },
   {
+    type: 'textarea',
+    label: '自定义容器样式',
+    key: 'container-custom-style',
+    editor: 'ace',
+    input: true,
+    weight: 149,
+    defaultValue: "{}",
+    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+  },
+  {
     weight: 149,
     type: 'number',
     key: 'column-height',
@@ -52,6 +62,22 @@ export default [
     key: 'flex-scrollable',
     defaultValue: false,
     label: '可滚动'
+  },
+  {
+    type: 'select',
+    label: '对齐方式',
+    weight: 150,
+    data: {
+      values: [
+        { label: '居中', value: 'center' },
+        { label: '左对齐', value: 'start' },
+        { label: '右对齐', value: 'end' },
+      ],
+    },
+    key: 'headerAlign',
+    input: true,
+    defaultValue: 'start',
+    dataSrc: 'values'
   },
   {
     weight: 150,
