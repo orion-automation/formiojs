@@ -79,8 +79,12 @@ export default class Progress extends FieldComponent {
    * @returns {boolean}
    */
   setValue(value) {
-    this.refs.titleContainer.innerHTML = ``;
-    this.refs.progressContainer.innerHTML = ``;
+    if (this.refs.titleContainer){
+      this.refs.titleContainer.innerHTML = ``;
+    }
+    if (this.refs.progressContainer){
+      this.refs.progressContainer.innerHTML = ``;
+    }
     let optionsStr = this.component['option-value'];
     try {
       optionsStr = this.parseTpl(optionsStr, { data: this.rootValue });
@@ -91,18 +95,22 @@ export default class Progress extends FieldComponent {
       }
       optionsStr.forEach(item => {
         let percent = _.floor(_.divide(item.value, sum) * 100, 1);
-        this.refs.titleContainer.insertAdjacentHTML('beforeend',
-          `<div class="progress-title-container" style="display: flex;flex-direction: row;align-items: center;font-size: ${this.component['font-size']}">
+        if (this.refs.titleContainer){
+          this.refs.titleContainer.insertAdjacentHTML('beforeend',
+            `<div class="progress-title-container" style="display: flex;flex-direction: row;align-items: center;font-size: ${this.component['font-size']}">
             <div class="progress-title-item-indicator" style="width: 5px;height: 5px;background-color: ${item.color};margin-right: 10px"></div>
             <div class="progress-title-item-title" style="color: ${item.color}">${item.title}</div>
             <div class="progress-title-item-value" style="font-weight: bold;margin-left: 5px;margin-right: 5px;color: black">${item.value}</div>
             <div class="progress-title-item-unit" style="color: grey">${item.unit}</div>
             <div class="progress-title-item-percent" style="margin-left: 10px;color: grey">${percent}%</div>
         </div>`
-        );
-        this.refs.progressContainer.insertAdjacentHTML('beforeend',
-          `<div class="progress-bar" role="progressbar" style="width: ${percent}%;background-color: ${item.color}" aria-valuenow="${item.value}" aria-valuemin="0" aria-valuemax="${sum}"></div>`
-        );
+          );
+        }
+        if (this.refs.progressContainer){
+          this.refs.progressContainer.insertAdjacentHTML('beforeend',
+            `<div class="progress-bar" role="progressbar" style="width: ${percent}%;background-color: ${item.color}" aria-valuenow="${item.value}" aria-valuemin="0" aria-valuemax="${sum}"></div>`
+          );
+        }
       });
     } catch (e) {
       console.log('json转换失败', e);

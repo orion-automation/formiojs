@@ -117,7 +117,9 @@ export default class IconButton extends FieldComponent {
       })
     }catch (e) {
     }
-    this.refs.titleContainer.innerText=this.parseTpl(this.component['title'],{data:this.rootValue});
+    if (this.refs.titleContainer){
+      this.refs.titleContainer.innerText=this.parseTpl(this.component['title'],{data:this.rootValue});
+    }
     return true;
   }
 }

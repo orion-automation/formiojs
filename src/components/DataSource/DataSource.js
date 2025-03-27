@@ -1,6 +1,8 @@
 import editForm from './DataSource.form';
 import FieldComponent from '../_classes/field/Field';
 import _ from 'lodash';
+import Papa from 'papaparse';
+import * as XLSX from 'xlsx/xlsx.mjs';
 
 export default class DataSourceComponent extends FieldComponent {
 
@@ -22,7 +24,18 @@ export default class DataSourceComponent extends FieldComponent {
   }
 
   render(children) {
-    return super.render(this.renderTemplate('qrCode'));
+    return super.render(this.renderTemplate('dataSource'));
+  }
+
+  setDataValueByManal(data){
+    let self=this;
+    self.dataValue = data;
+    self.getRoot().triggerChange({ fromBlur: false }, {
+      instance: self,
+      component: self.component,
+      value: self.dataValue,
+      flags: { fromBlur: false }
+    });
   }
 
   /**
@@ -33,12 +46,52 @@ export default class DataSourceComponent extends FieldComponent {
    * @returns {Promise}
    */
   attach(element) {
-    const refs = {};
+    let self=this;
+    const refs = {
+      csvFileInput:"single"
+    };
 
     this.loadRefs(element, refs);
-    setTimeout(() => {
-      this.setValue("");
-    }, 100);
+    if (this.refs.csvFileInput){
+      this.refs.csvFileInput.addEventListener("change",(event)=>{
+        const files=event.target.files;
+        if (files.length>0){
+          if (files[0].type==="text/csv"){
+            Papa.parse(files[0],{
+              header: true,
+              complete: function(results) {
+                self.setDataValueByManal(results.data);
+              },
+              error: ()=>{
+                alert("解析csv文件失败");
+              }
+            });
+          }
+          if (files[0].type==="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+            // excel
+            const reader = new FileReader();
+            reader.onload = function(eventRead) {
+              try {
+                const data = new Uint8Array(eventRead.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet);
+                self.setDataValueByManal(jsonData);
+              }catch (e) {
+                alert("解析表格文件失败");
+              }
+            };
+            reader.readAsArrayBuffer(files[0]);
+          }
+        }
+      })
+    }
+    if (this.component.dataSource!=="file"){
+      setTimeout(() => {
+        this.setValue("");
+      }, 100);
+    }
     return super.attach(element);
   }
 
@@ -51,18 +104,12 @@ export default class DataSourceComponent extends FieldComponent {
     return this.dataValue;
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     if (template && template.length > 0) {
       try {
         return template.replace(/\$\{.+?}/g, (match) => {
           const path = match.substr(2, match.length - 3).trim();
-          return this.get(path, map, fallback);
+          return _.get(map, path);
         });
       } catch (e) {
         console.log(e);
@@ -72,11 +119,12 @@ export default class DataSourceComponent extends FieldComponent {
   }
 
   setValue(value) {
-    var canvas = this.element.querySelector('#qr-code-container');
-    canvas.innerHTML = '';
     let self = this;
+    if (self.component['dataSource']==='file'){
+      return true;
+    }
     if (self.component['data-source-url']) {
-      let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue }, null);
+      let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue });
       if (url.startsWith('http')) {
         url = new URL(url);
       }
@@ -87,7 +135,7 @@ export default class DataSourceComponent extends FieldComponent {
       let params = {};
       let headers = {};
       self.component.request['headers'].forEach(header => {
-        headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue }, null);
+        headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue });
       });
       // 搜索
       if (self.component['dataSource'] === 'url') {
@@ -97,7 +145,7 @@ export default class DataSourceComponent extends FieldComponent {
           let where = '';
           self.component.data['noco_db_conditions'].forEach((item, index) => {
             if (item.value && item.value.length > 0) {
-              let conditionVal = self.parseTpl(item.value, { data: self.rootValue }, null);
+              let conditionVal = self.parseTpl(item.value, { data: self.rootValue });
               if (index === 0 && item.logical_operator === '~not') {
                 where += `(${item.name},${item.operator},${conditionVal})`;
               }
@@ -159,7 +207,7 @@ export default class DataSourceComponent extends FieldComponent {
           xhr.send();
         }
         else if (reqMethod === 'POST') {
-          let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue }, null));
+          let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue }));
           xhr.send(JSON.stringify(reqData));
         }
       } catch (e) {

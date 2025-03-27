@@ -78,6 +78,7 @@ import customTab from './customTab';
 import progress from './progress';
 import echarts from './echarts';
 import iconButton from './iconButton';
+import dataSource from './dataSource';
 
 export default {
   transform(type, text) {
@@ -170,5 +171,6 @@ export default {
   customTab,
   progress,
   echarts,
-  iconButton
+  iconButton,
+  dataSource
 };

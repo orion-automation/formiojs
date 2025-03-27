@@ -17,6 +17,7 @@ export default [
           values: [
             {label: "URL", value: "url"},
             {label: "nocoDB", value: "noco_db"},
+            {label: "文件导入", value: "file"},
           ],
         },
         type: "select",
