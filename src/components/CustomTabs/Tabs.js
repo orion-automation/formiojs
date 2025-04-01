@@ -278,20 +278,30 @@ export default class CustomTabsComponent extends NestedComponent {
     });
   }
 
+  // 刷新子组件
+  refreshChild(item){
+    // tab切换后刷新下面的组件
+    if (['echarts','taskCalendar'].includes(item.type)){
+      item.refresh(new Date().getTime());
+    }
+    if (['data_china_grid_row','data_china_grid'].includes(item.type)){
+      item.resetSparkLine();
+    }
+    if (item.type==="components"){
+      item.components.forEach(itemChild=>{
+        this.refreshChild(itemChild);
+      })
+    }
+  }
+
   handleTabsValidation() {
     if (!this.refs[this.tabLinkKey] || !this.refs[this.tabLinkKey].length || !this.tabs.length) {
       return;
     }
     // 切换tab时，刷新taskCalendar组件，修复taskCalendar在tab中高度错乱的问题
     if (this.tabs[this.currentTab] && this.tabs[this.currentTab].length > 0) {
-      this.tabs[this.currentTab].forEach((item,index)=>{
-        // tab切换后刷新下面的组件
-        if (['echarts','taskCalendar','flex'].includes(item.type)){
-          this.tabs[this.currentTab][index].refresh(new Date().getTime());
-        }
-        if (['data_china_grid_row','data_china_grid'].includes(item.type)){
-          this.tabs[this.currentTab][index].resetSparkLine();
-        }
+      this.tabs[this.currentTab].forEach((item)=>{
+        this.refreshChild(item);
       });
     }
 
