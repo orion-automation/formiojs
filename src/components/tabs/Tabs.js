@@ -216,8 +216,13 @@ export default class TabsComponent extends NestedComponent {
     }
     // 切换tab时，刷新taskCalendar组件，修复taskCalendar在tab中高度错乱的问题
     if (this.tabs[this.currentTab] && this.tabs[this.currentTab].length > 0) {
-      this.tabs[this.currentTab].forEach((item)=>{
-        item.refresh(new Date().getTime());
+      this.tabs[this.currentTab].forEach((item,index)=>{
+        if (['echarts','taskCalendar','flex'].includes(item.type)){
+          this.tabs[this.currentTab][index].refresh(new Date().getTime());
+        }
+        if (['data_china_grid_row','data_china_grid'].includes(item.type)){
+          this.tabs[this.currentTab][index].resetSparkLine();
+        }
       });
     }
 

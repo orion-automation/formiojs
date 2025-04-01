@@ -284,15 +284,14 @@ export default class CustomTabsComponent extends NestedComponent {
     }
     // 切换tab时，刷新taskCalendar组件，修复taskCalendar在tab中高度错乱的问题
     if (this.tabs[this.currentTab] && this.tabs[this.currentTab].length > 0) {
-      this.tabs[this.currentTab].forEach((item)=>{
-        // if (['echarts','taskCalendar'].includes(item.type)){
-        //   this.tabs[this.currentTab][index].refresh(new Date().getTime());
-        // }
-        // if (['data_china_grid_row','data_china_grid'].includes(item.type)){
-        //   this.tabs[this.currentTab][index].resetSparkLine();
-        // }
+      this.tabs[this.currentTab].forEach((item,index)=>{
         // tab切换后刷新下面的组件
-        item.refresh(new Date().getTime());
+        if (['echarts','taskCalendar','flex'].includes(item.type)){
+          this.tabs[this.currentTab][index].refresh(new Date().getTime());
+        }
+        if (['data_china_grid_row','data_china_grid'].includes(item.type)){
+          this.tabs[this.currentTab][index].resetSparkLine();
+        }
       });
     }
 
