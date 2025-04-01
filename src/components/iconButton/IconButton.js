@@ -60,7 +60,6 @@ export default class IconButton extends FieldComponent {
               document.body.appendChild(elink);
               elink.click();
               break;
-              break;
           }
         });
       }

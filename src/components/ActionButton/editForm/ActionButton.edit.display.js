@@ -26,7 +26,9 @@ export default [
       values: [
         { label: 'Submit', value: 'submit' },
         { label: 'Open Page', value: 'openPage' },
-        { label: 'Open URL', value: 'openUrl' }
+        { label: 'Open URL', value: 'openUrl' },
+        { label: '打开弹窗', value: 'bottomSheet' },
+        { label: '打开网址', value: 'newIntent' },
       ],
     },
   },
@@ -106,7 +108,12 @@ export default [
     tooltip: 'The URL where the submission will be sent.',
     placeholder: 'https://example.form.io',
     conditional: {
-      json: { '===': [{ var: 'data.action' }, 'openUrl'] },
+      json: { in: [
+          { var: 'data.action' },
+          [
+            'openUrl', 'newIntent'
+          ],
+        ], },
     },
   },
   {
@@ -118,7 +125,12 @@ export default [
     dataSrc: 'values',
     weight: 140,
     conditional: {
-      json: { '===': [{ var: 'data.action' }, 'openPage'] },
+      json: { in: [
+          { var: 'data.action' },
+          [
+            'openPage', 'bottomSheet'
+          ],
+        ], },
     },
   },
 

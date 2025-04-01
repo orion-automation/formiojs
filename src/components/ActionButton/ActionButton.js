@@ -8,7 +8,6 @@ export default class ActionButton extends Button {
 
   init() {
     super.init();
-
   }
 
   setValue(value) {
@@ -21,13 +20,9 @@ export default class ActionButton extends Button {
     };
 
     const id = $(this.element).attr("id");
-    //  setTimeout(() => {
     let element = $(`#${id}`);
-    //let element = $(this.element);
     element.attr("setting", JSON.stringify(setting));
     element.data("setting", "setting");
-    element.attr("test", "test");
-    //}, 1000);
     return result;
   }
 

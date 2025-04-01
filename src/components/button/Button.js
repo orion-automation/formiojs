@@ -385,6 +385,20 @@ export default class ButtonComponent extends Field {
         this.openOauth(this.oauthConfig);
 
         break;
+      case 'openPage':
+        window.openNewPage(this.component['page']);
+        break;
+      case 'bottomSheet':
+        window.openBottomSheet(this.component['page']);
+        break;
+      case 'newIntent':
+        const elink = document.createElement('a');
+        elink.style.display = 'none';
+        elink.target = "_blank";
+        elink.href = this.component["url"];
+        document.body.appendChild(elink);
+        elink.click();
+        break;
     }
   }
 
