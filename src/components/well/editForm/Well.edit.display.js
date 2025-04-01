@@ -1,5 +1,15 @@
 export default [
   {
+    type: 'textarea',
+    label: '自定义样式',
+    key: 'custom-style',
+    editor: 'ace',
+    input: true,
+    weight: 1,
+    defaultValue: "{}",
+    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+  },
+  {
     key: 'labelPosition',
     ignore: true
   },
