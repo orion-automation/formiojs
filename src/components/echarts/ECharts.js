@@ -17,7 +17,7 @@ export default class ECharts extends FieldComponent {
   static builderInfo = {
     title: 'ECharts',
     group: 'advanced',
-    icon: 'chart',
+    icon: 'chart-line',
     weight: 70,
     documentation: 'http://help.form.io/userguide/#echarts',
     schema: ECharts.schema()

@@ -89,7 +89,7 @@ export default class DataSourceComponent extends FieldComponent {
     }
     if (this.component.dataSource!=="file"){
       setTimeout(() => {
-        this.setValue("");
+        this.setValue(null);
       }, 100);
     }
     return super.attach(element);
@@ -120,101 +120,109 @@ export default class DataSourceComponent extends FieldComponent {
 
   setValue(value) {
     let self = this;
-    if (self.component['dataSource']==='file'){
+    if (value){
+      super.setValue(value, {
+        noUpdateEvent: true,
+        noValidate: true,
+        resetValue: true
+      });
+    } else {
+      if (self.component['dataSource']==='file'){
+        return true;
+      }
+      if (self.component['data-source-url']) {
+        let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue });
+        if (url.startsWith('http')) {
+          url = new URL(url);
+        }
+        else {
+          url = new URL(url, window.location.origin);
+        }
+        const searchParams = new URLSearchParams(url.search);
+        let params = {};
+        let headers = {};
+        self.component.request['headers'].forEach(header => {
+          headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue });
+        });
+        // 搜索
+        if (self.component['dataSource'] === 'url') {
+        }
+        else if (self.component['dataSource'] === 'noco_db') {
+          if (self.component.data['noco_db_conditions']) {
+            let where = '';
+            self.component.data['noco_db_conditions'].forEach((item, index) => {
+              if (item.value && item.value.length > 0) {
+                let conditionVal = self.parseTpl(item.value, { data: self.rootValue });
+                if (index === 0 && item.logical_operator === '~not') {
+                  where += `(${item.name},${item.operator},${conditionVal})`;
+                }
+                else {
+                  where += `${item.logical_operator}(${item.name},${item.operator},${conditionVal})`;
+                }
+              }
+            });
+            params.where = where;
+          }
+        }
+        Object.keys(params).forEach(key => {
+          searchParams.set(key, params[`${key}`]);
+        });
+        try {
+          let lastestReqTime = new Date().getTime();
+          self.lastestReqTime = lastestReqTime;
+          var xhr = new XMLHttpRequest();
+          let reqMethod = self.component.request['method'];
+          if (reqMethod === 'GET') {
+            xhr.open('GET', `${url.origin}${url.pathname}?${searchParams.toString()}`, true);
+            xhr.responseType = 'json';
+            Object.keys(headers).forEach(key => {
+              xhr.setRequestHeader(key, headers[`${key}`]);
+            });
+          }
+          else if (reqMethod === 'POST') {
+            xhr.open('POST', `${url.origin}${url.pathname}?${searchParams.toString()}`, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.responseType = 'json';
+            Object.keys(headers).forEach(key => {
+              xhr.setRequestHeader(key, headers[`${key}`]);
+            });
+          }
+
+          xhr.onload = function() {
+            let status = xhr.status;
+
+            if (status === 200) {
+              // 确保最后更新的数据是最新一次请求的接口数据
+              if (lastestReqTime - self.lastestReqTime === 0) {
+                let dataPath = self.component.request['dataPath'];
+                if (dataPath && dataPath.length > 0) {
+                  self.dataValue = _.get(xhr.response, dataPath);
+                }
+                else {
+                  self.dataValue = xhr.response;
+                }
+                self.getRoot().triggerChange({ fromBlur: false }, {
+                  instance: self,
+                  component: self.component,
+                  value: self.dataValue,
+                  flags: { fromBlur: false }
+                });
+              }
+            }
+          };
+          if (reqMethod === 'GET') {
+            xhr.send();
+          }
+          else if (reqMethod === 'POST') {
+            let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue }));
+            xhr.send(JSON.stringify(reqData));
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
       return true;
     }
-    if (self.component['data-source-url']) {
-      let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue });
-      if (url.startsWith('http')) {
-        url = new URL(url);
-      }
-      else {
-        url = new URL(url, window.location.origin);
-      }
-      const searchParams = new URLSearchParams(url.search);
-      let params = {};
-      let headers = {};
-      self.component.request['headers'].forEach(header => {
-        headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue });
-      });
-      // 搜索
-      if (self.component['dataSource'] === 'url') {
-      }
-      else if (self.component['dataSource'] === 'noco_db') {
-        if (self.component.data['noco_db_conditions']) {
-          let where = '';
-          self.component.data['noco_db_conditions'].forEach((item, index) => {
-            if (item.value && item.value.length > 0) {
-              let conditionVal = self.parseTpl(item.value, { data: self.rootValue });
-              if (index === 0 && item.logical_operator === '~not') {
-                where += `(${item.name},${item.operator},${conditionVal})`;
-              }
-              else {
-                where += `${item.logical_operator}(${item.name},${item.operator},${conditionVal})`;
-              }
-            }
-          });
-          params.where = where;
-        }
-      }
-      Object.keys(params).forEach(key => {
-        searchParams.set(key, params[`${key}`]);
-      });
-      try {
-        let lastestReqTime = new Date().getTime();
-        self.lastestReqTime = lastestReqTime;
-        var xhr = new XMLHttpRequest();
-        let reqMethod = self.component.request['method'];
-        if (reqMethod === 'GET') {
-          xhr.open('GET', `${url.origin}${url.pathname}?${searchParams.toString()}`, true);
-          xhr.responseType = 'json';
-          Object.keys(headers).forEach(key => {
-            xhr.setRequestHeader(key, headers[`${key}`]);
-          });
-        }
-        else if (reqMethod === 'POST') {
-          xhr.open('POST', `${url.origin}${url.pathname}?${searchParams.toString()}`, true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.responseType = 'json';
-          Object.keys(headers).forEach(key => {
-            xhr.setRequestHeader(key, headers[`${key}`]);
-          });
-        }
-
-        xhr.onload = function() {
-          let status = xhr.status;
-
-          if (status === 200) {
-            // 确保最后更新的数据是最新一次请求的接口数据
-            if (lastestReqTime - self.lastestReqTime === 0) {
-              let dataPath = self.component.request['dataPath'];
-              if (dataPath && dataPath.length > 0) {
-                self.dataValue = _.get(xhr.response, dataPath);
-              }
-              else {
-                self.dataValue = xhr.response;
-              }
-              self.getRoot().triggerChange({ fromBlur: false }, {
-                instance: self,
-                component: self.component,
-                value: self.dataValue,
-                flags: { fromBlur: false }
-              });
-            }
-          }
-        };
-        if (reqMethod === 'GET') {
-          xhr.send();
-        }
-        else if (reqMethod === 'POST') {
-          let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue }));
-          xhr.send(JSON.stringify(reqData));
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    return true;
   }
 }
 

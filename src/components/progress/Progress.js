@@ -16,7 +16,7 @@ export default class Progress extends FieldComponent {
   static builderInfo = {
     title: 'Progress',
     group: 'advanced',
-    icon: 'bar-progress',
+    icon: 'bars-progress',
     weight: 70,
     documentation: 'http://help.form.io/userguide/#progress',
     schema: Progress.schema()

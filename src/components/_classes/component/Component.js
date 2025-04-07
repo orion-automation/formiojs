@@ -2401,6 +2401,17 @@ export default class Component extends Element {
       }
       return empty;
     }
+    if (["redrawOn","refreshOn"].includes(this.key)){
+      // 特殊处理redrawOn/refreshOn，全部转为multiple
+      let value=_.get(this._data, this.key);
+      if (value && value.length===0){
+        const empty = this.component.multiple ? [] : this.emptyValue;
+        return empty;
+      }
+      if (!_.isArray(value)){
+        return [value];
+      }
+    }
     return _.get(this._data, this.key);
   }
 
