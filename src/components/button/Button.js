@@ -293,6 +293,22 @@ export default class ButtonComponent extends Field {
     super.detach();
   }
 
+  parseTpl(template, map) {
+    return template.replace(/\$\{.+?}/g, (match) => {
+      const path = match.substr(2, match.length - 3).trim();
+      let strTmp = _.get(map, path);
+      if (strTmp === undefined) {
+        strTmp = null;
+      }
+      else {
+        if (_.isArray(strTmp) || _.isObject(strTmp)) {
+          strTmp = JSON.stringify(strTmp);
+        }
+      }
+      return strTmp;
+    });
+  }
+
   onClick(event) {
     this.triggerReCaptcha();
     // Don't click if disabled or in builder mode.
@@ -303,6 +319,7 @@ export default class ButtonComponent extends Field {
     if (this.component.action !== 'submit' && this.component.showValidations) {
       this.emit('checkValidity', this.data);
     }
+    let params;
     switch (this.component.action) {
       case 'saveState':
       case 'submit':
@@ -386,10 +403,20 @@ export default class ButtonComponent extends Field {
 
         break;
       case 'openPage':
-        window.openNewPage(this.component['page']);
+        try {
+          params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+        }catch (e) {
+          console.log(`json转换失败:${e}`);
+        }
+        window.openNewPage(this.component['page'],params);
         break;
       case 'bottomSheet':
-        window.openBottomSheet(this.component['page']);
+        try {
+          params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+        }catch (e) {
+          console.log(`json转换失败:${e}`);
+        }
+        window.openBottomSheet(this.component['page'],params);
         break;
       case 'newIntent':
         const elink = document.createElement('a');

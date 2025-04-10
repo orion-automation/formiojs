@@ -176,7 +176,6 @@ export default [
             key: "request.body",
             input: true,
             editor: "ace",
-            as: "json",
             placeholder: `{
         "token": "\${data.token}"
       }`,

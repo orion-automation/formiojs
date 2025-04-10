@@ -133,7 +133,26 @@ export default [
         ], },
     },
   },
-
+  {
+    type: "textarea",
+    label: "Page Params",
+    key: "page_params",
+    input: true,
+    weight: 140,
+    editor: "ace",
+    tooltip: "传入下个页面的参数(json)",
+    conditional: {
+      json: {
+        in: [
+          {var: "data.action"},
+          [
+            "openPage",
+            "bottomSheet",
+          ],
+        ],
+      },
+    },
+  },
   {
     type: 'datagrid',
     key: 'headers',

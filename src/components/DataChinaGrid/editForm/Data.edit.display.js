@@ -408,6 +408,25 @@ export default [
         }
       },
       {
+        type: "textarea",
+        label: "Page Params",
+        key: "page_params",
+        input: true,
+        editor: "ace",
+        tooltip: "传入下个页面的参数(json)",
+        conditional: {
+          json: {
+            in: [
+              {var: "data.click-event-type"},
+              [
+                "newPage",
+                "bottomSheet",
+              ],
+            ],
+          },
+        },
+      },
+      {
         type: 'input',
         label: '流程定义keys',
         key: 'click-event-process-def-keys',

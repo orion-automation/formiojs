@@ -69,12 +69,23 @@ export default class DataChinaGridRow extends Component {
       if (clickEventType) {
         this.addEventListener(dataContainer, 'click', (event) => {
           // 点击事件
+          let params;
           switch (clickEventType) {
             case 'newPage':
-              window.openNewPage(this.component['click-event-form-id']);
+              try {
+                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+              }catch (e) {
+                console.log(`json转换失败:${e}`);
+              }
+              window.openNewPage(this.component['click-event-form-id'],params);
               break;
             case 'bottomSheet':
-              window.openBottomSheet(this.component['click-event-form-id']);
+              try {
+                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+              }catch (e) {
+                console.log(`json转换失败:${e}`);
+              }
+              window.openBottomSheet(this.component['click-event-form-id'],params);
               break;
             case 'setTab':
               // 切换tab
