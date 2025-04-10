@@ -152,7 +152,7 @@ export default class DataChinaGrid extends Component {
         $(container).find('.line').peity(sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: self.component['sparkLine-max-value-count'],
+          max: self.parseTpl(self.component['sparkLine-max-value-count'],{data:self.rootValue}),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
@@ -163,7 +163,7 @@ export default class DataChinaGrid extends Component {
         container.querySelectorAll(".line").forEach(e => peity(e, sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: self.component['sparkLine-max-value-count'],
+          max: self.parseTpl(self.component['sparkLine-max-value-count'],{data:self.rootValue}),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
