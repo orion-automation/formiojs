@@ -125,7 +125,7 @@ export default class DataChinaGridRow extends Component {
   }
 
   resetSparkLine(){
-    let self=this;
+    const self=this;
     const container = this.element.querySelector('.data-container');
     if (self.component['enable-sparkline']){
       if (self.isLoadingSparkLine) {
@@ -156,7 +156,7 @@ export default class DataChinaGridRow extends Component {
         $(container).find('.line').peity(sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: self.parseTpl(self.component['sparkLine-max-value-count'],{data:self.rootValue}),
+          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`,{data:self.rootValue})),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
@@ -167,12 +167,12 @@ export default class DataChinaGridRow extends Component {
         container.querySelectorAll(".line").forEach(e => peity(e, sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: self.parseTpl(self.component['sparkLine-max-value-count'],{data:self.rootValue}),
+          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`,{data:self.rootValue})),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
           width: parentWidth
-        }))
+        }));
         self.isLoadingSparkLine = false;
       }
     }

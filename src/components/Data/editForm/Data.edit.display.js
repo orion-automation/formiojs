@@ -181,10 +181,10 @@ export default [
         defaultValue: 16,
       },
       {
-        type: 'number',
+        type: 'input',
         label: 'MaxValueCount',
         key: 'sparkLine-max-value-count',
-        defaultValue: 10,
+        defaultValue: '10',
         input: true,
         tooltip: '',
       },
