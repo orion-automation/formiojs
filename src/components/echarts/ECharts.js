@@ -55,7 +55,7 @@ export default class ECharts extends FieldComponent {
   parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      let strTmp = _.get(map, path)??'--';
+      let strTmp = _.get(map, path);
       if (strTmp === undefined) {
         strTmp = null;
       }
@@ -83,8 +83,12 @@ export default class ECharts extends FieldComponent {
     }
     let optionsStr = this.component['option-value'];
     optionsStr = this.parseTpl(optionsStr, { data: this.rootValue });
-    // 使用配置项渲染图表
-    chartInstance.setOption(JSON.parse(optionsStr), true);
+    try {
+      // 使用配置项渲染图表
+      chartInstance.setOption(JSON.parse(optionsStr), true);
+    } catch (e) {
+      console.log(`json解析错误:${e},${optionsStr}`);
+    }
     return true;
   }
 }
