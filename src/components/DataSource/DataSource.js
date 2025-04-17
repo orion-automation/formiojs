@@ -109,7 +109,7 @@ export default class DataSourceComponent extends FieldComponent {
       try {
         return template.replace(/\$\{.+?}/g, (match) => {
           const path = match.substr(2, match.length - 3).trim();
-          return _.get(map, path);
+          return _.get(map, path)??'--';
         });
       } catch (e) {
         console.log(e);

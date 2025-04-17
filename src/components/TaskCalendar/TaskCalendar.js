@@ -43,18 +43,12 @@ export default class TaskCalendar extends Component {
     };
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     if (template && template.length > 0) {
       try {
         return template.replace(/\$\{.+?}/g, (match) => {
           const path = match.substr(2, match.length - 3).trim();
-          return this.get(path, map, fallback);
+          return _.get(map,path)??'--';
         });
       } catch (e) {
         console.log(e);
@@ -166,7 +160,7 @@ export default class TaskCalendar extends Component {
         }
       }
       if (self.component['data-source-url']) {
-        let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue }, null);
+        let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue });
         if (url.startsWith('http')) {
           url = new URL(url);
         }
@@ -177,7 +171,7 @@ export default class TaskCalendar extends Component {
         let params = {};
         let headers = {};
         self.component.request['headers'].forEach(header => {
-          headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue }, null);
+          headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue });
         });
         // 搜索
         if (self.component['dataSource'] === 'url') {
@@ -187,7 +181,7 @@ export default class TaskCalendar extends Component {
             let where = '';
             self.component.data['noco_db_conditions'].forEach((item, index) => {
               if (item.value && item.value.length > 0) {
-                let conditionVal = self.parseTpl(item.value, { data: self.rootValue }, null);
+                let conditionVal = self.parseTpl(item.value, { data: self.rootValue });
                 if (index === 0 && item.logical_operator === '~not') {
                   where += `(${item.name},${item.operator},${conditionVal})`;
                 }

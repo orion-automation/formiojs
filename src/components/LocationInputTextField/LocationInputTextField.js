@@ -1,20 +1,15 @@
 import TextFieldComponent from '../textfield/TextField';
+import _ from 'lodash';
 
 export default class LocationInputTextField extends TextFieldComponent {
   constructor(component, options, data) {
     super(component, options, data);
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return this.get(path, map, fallback);
+      return _.get(map,path)??'--';
     });
   }
 
@@ -39,7 +34,7 @@ export default class LocationInputTextField extends TextFieldComponent {
               var geocoder = new AMap.Geocoder({
               });
 
-              let address = self.parseTpl(self.component['source-form'], { data: self.rootValue }, null);
+              let address = self.parseTpl(self.component['source-form'], { data: self.rootValue });
 
               geocoder.getLocation(address, function (status, result) {
                 if (status === "complete" && result.info === "OK") {
@@ -69,7 +64,7 @@ export default class LocationInputTextField extends TextFieldComponent {
             var geocoder = new AMap.Geocoder({
             });
 
-            let address = self.parseTpl(self.component['source-form'], { data: self.rootValue }, null);
+            let address = self.parseTpl(self.component['source-form'], { data: self.rootValue });
 
             geocoder.getLocation(address, function (status, result) {
               if (status === "complete" && result.info === "OK") {

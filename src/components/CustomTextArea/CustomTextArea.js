@@ -10,7 +10,7 @@ export default class CustomTextArea extends TextAreaComponent {
   parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return _.get(map, path);
+      return _.get(map, path)??'--';
     });
   }
 
@@ -30,8 +30,8 @@ export default class CustomTextArea extends TextAreaComponent {
       let parsedOptions = { ignoreCache: true };
       let parsedBody = {};
       try {
-        parsedOptions = JSON.parse(this.parseTpl(options || '{"headers":{}}', { data: this.rootValue }, null));
-        parsedBody = JSON.parse(this.parseTpl(body || '{}', { data: this.rootValue }, null));
+        parsedOptions = JSON.parse(this.parseTpl(options || '{"headers":{}}', { data: this.rootValue }));
+        parsedBody = JSON.parse(this.parseTpl(body || '{}', { data: this.rootValue }));
       } catch (e) {
         console.log(e);
       }

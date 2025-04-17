@@ -1,21 +1,16 @@
 import { GlobalFormio as Formio } from '../../Formio';
 import TextFieldComponent from '../textfield/TextField';
+import _ from 'lodash';
 
 export default class CustomTextField extends TextFieldComponent {
     constructor(component, options, data) {
         super(component, options, data);
     }
 
-    get(path, obj, fb = `$\{${path}}`) {
-        return path.split('.').reduce((res, key) => {
-            return res[key] || fb;
-        }, obj);
-    }
-
-    parseTpl(template, map, fallback) {
+    parseTpl(template, map) {
         return template.replace(/\$\{.+?}/g, (match) => {
             const path = match.substr(2, match.length - 3).trim();
-            return this.get(path, map, fallback);
+            return _.get(map,path)??'--';
         });
     }
 
@@ -27,8 +22,8 @@ export default class CustomTextField extends TextFieldComponent {
             let parsedOptions={ ignoreCache:true };
             let parsedBody={};
             try {
-                parsedOptions = JSON.parse(this.parseTpl(options||'{"headers":{}}', { data: this.rootValue }, null));
-                parsedBody = JSON.parse(this.parseTpl(body||'{}', { data: this.rootValue }, null));
+                parsedOptions = JSON.parse(this.parseTpl(options||'{"headers":{}}', { data: this.rootValue }));
+                parsedBody = JSON.parse(this.parseTpl(body||'{}', { data: this.rootValue }));
             }
             catch (e) {
               console.log(e);

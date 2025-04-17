@@ -1,5 +1,6 @@
 import { uniqueName } from '../../utils/utils';
 import FileComponent from '../file/File';
+import _ from 'lodash';
 
 import fileProcessor from '../../providers/processor/fileProcessor';
 import BMF from 'browser-md5-file';
@@ -48,7 +49,7 @@ export default class CustomFile extends FileComponent {
             let file=this.dataValue[currentIndex];
             let { options = {} } = this.component;
             try {
-              options = JSON.parse(this.parseTpl(options, { data: this.rootValue }, null));
+              options = JSON.parse(this.parseTpl(options, { data: this.rootValue }));
             } catch (e) {
               console.log(e);
             }
@@ -92,16 +93,10 @@ export default class CustomFile extends FileComponent {
         return this.component.value;
     }
 
-    get(path, obj, fb = `$\{${path}}`) {
-        return path.split('.').reduce((res, key) => {
-            return res[key] || fb;
-        }, obj);
-    }
-
-    parseTpl(template, map, fallback) {
+    parseTpl(template, map) {
         return template.replace(/\$\{.+?}/g, (match) => {
             const path = match.substr(2, match.length - 3).trim();
-            return this.get(path, map, fallback);
+            return _.get(map,path)??'--';
         });
     }
 
@@ -199,7 +194,7 @@ export default class CustomFile extends FileComponent {
                     const { storage } = this.component;
                     let { options = {} } = this.component;
                     try {
-                        options = JSON.parse(this.parseTpl(options, { data: this.rootValue }, null));
+                        options = JSON.parse(this.parseTpl(options, { data: this.rootValue }));
                     }
                     catch (e) {
                       console.log(e);

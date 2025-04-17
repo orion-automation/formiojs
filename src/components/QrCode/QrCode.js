@@ -1,5 +1,6 @@
 import FieldComponent from '../_classes/field/Field';
 import QRCode from 'qrcodejs2-fix';
+import _ from 'lodash';
 
 import editForm from './QrCode.form';
 
@@ -52,16 +53,10 @@ export default class QrCode extends FieldComponent {
     return this.component.value;
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return this.get(path, map, fallback);
+      return _.get(map,path)??'--';
     });
   }
 
@@ -75,7 +70,7 @@ export default class QrCode extends FieldComponent {
     var canvas = this.element.querySelector('#qr-code-container');
     canvas.innerHTML = '';
     new QRCode(canvas, {
-      text: this.parseTpl(this.component.value, {data: this.rootValue}, null),
+      text: this.parseTpl(this.component.value, {data: this.rootValue}),
       width: this.component.width,
       height: this.component.width,
       colorDark: '#000000',

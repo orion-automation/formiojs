@@ -35,16 +35,10 @@ export default class RadioComponent extends ListComponent {
     this.previousValue = this.dataValue || null;
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return this.get(path, map, fallback);
+      return _.get(map,path)??'--';
     });
   }
 
@@ -234,7 +228,7 @@ export default class RadioComponent extends ListComponent {
     try {
       url=this.parseTpl(url,{
         data: this.rootValue
-      },null);
+      });
     }catch (e) {
       console.log(e);
     }

@@ -55,16 +55,10 @@ export default class Map extends FieldComponent {
     return this.component.value;
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return this.get(path, map, fallback);
+      return _.get(map,path)??'--';
     });
   }
 
@@ -99,7 +93,7 @@ export default class Map extends FieldComponent {
           // 获取标记点
           if (self.component['dataSource'] === 'url'){
             if (self.component['data-source-url']) {
-              let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue }, null);
+              let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue });
               if (url.startsWith('http')) {
                 url = new URL(url);
               }
@@ -111,7 +105,7 @@ export default class Map extends FieldComponent {
               let headers = {};
               if (self.component.request && self.component.request['headers']) {
                 self.component.request['headers'].forEach(header => {
-                  headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue }, null);
+                  headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue });
                 });
               }
               // 搜索
@@ -122,7 +116,7 @@ export default class Map extends FieldComponent {
                   let where = '';
                   self.component.data['noco_db_conditions'].forEach((item, index) => {
                     if (item.value && item.value.length > 0) {
-                      let conditionVal = self.parseTpl(item.value, { data: self.rootValue }, null);
+                      let conditionVal = self.parseTpl(item.value, { data: self.rootValue });
                       if (index === 0 && item.logical_operator === '~not') {
                         where += `(${item.name},${item.operator},${conditionVal})`;
                       }
@@ -261,7 +255,7 @@ export default class Map extends FieldComponent {
                       }
                       else if (self.component["customCenter"]&&self.component["customCenter"].length>0){
                         // 自定义中心点
-                        let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue},null);
+                        let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue});
                         if (customCenter && customCenter.length > 0 && customCenter.split(',').length === 2) {
                           let lng, lat;
                           lng = customCenter.split(',')[0];
@@ -293,7 +287,7 @@ export default class Map extends FieldComponent {
                   xhr.send();
                 }
                 else if (reqMethod === 'POST') {
-                  let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue }, null));
+                  let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue }));
                   xhr.send(JSON.stringify(reqData));
                 }
               } catch (e) {
@@ -306,12 +300,12 @@ export default class Map extends FieldComponent {
               try {
                 // 添加点
                 let lng, lat;
-                let lnglat = self.parseTpl(self.component["data-source-value"],{data:self.rootValue},null);
+                let lnglat = self.parseTpl(self.component["data-source-value"],{data:self.rootValue});
                 if (lnglat && lnglat.length > 0 && lnglat.split(',').length === 2) {
                   lng = lnglat.split(',')[0];
                   lat = lnglat.split(',')[1];
                 }
-                let lnglatTitle = self.parseTpl(self.component["data-source-value-title"],{data:self.rootValue},null);
+                let lnglatTitle = self.parseTpl(self.component["data-source-value-title"],{data:self.rootValue});
                 let markerList=[new AMap.Marker({
                   position: new AMap.LngLat(lng, lat), //经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
                   extData: lnglat,
@@ -382,7 +376,7 @@ export default class Map extends FieldComponent {
                 }
                 else if (self.component["customCenter"]&&self.component["customCenter"].length>0){
                   // 自定义中心点
-                  let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue},null);
+                  let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue});
                   if (customCenter && customCenter.length > 0 && customCenter.split(',').length === 2) {
                     let lng, lat;
                     lng = customCenter.split(',')[0];

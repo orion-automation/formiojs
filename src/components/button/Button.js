@@ -305,7 +305,7 @@ export default class ButtonComponent extends Field {
           strTmp = JSON.stringify(strTmp);
         }
       }
-      return strTmp;
+      return strTmp??'--';
     });
   }
 

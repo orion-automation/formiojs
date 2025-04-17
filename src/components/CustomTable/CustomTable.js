@@ -37,18 +37,12 @@ export default class CustomTableComponent extends FieldComponent {
     return super.render(this.renderTemplate('emptyTable'));
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     if (template && template.length > 0) {
       try {
         return template.replace(/\$\{.+?}/g, (match) => {
           const path = match.substr(2, match.length - 3).trim();
-          return this.get(path, map, fallback);
+          return _.get(map,path)??'--';
         });
       } catch (e) {
         console.log(e);
@@ -546,7 +540,7 @@ export default class CustomTableComponent extends FieldComponent {
     else if (this.component.dataSrc === 'url') {
       let headers = {};
       try {
-        headers = this.parseTpl(this.component.data.headers, { data: this.rootValue }, null);
+        headers = this.parseTpl(this.component.data.headers, { data: this.rootValue });
         if (typeof headers === 'string') {
           headers = JSON.parse(headers);
         }
@@ -557,7 +551,7 @@ export default class CustomTableComponent extends FieldComponent {
       if (!this.component.data.url) {
         return true;
       }
-      let url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.data.url}), {data: self.rootValue}, null)).url;
+      let url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.data.url}), {data: self.rootValue})).url;
       this.getField(url, function(data) {
         self.setTableByData(data);
       }, headers);

@@ -7,16 +7,10 @@ export default class CustomSelect extends SelectComponent {
     super(component, options, data);
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return this.get(path, map, fallback);
+      return _.get(map,path)??'--';
     });
   }
 
@@ -102,8 +96,8 @@ export default class CustomSelect extends SelectComponent {
     let parsedOptions = { header: null };
     let parsedBody = {};
     try {
-      parsedOptions = JSON.parse(this.parseTpl(JSON.stringify(options), { data: this.rootValue }, null));
-      parsedBody = JSON.parse(this.parseTpl(JSON.stringify(body), { data: this.rootValue }, null));
+      parsedOptions = JSON.parse(this.parseTpl(JSON.stringify(options), { data: this.rootValue }));
+      parsedBody = JSON.parse(this.parseTpl(JSON.stringify(body), { data: this.rootValue }));
     }
       // eslint-disable-next-line no-empty
     catch (e) {
@@ -111,7 +105,7 @@ export default class CustomSelect extends SelectComponent {
     // Make the request.
     const self = this;
     headers.forEach(function(value, name) {
-      headers.set(name, self.parseTpl(value, { data: self.rootValue }, null));
+      headers.set(name, self.parseTpl(value, { data: self.rootValue }));
     });
     parsedOptions.header = headers;
     this.loading = true;
@@ -120,7 +114,7 @@ export default class CustomSelect extends SelectComponent {
         url: url
       }), {
         data: this.rootValue
-      }, null)).url;
+      })).url;
     } catch (e) {
 
     }

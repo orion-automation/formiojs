@@ -4,6 +4,7 @@
  * Get the base component class by referencing Formio.Components.components map.
  */
 import Component from '../_classes/field/Field';
+import _ from 'lodash';
 
 /**
  * Here we will derive from the base component which all Form.io form components derive from.
@@ -18,16 +19,10 @@ export default class Data extends Component {
     super(component, options, data);
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return this.get(path, map, fallback);
+      return _.get(map, path)??'--';
     });
   }
 
@@ -93,7 +88,7 @@ export default class Data extends Component {
     element = container.querySelector('iframe');
 
     let url;
-    url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.url}), {data: this.rootValue}, null)).url;
+    url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.url}), {data: this.rootValue})).url;
     if (element) {
       element.src = url;
       element.height = this.component.height + "";
@@ -110,7 +105,7 @@ export default class Data extends Component {
     const isSetting = this.element.parentElement.parentElement.parentElement.className === 'component-preview';
     if (!isSetting && this.component.interval && this.component.interval.trim().length>0 && this.component.interval !== "0") {
       const interval = window.setInterval(function() {
-        element.src = JSON.parse(self.parseTpl(JSON.stringify({url:self.component.url}), {data: self.rootValue}, null)).url;
+        element.src = JSON.parse(self.parseTpl(JSON.stringify({url:self.component.url}), {data: self.rootValue})).url;
       }, this.component.interval * 1000);
       this.interval = interval;
     }

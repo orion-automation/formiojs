@@ -125,18 +125,12 @@ export default class Data extends Component {
     return super.attach(element);
   }
 
-  get(path, obj, fb = `$\{${path}}`) {
-    return path.split('.').reduce((res, key) => {
-      return res[key] || fb;
-    }, obj);
-  }
-
-  parseTpl(template, map, fallback) {
+  parseTpl(template, map) {
     if (template && template.length > 0) {
       try {
         return template.replace(/\$\{.+?}/g, (match) => {
           const path = match.substr(2, match.length - 3).trim();
-          return this.get(path, map, fallback);
+          return _.get(map,path)??'--';
         });
       } catch (e) {
         console.log(e);
@@ -223,10 +217,10 @@ export default class Data extends Component {
       let element = container.querySelector('h2');
 
       if (this.component['value-url']) {
-        let url=this.parseTpl(this.component['value-url'], { data: this.rootValue }, null)
+        let url=this.parseTpl(this.component['value-url'], { data: this.rootValue })
         let headers = {};
         try {
-          headers = this.parseTpl(this.component['value-headers'], { data: this.rootValue }, null);
+          headers = this.parseTpl(this.component['value-headers'], { data: this.rootValue });
           if (typeof headers === 'string') {
             headers = JSON.parse(headers);
           }
@@ -238,7 +232,7 @@ export default class Data extends Component {
           let newValueHeaders=this.component['new-value-headers'];
           newValueHeaders.forEach(header=>{
             if (header.key&&header.key.length>0&&header.value&&header.value.length>0){
-              headers[`${header.key}`]=this.parseTpl(header.value, { data: this.rootValue }, null);
+              headers[`${header.key}`]=this.parseTpl(header.value, { data: this.rootValue });
             }
           });
         }
@@ -251,7 +245,7 @@ export default class Data extends Component {
       }
       element = container.querySelector('.unit-container');
       if (this.component['subValue-url']) {
-        let url=this.parseTpl(this.component['subValue-url'], { data: this.rootValue }, null)
+        let url=this.parseTpl(this.component['subValue-url'], { data: this.rootValue })
         this.getField(url, this.component['subValue-field'], function(field) {
           container.querySelector('.unit-container').textContent = field;
         }, {});
@@ -281,10 +275,10 @@ export default class Data extends Component {
       }
       else if (self.component['sparkLine-dataSrc'] === 'url' && self.component['sparkLine-url'] && self.component['sparkLine-url'].length > 0) {
         // url
-        let url=this.parseTpl(this.component['sparkLine-url'], { data: this.rootValue }, null)
+        let url=this.parseTpl(this.component['sparkLine-url'], { data: this.rootValue })
         let headers = {};
         try {
-          headers = self.parseTpl(self.component['sparkLine-headers'], { data: self.rootValue }, null);
+          headers = self.parseTpl(self.component['sparkLine-headers'], { data: self.rootValue });
           if (typeof headers === 'string') {
             headers = JSON.parse(headers);
           }
@@ -296,7 +290,7 @@ export default class Data extends Component {
           let newValueHeaders=this.component['new-sparkLine-headers'];
           newValueHeaders.forEach(header=>{
             if (header.key&&header.key.length>0&&header.value&&header.value.length>0){
-              headers[`${header.key}`]=this.parseTpl(header.value, { data: this.rootValue }, null);
+              headers[`${header.key}`]=this.parseTpl(header.value, { data: this.rootValue });
             }
           });
         }

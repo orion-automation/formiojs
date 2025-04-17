@@ -55,7 +55,7 @@ export default class ECharts extends FieldComponent {
   parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      let strTmp = _.get(map, path);
+      let strTmp = _.get(map, path)??'--';
       if (strTmp === undefined) {
         strTmp = null;
       }
