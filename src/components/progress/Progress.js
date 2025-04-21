@@ -59,7 +59,7 @@ export default class Progress extends FieldComponent {
   parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      let strTmp = _.get(map, path)??'--';
+      let strTmp = _.get(map, path);
       if (strTmp === undefined) {
         strTmp = null;
       }
@@ -99,9 +99,9 @@ export default class Progress extends FieldComponent {
           this.refs.titleContainer.insertAdjacentHTML('beforeend',
             `<div class="progress-title-container" style="display: flex;flex-direction: row;align-items: center;font-size: ${this.component['font-size']}">
             <div class="progress-title-item-indicator" style="width: 5px;height: 5px;background-color: ${item.color};margin-right: 10px"></div>
-            <div class="progress-title-item-title" style="color: ${item.color}">${item.title}</div>
-            <div class="progress-title-item-value" style="font-weight: bold;margin-left: 5px;margin-right: 5px;color: black">${item.value}</div>
-            <div class="progress-title-item-unit" style="color: grey">${item.unit}</div>
+            <div class="progress-title-item-title" style="color: ${item.color}">${item.title??'--'}</div>
+            <div class="progress-title-item-value" style="font-weight: bold;margin-left: 5px;margin-right: 5px;color: black">${item.value??'--'}</div>
+            <div class="progress-title-item-unit" style="color: grey">${item.unit??'--'}</div>
             <div class="progress-title-item-percent" style="margin-left: 10px;color: grey">${percent}%</div>
         </div>`
           );
@@ -113,7 +113,7 @@ export default class Progress extends FieldComponent {
         }
       });
     } catch (e) {
-      console.log('json转换失败', e);
+      console.log('json转换失败', e, optionsStr);
     }
     return true;
   }

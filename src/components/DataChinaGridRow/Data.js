@@ -197,16 +197,16 @@ export default class DataChinaGridRow extends Component {
       }
       // 标题设置
       let element = container.querySelector('.title-container');
-      element.innerHTML=self.parseTpl(self.component['title-content'],{data:self.rootValue});
+      element.innerHTML=self.interpolate(self.parseTpl(self.component['title-content'],{data:self.rootValue}),{ data:self.rootValue });
       element = container.querySelector('.value-container');
-      element.innerHTML=self.parseTpl(self.component['value-content'],{data:self.rootValue});
+      element.innerHTML=self.interpolate(self.parseTpl(self.component['value-content'],{data:self.rootValue}),{ data:self.rootValue });
       element = container.querySelector('.footer-container-value1');
-      element.innerHTML=self.parseTpl(self.component['footer-content1'],{data:self.rootValue});
+      element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content1'],{data:self.rootValue}),{ data:self.rootValue });
       element = container.querySelector('.footer-container-value2');
-      element.innerHTML=self.parseTpl(self.component['footer-content2'],{data:self.rootValue});
+      element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content2'],{data:self.rootValue}),{ data:self.rootValue });
       element = container.querySelector('.footer-container-value3');
       if (element){
-        element.innerHTML=self.parseTpl(self.component['footer-content3'],{data:self.rootValue});
+        element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content3'],{data:self.rootValue}),{ data:self.rootValue });
       }
       // 图标
       self.resetSparkLine();
