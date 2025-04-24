@@ -201,12 +201,27 @@ export default class DataChinaGridRow extends Component {
       element = container.querySelector('.value-container');
       element.innerHTML=self.interpolate(self.parseTpl(self.component['value-content'],{data:self.rootValue}),{ data:self.rootValue });
       element = container.querySelector('.footer-container-value1');
-      element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content1'],{data:self.rootValue}),{ data:self.rootValue });
+      let footerContentStr = self.component['footer-content1'];
+      if (footerContentStr && footerContentStr.length > 0) {
+        element.innerHTML = self.interpolate(self.parseTpl(footerContentStr, {data: self.rootValue}), {data: self.rootValue});
+      } else {
+        element.style.display = 'none';
+      }
       element = container.querySelector('.footer-container-value2');
-      element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content2'],{data:self.rootValue}),{ data:self.rootValue });
+      footerContentStr = self.component['footer-content2'];
+      if (footerContentStr && footerContentStr.length > 0) {
+        element.innerHTML = self.interpolate(self.parseTpl(footerContentStr, {data: self.rootValue}), {data: self.rootValue});
+      } else {
+        element.style.display = 'none';
+      }
       element = container.querySelector('.footer-container-value3');
-      if (element){
-        element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content3'],{data:self.rootValue}),{ data:self.rootValue });
+      if (element) {
+        footerContentStr = self.component['footer-content3'];
+        if (footerContentStr && footerContentStr.length > 0) {
+          element.innerHTML = self.interpolate(self.parseTpl(footerContentStr, {data: self.rootValue}), {data: self.rootValue});
+        } else {
+          element.style.display = 'none';
+        }
       }
       // 图标
       self.resetSparkLine();

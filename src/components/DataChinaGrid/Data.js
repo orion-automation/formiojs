@@ -72,19 +72,19 @@ export default class DataChinaGrid extends Component {
           switch (clickEventType) {
             case 'newPage':
               try {
-                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
-              }catch (e) {
+                params = JSON.parse(this.parseTpl(this.component['page_params'], {data: this.rootValue}))
+              } catch (e) {
                 console.log(`json转换失败:${e}`);
               }
-              window.openNewPage(this.component['click-event-form-id'],params);
+              window.openNewPage(this.component['click-event-form-id'], params);
               break;
             case 'bottomSheet':
               try {
-                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
-              }catch (e) {
+                params = JSON.parse(this.parseTpl(this.component['page_params'], {data: this.rootValue}))
+              } catch (e) {
                 console.log(`json转换失败:${e}`);
               }
-              window.openBottomSheet(this.component['click-event-form-id'],params);
+              window.openBottomSheet(this.component['click-event-form-id'], params);
               break;
             case 'setTab':
               // 切换tab
@@ -105,7 +105,7 @@ export default class DataChinaGrid extends Component {
       try {
         return template.replace(/\$\{.+?}/g, (match) => {
           const path = match.substr(2, match.length - 3).trim();
-          return _.get(map, path)??'--';
+          return _.get(map, path) ?? '--';
         });
       } catch (e) {
         console.log(e);
@@ -123,10 +123,10 @@ export default class DataChinaGrid extends Component {
     return this.component.field;
   }
 
-  resetSparkLine(){
-    let self=this;
+  resetSparkLine() {
+    let self = this;
     const container = this.element.querySelector('.data-container');
-    if (self.component['enable-sparkline']){
+    if (self.component['enable-sparkline']) {
       if (self.isLoadingSparkLine) {
         return true;
       }
@@ -146,24 +146,24 @@ export default class DataChinaGrid extends Component {
         }
       }
       // values
-      container.querySelector('.sparkline-container').innerHTML = `<span class="line">${self.parseTpl(self.component['sparkLine-value'],{data:self.rootValue})}</span>`;
+      container.querySelector('.sparkline-container').innerHTML = `<span class="line">${self.parseTpl(self.component['sparkLine-value'], {data: self.rootValue})}</span>`;
       try {
         // @ts-ignore
         $(container).find('.line').peity(sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`,{data:self.rootValue})),
+          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue})),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
           width: self.component['sparkLine-width']
         });
         self.isLoadingSparkLine = false;
-      }catch (e) {
+      } catch (e) {
         container.querySelectorAll(".line").forEach(e => peity(e, sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`,{data:self.rootValue})),
+          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue})),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
@@ -185,24 +185,39 @@ export default class DataChinaGrid extends Component {
     try {
       const container = this.element.querySelector('.data-container');
       try {
-        let customStyle=JSON.parse(this.component["custom-style"]||{});
-        _.forEach(customStyle,(value,key)=>{
-          this.refs.dataContainer.style[key]=value;
+        let customStyle = JSON.parse(this.component["custom-style"] || {});
+        _.forEach(customStyle, (value, key) => {
+          this.refs.dataContainer.style[key] = value;
         })
-      }catch (e) {
+      } catch (e) {
       }
       // 标题设置
       let element = container.querySelector('.title-container');
-      element.innerHTML=self.interpolate(self.parseTpl(self.component['title-content'],{data:self.rootValue}),{ data:self.rootValue });
+      element.innerHTML = self.interpolate(self.parseTpl(self.component['title-content'], {data: self.rootValue}), {data: self.rootValue});
       element = container.querySelector('.value-container');
-      element.innerHTML=self.interpolate(self.parseTpl(self.component['value-content'],{data:self.rootValue}),{ data:self.rootValue });
+      element.innerHTML = self.interpolate(self.parseTpl(self.component['value-content'], {data: self.rootValue}), {data: self.rootValue});
       element = container.querySelector('.footer-container-value1');
-      element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content1'],{data:self.rootValue}),{ data:self.rootValue });
+      let footerContentStr = self.component['footer-content1'];
+      if (footerContentStr && footerContentStr.length > 0) {
+        element.innerHTML = self.interpolate(self.parseTpl(footerContentStr, {data: self.rootValue}), {data: self.rootValue});
+      } else {
+        element.style.display = 'none';
+      }
       element = container.querySelector('.footer-container-value2');
-      element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content2'],{data:self.rootValue}),{ data:self.rootValue });
+      footerContentStr = self.component['footer-content2'];
+      if (footerContentStr && footerContentStr.length > 0) {
+        element.innerHTML = self.interpolate(self.parseTpl(footerContentStr, {data: self.rootValue}), {data: self.rootValue});
+      } else {
+        element.style.display = 'none';
+      }
       element = container.querySelector('.footer-container-value3');
-      if (element){
-        element.innerHTML=self.interpolate(self.parseTpl(self.component['footer-content3'],{data:self.rootValue}),{ data:self.rootValue });
+      if (element) {
+        footerContentStr = self.component['footer-content3'];
+        if (footerContentStr && footerContentStr.length > 0) {
+          element.innerHTML = self.interpolate(self.parseTpl(footerContentStr, {data: self.rootValue}), {data: self.rootValue});
+        } else {
+          element.style.display = 'none';
+        }
       }
       // 图标
       self.resetSparkLine();
