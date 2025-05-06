@@ -79,6 +79,7 @@ import progress from './progress';
 import echarts from './echarts';
 import iconButton from './iconButton';
 import dataSource from './dataSource';
+import buttonGroups from './buttonGroups';
 
 export default {
   transform(type, text) {
@@ -172,5 +173,6 @@ export default {
   progress,
   echarts,
   iconButton,
-  dataSource
+  dataSource,
+  buttonGroups
 };

@@ -5,7 +5,7 @@
             {% ctx.component.components.forEach(function(tab, index) { %}
                 {% if(ctx.component['headerStyle']=='normal') { %}
                     <div class="tab-item {{ ctx.currentTab === index ? ' active' : ''}}" ref="{{ctx.tabLinkKey}}"
-                        style="padding-left: 10px;padding-right: 10px;padding-top: 8px;padding-bottom: 8px">{{ctx.t(tab.label, { _userInput: true })}}</div>
+                        style="padding-left: 10px;padding-right: 10px;padding-top: 1px;padding-bottom: 1px">{{ctx.t(tab.label, { _userInput: true })}}</div>
                 {% } %}
                 {% if(ctx.component['headerStyle']=='pills') { %}
                     <div style="display: flex;flex-direction: column;width: fit-content;align-items: center" ref="{{ctx.tabLinkKey}}">

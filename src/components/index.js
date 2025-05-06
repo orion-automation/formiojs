@@ -77,6 +77,7 @@ import CustomTabsComponent from './CustomTabs/Tabs';
 import ProgressComponent from './progress/Progress';
 import EChartsComponent from './echarts/ECharts';
 import IconButtonComponent from './iconButton/IconButton';
+import ButtonGroupsComponent from './buttonGroups/ButtonGroups';
 
 export default {
   map: MapComponent,
@@ -158,5 +159,6 @@ export default {
   customTabs: CustomTabsComponent,
   echarts: EChartsComponent,
   progress: ProgressComponent,
-  iconButton: IconButtonComponent
+  iconButton: IconButtonComponent,
+  buttonGroups: ButtonGroupsComponent
 };

@@ -1,0 +1,7 @@
+<div class="btn-group btn-group-toggle" role="group" aria-label="Basic example">
+    {% ctx.component.buttons.forEach(function(button, index) { %}
+    <button type="button" class="btn {{ index==0?'btn-primary':'btn-outline-primary' }}"
+            id="btnOptions-{{ button.key }}"
+            data-value="{{ button.key }}" ref="btnOptions">{{ button.title }}</button>
+    {% }) %}
+</div>

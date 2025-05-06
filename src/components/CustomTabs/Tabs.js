@@ -117,19 +117,32 @@ export default class CustomTabsComponent extends NestedComponent {
         this.setTab(index);
       });
       this.addEventListener(tabLink, 'mouseover', (event) => {
-        tabLink.style.color=this.component["headerHoverColor"];
+        tabLink.style.color=this.component['headerHoverColor'];
       });
       this.addEventListener(tabLink, 'mouseout', (event) => {
-        if (index===this.currentTab){
-          tabLink.style.color=this.component["headerColor"];
-        }else {
-          tabLink.style.color=this.component["headerNormalColor"];
+        if (index===this.currentTab) {
+          tabLink.style.color=this.component['headerColor'];
+        }
+else {
+          tabLink.style.color=this.component['headerNormalColor'];
         }
       });
     });
     this.refs[this.tabKey].forEach((tab, index) => {
       this.attachComponents(tab, this.tabs[index], this.component.components[index].components);
     });
+    const tabLineStyleStr=this.component['custom-tab-line-style'];
+    if (tabLineStyleStr&&tabLineStyleStr.length>0) {
+      try {
+        const tabLineStyle=JSON.parse(tabLineStyleStr);
+        _.forEach(tabLineStyle, (value, key) => {
+          this.refs.tabLine.style[key] = value;
+        });
+      }
+catch (e) {
+        console.warn(e);
+      }
+    }
     this.setTabLine();
     return superAttach;
   }
@@ -142,50 +155,53 @@ export default class CustomTabsComponent extends NestedComponent {
    * 通过childKey来设置tab选中
    * @param childKey
    */
-  setTabByKey(childKey){
+  setTabByKey(childKey) {
     _.each(this.component.components, (tab, index) => {
-      if (tab.key===childKey){
+      if (tab.key===childKey) {
         this.setTab(index);
       }
     });
   }
 
-  setTabLine(){
+  setTabLine() {
     _.each(this.refs[this.tabLinkKey], (tabLink, tabIndex) => {
       // 设置下划线位置 //设置颜色
-      if (tabIndex===this.currentTab){
+      if (tabIndex===this.currentTab) {
         // 检测tab标签是否完整显示
         const rect=tabLink.getBoundingClientRect();
         const rectScroll=this.refs.tabHeaderContainerScroll.getBoundingClientRect();
         // 10px是左右的padding
-        if (rect.right>rectScroll.right){
+        if (rect.right>rectScroll.right) {
           // 右滑
           this.refs.tabHeaderContainerScroll.scrollLeft=this.refs.tabHeaderContainerScroll.scrollLeft+(rect.right-rectScroll.right);
         }
-        if (rect.left < rectScroll.left){
+        if (rect.left < rectScroll.left) {
           // 左滑
           this.refs.tabHeaderContainerScroll.scrollLeft=this.refs.tabHeaderContainerScroll.scrollLeft-(rectScroll.left-rect.left);
         }
-        if (this.refs.tabLine){
+        if (this.refs.tabLine) {
           this.refs.tabLine.style.width = `${tabLink.offsetWidth}px`;
-          this.refs.tabLine.style.transform = `translateX(${tabLink.offsetLeft}px)`
+          this.refs.tabLine.style.transform = `translateX(${tabLink.offsetLeft}px)`;
         }
-        if (this.component["headerStyle"]==="pills"){
-          tabLink.querySelector(".tab-pills-item").style.color="white";
-          tabLink.querySelector(".tab-pills-item").style["background-color"]=this.component["headerColor"];
-          tabLink.querySelector(".tab-pills-item").style.border=`1px solid ${this.component["headerColor"]}`;
-          tabLink.querySelector(".triangle").style.display="flex";
-        }else {
-          tabLink.style.color=this.component["headerColor"];
+        if (this.component['headerStyle']==='pills') {
+          tabLink.querySelector('.tab-pills-item').style.color='white';
+          tabLink.querySelector('.tab-pills-item').style['background-color']=this.component['headerColor'];
+          tabLink.querySelector('.tab-pills-item').style.border=`1px solid ${this.component['headerColor']}`;
+          tabLink.querySelector('.triangle').style.display='flex';
         }
-      } else {
-        if (this.component["headerStyle"]==="pills"){
-          tabLink.querySelector(".tab-pills-item").style.color=this.component["headerNormalColor"];
-          tabLink.querySelector(".tab-pills-item").style.border=`1px solid ${this.component["headerNormalColor"]}`;
-          tabLink.querySelector(".tab-pills-item").style["background-color"]="transparent";
-          tabLink.querySelector(".triangle").style.display="none";
-        }else {
-          tabLink.style.color=this.component["headerNormalColor"];
+else {
+          tabLink.style.color=this.component['headerColor'];
+        }
+      }
+ else {
+        if (this.component['headerStyle']==='pills') {
+          tabLink.querySelector('.tab-pills-item').style.color=this.component['headerNormalColor'];
+          tabLink.querySelector('.tab-pills-item').style.border=`1px solid ${this.component['headerNormalColor']}`;
+          tabLink.querySelector('.tab-pills-item').style['background-color']='transparent';
+          tabLink.querySelector('.triangle').style.display='none';
+        }
+else {
+          tabLink.style.color=this.component['headerNormalColor'];
         }
       }
     });
@@ -279,18 +295,18 @@ export default class CustomTabsComponent extends NestedComponent {
   }
 
   // 刷新子组件
-  refreshChild(item){
+  refreshChild(item) {
     // tab切换后刷新下面的组件
-    if (['echarts','taskCalendar'].includes(item.type)){
+    if (['echarts','taskCalendar'].includes(item.type)) {
       item.refresh(new Date().getTime());
     }
-    if (['data_china_grid_row','data_china_grid'].includes(item.type)){
+    if (['data_china_grid_row','data_china_grid'].includes(item.type)) {
       item.resetSparkLine();
     }
-    if (item.type==="components"){
+    if (item.type==='components') {
       item.components.forEach(itemChild=>{
         this.refreshChild(itemChild);
-      })
+      });
     }
   }
 

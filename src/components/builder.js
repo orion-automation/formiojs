@@ -68,7 +68,9 @@ import DataChinaGridRowForm from './DataChinaGridRow/Data.form';
 import CustomTabsForm from './CustomTabs/Tabs.form';
 import EChartsForm from './echarts/ECharts.form';
 import IconButtonForm from './iconButton/IconButton.form';
+import ButtonGroupsForm from './buttonGroups/ButtonGroups.form';
 
+Components.buttonGroups.editForm = ButtonGroupsForm;
 Components.iconButton.editForm = IconButtonForm;
 Components.echarts.editForm = EChartsForm;
 Components.customTabs.editForm = CustomTabsForm;
