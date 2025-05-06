@@ -297,6 +297,12 @@ td > .form-group {
   z-index: 100;
 }
 
+.choices__list--dropdown {
+  position: fixed;
+  width: unset;
+  top: unset;
+}
+
 .choices__list--multiple .choices__item {
   padding: 6px 8px;
   line-height: 1em;

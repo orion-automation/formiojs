@@ -197,7 +197,7 @@ else {
         if (this.component['headerStyle']==='pills') {
           tabLink.querySelector('.tab-pills-item').style.color=this.component['headerNormalColor'];
           tabLink.querySelector('.tab-pills-item').style.border=`1px solid ${this.component['headerNormalColor']}`;
-          tabLink.querySelector('.tab-pills-item').style['background-color']='transparent';
+          tabLink.querySelector('.tab-pills-item').style['background-color']='white';
           tabLink.querySelector('.triangle').style.display='none';
         }
 else {
