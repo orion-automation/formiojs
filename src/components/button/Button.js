@@ -422,9 +422,12 @@ export default class ButtonComponent extends Field {
         const elink = document.createElement('a');
         elink.style.display = 'none';
         elink.target = "_blank";
-        elink.href = this.component["url"];
+        elink.href = this.parseTpl(this.component["url"],{data:this.rootValue});
         document.body.appendChild(elink);
         elink.click();
+        break;
+      case 'openUrl':
+        window.open(this.parseTpl(this.component["url"],{data:this.rootValue}))
         break;
     }
   }

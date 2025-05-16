@@ -318,12 +318,33 @@ export default [
             { label: '跳转新页面', value: 'newPage' },
             { label: '打开弹窗', value: 'bottomSheet' },
             { label: '切换标签', value: 'setTab' },
+            { label: 'Open URL', value: 'openUrl' },
           ],
         },
         type: 'select',
         input: true,
         label: '事件类型',
         dataSrc: 'values'
+      },
+      {
+        type: 'input',
+        label: 'Url',
+        key: 'click-event-url',
+        input: true,
+        tooltip: '',
+        conditional: {
+          json: {
+            in: [
+              { var: 'data.click-event-type' },
+              [
+                'newIntent','openUrl'
+              ],
+            ],
+          },
+        },
+        validate: {
+          required: true
+        }
       },
       {
         type: 'select',

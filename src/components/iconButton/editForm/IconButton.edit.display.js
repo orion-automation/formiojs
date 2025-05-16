@@ -75,6 +75,7 @@ export default [
             { label: '跳转新页面', value: 'newPage' },
             { label: '打开弹窗', value: 'bottomSheet' },
             { label: '打开网址', value: 'newIntent' },
+            { label: 'Open URL', value: 'openUrl' },
           ],
         },
         type: 'select',
@@ -132,7 +133,7 @@ export default [
             in: [
               { var: 'data.click-event-type' },
               [
-                'newIntent'
+                'newIntent','openUrl'
               ],
             ],
           },

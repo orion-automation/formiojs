@@ -67,9 +67,12 @@ export default class IconButton extends FieldComponent {
               const elink = document.createElement('a');
               elink.style.display = 'none';
               elink.target = "_blank";
-              elink.href = this.component["click-event-url"];
+              elink.href = this.parseTpl(this.component['click-event-url'],{data:this.rootValue});
               document.body.appendChild(elink);
               elink.click();
+              break;
+            case 'openUrl':
+              window.open(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
               break;
           }
         });
