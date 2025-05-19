@@ -92,7 +92,11 @@ export default class DataChinaGridRow extends Component {
               Formio.forms[this.currentForm.id].getComponent(this.component['click-event-tab-id']).setTabByKey(this.component['click-event-tab-key']);
               break;
             case 'openUrl':
-              window.open(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+              if (window.openNewUrlByQmx){
+                window.openNewUrlByQmx(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+              } else {
+                window.open(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+              }
               break;
           }
         });

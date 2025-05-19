@@ -427,7 +427,11 @@ export default class ButtonComponent extends Field {
         elink.click();
         break;
       case 'openUrl':
-        window.open(this.parseTpl(this.component["url"],{data:this.rootValue}))
+        if (window.openNewUrlByQmx){
+          window.openNewUrlByQmx(this.parseTpl(this.component['url'],{data:this.rootValue}))
+        } else {
+          window.open(this.parseTpl(this.component['url'],{data:this.rootValue}))
+        }
         break;
     }
   }

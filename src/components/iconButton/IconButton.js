@@ -72,7 +72,11 @@ export default class IconButton extends FieldComponent {
               elink.click();
               break;
             case 'openUrl':
-              window.open(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+              if (window.openNewUrlByQmx){
+                window.openNewUrlByQmx(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+              } else {
+                window.open(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+              }
               break;
           }
         });
