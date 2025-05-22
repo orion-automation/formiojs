@@ -303,6 +303,12 @@ td > .form-group {
   top: unset;
 }
 
+.component-edit-container .choices__list--dropdown {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+}
+
 .choices__list--multiple .choices__item {
   padding: 6px 8px;
   line-height: 1em;
