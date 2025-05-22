@@ -220,7 +220,11 @@ export default class DataSourceComponent extends FieldComponent {
           } else if (reqMethod === 'POST') {
             if (self.component.request['body'] && self.component.request['body'].length > 0) {
               try {
-                let reqData = JSON.parse(this.parseTpl(self.component.request['body'], {data: self.rootValue}));
+                let reqDataStr=this.parseTpl(self.component.request['body'], {data: self.rootValue},true);
+                if (!reqDataStr){
+                  return true;
+                }
+                let reqData = JSON.parse(reqDataStr);
                 xhr.send(JSON.stringify(reqData));
               } catch (e) {
                 console.log(`request.body.JSON.parse失败:${e}`);
