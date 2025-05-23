@@ -68,13 +68,7 @@ export default class ECharts extends FieldComponent {
     });
   }
 
-  /**
-   * Set the value of the component into the dom elements.
-   *
-   * @param value
-   * @returns {boolean}
-   */
-  setValue(value) {
+  resetEcharts(){
     let canvas = this.element.querySelector('#echarts-container');
     let chartInstance = echarts.getInstanceByDom(canvas);
     if (!chartInstance) {
@@ -85,10 +79,21 @@ export default class ECharts extends FieldComponent {
     optionsStr = this.parseTpl(optionsStr, { data: this.rootValue });
     try {
       // 使用配置项渲染图表
-      chartInstance.setOption(JSON.parse(optionsStr), true);
+      chartInstance.resize();
+      chartInstance.setOption(JSON.parse(optionsStr), true,true);
     } catch (e) {
       console.log(`json解析错误:${e}`);
     }
+  }
+
+  /**
+   * Set the value of the component into the dom elements.
+   *
+   * @param value
+   * @returns {boolean}
+   */
+  setValue(value) {
+    this.resetEcharts();
     return true;
   }
 }

@@ -298,7 +298,11 @@ else {
   refreshChild(item) {
     // tab切换后刷新下面的组件
     if (['echarts','taskCalendar'].includes(item.type)) {
-      item.refresh(new Date().getTime());
+      if (item.type==='echarts'){
+        item.resetEcharts();
+      }else {
+        item.refresh(new Date().getTime());
+      }
     }
     if (['data_china_grid_row','data_china_grid'].includes(item.type)) {
       item.resetSparkLine();
