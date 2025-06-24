@@ -1,28 +1,58 @@
 export default [
   {
     type: 'input',
-    label: 'Title',
+    label: '标题',
     key: 'header',
     input: true,
     tooltip: '',
     weight: 1,
   },
   {
+    type: 'textarea',
+    label: '自定义标题样式',
+    key: 'custom-style-title',
+    editor: 'ace',
+    input: true,
+    defaultValue: '',
+    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    weight: 1
+  },
+  {
     type: 'input',
-    label: 'Sub Title',
+    label: '副标题',
     key: 'sub-header',
     input: true,
     tooltip: '',
     weight: 1,
   },
   {
+    type: 'textarea',
+    label: '自定义副标题样式',
+    key: 'custom-style-sub-title',
+    editor: 'ace',
+    input: true,
+    defaultValue: '',
+    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    weight: 1
+  },
+  {
     type: 'input',
-    label: 'BackgroundColor',
+    label: '背景颜色',
     key: 'bgColor',
     input: true,
     tooltip: '',
     weight: 2,
     defaultValue: '#ffffff',
+  },
+  {
+    type: 'textarea',
+    label: '自定义背景样式',
+    key: 'custom-style-bg',
+    editor: 'ace',
+    input: true,
+    defaultValue: '',
+    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    weight: 2
   },
   {
     type: 'panel',
@@ -62,26 +92,26 @@ export default [
         tooltip: '',
       },
       {
-        type: "datagrid",
+        type: 'datagrid',
         input: true,
-        label: "Request Headers",
-        key: "new-value-headers",
-        defaultValue: [{key: "", value: ""}],
+        label: 'Request Headers',
+        key: 'new-value-headers',
+        defaultValue: [{ key: '', value: '' }],
         components: [
           {
-            label: "Key",
-            key: "key",
+            label: 'Key',
+            key: 'key',
             input: true,
-            type: "textfield",
+            type: 'textfield',
             validate: {
               required: true
             }
           },
           {
-            label: "Value",
-            key: "value",
+            label: 'Value',
+            key: 'value',
             input: true,
-            type: "textfield",
+            type: 'textfield',
             validate: {
               required: true
             }
@@ -101,6 +131,15 @@ export default [
         key: 'value-color',
         input: true,
         tooltip: '',
+      },
+      {
+        type: 'textarea',
+        label: '自定义样式',
+        key: 'custom-style-value',
+        editor: 'ace',
+        input: true,
+        defaultValue: '',
+        tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}'
       },
     ]
   },
@@ -131,6 +170,15 @@ export default [
         key: 'subValue-color',
         input: true,
         tooltip: '',
+      },
+      {
+        type: 'textarea',
+        label: '自定义样式',
+        key: 'custom-style-sub-value',
+        editor: 'ace',
+        input: true,
+        defaultValue: '',
+        tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}'
       },
     ]
   },
@@ -213,26 +261,26 @@ export default [
         },
       },
       {
-        type: "datagrid",
+        type: 'datagrid',
         input: true,
-        label: "Request Headers",
-        key: "new-sparkLine-headers",
-        defaultValue: [{key: "", value: ""}],
+        label: 'Request Headers',
+        key: 'new-sparkLine-headers',
+        defaultValue: [{ key: '', value: '' }],
         components: [
           {
-            label: "Key",
-            key: "key",
+            label: 'Key',
+            key: 'key',
             input: true,
-            type: "textfield",
+            type: 'textfield',
             validate: {
               required: true
             }
           },
           {
-            label: "Value",
-            key: "value",
+            label: 'Value',
+            key: 'value',
             input: true,
-            type: "textfield",
+            type: 'textfield',
             validate: {
               required: true
             }
@@ -316,15 +364,21 @@ export default [
         dataSrc: 'values'
       },
       {
-        label: "锁定抽屉",
-        key: "click-event-lock-drawer",
-        type: "checkbox",
+        label: '显示跳转图标',
+        key: 'click-event-show-icon',
+        type: 'checkbox',
+        defaultValue: true
+      },
+      {
+        label: '锁定抽屉',
+        key: 'click-event-lock-drawer',
+        type: 'checkbox',
         conditional: {
           json: {
             in: [
-              {var: "data.click-event-type"},
+              { var: 'data.click-event-type' },
               [
-                "newProcessInstance",
+                'newProcessInstance',
               ],
             ],
           },

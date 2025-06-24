@@ -51,9 +51,13 @@ export default class Data extends Component {
    * @returns {Promise}
    */
   attach(element) {
-    let self=this;
+    const self = this;
     const refs = {
       dataContainer: 'single',
+      refHeader: 'single',
+      refSubHeader: 'single',
+      refValue: 'single',
+      refSubValue: 'single'
     };
 
     this.loadRefs(element, refs);
@@ -66,14 +70,11 @@ export default class Data extends Component {
         url = url.split('/index.html')[0];
         if (url.endsWith('/design')) {
           url = url.substring(0, url.length - '/design'.length);
-        }
-        else if (url.endsWith('/task')) {
+        } else if (url.endsWith('/task')) {
           url = url.substring(0, url.length - '/task'.length);
-        }
-        else if (url.endsWith('/admin')) {
+        } else if (url.endsWith('/admin')) {
           url = url.substring(0, url.length - '/admin'.length);
-        }
-        else if (url.endsWith('/automation')) {
+        } else if (url.endsWith('/automation')) {
           url = url.substring(0, url.length - '/automation'.length);
         }
         switch (clickEventType) {
@@ -119,6 +120,62 @@ export default class Data extends Component {
         });
       }
     }
+    let customStyleStr = this.component['custom-style-bg'];
+    if (customStyleStr && customStyleStr.length > 0) {
+      try {
+        _.forEach(JSON.parse(customStyleStr), (value, key) => {
+          this.refs.dataContainer.style[key] = value;
+        });
+      }
+      catch (e) {
+        console.warn(e);
+      }
+    }
+    customStyleStr = this.component['custom-style-title'];
+    if (customStyleStr && customStyleStr.length > 0) {
+      try {
+        _.forEach(JSON.parse(customStyleStr), (value, key) => {
+          this.refs.refHeader.style[key] = value;
+        });
+      }
+      catch (e) {
+        console.warn(e);
+      }
+    }
+    customStyleStr = this.component['custom-style-sub-title'];
+    if (customStyleStr && customStyleStr.length > 0) {
+      try {
+        _.forEach(JSON.parse(customStyleStr), (value, key) => {
+          this.refs.refSubHeader.style[key] = value;
+        });
+      }
+      catch (e) {
+        console.warn(e);
+      }
+    }
+    customStyleStr = this.component['custom-style-value'];
+    if (customStyleStr && customStyleStr.length > 0) {
+      try {
+        _.forEach(JSON.parse(customStyleStr), (value, key) => {
+          this.refs.refValue.style[key] = value;
+        });
+      }
+      catch (e) {
+        console.warn(e);
+      }
+    }
+    customStyleStr = this.component['custom-style-sub-value'];
+    if (customStyleStr && customStyleStr.length > 0) {
+      try {
+        _.forEach(JSON.parse(customStyleStr), (value, key) => {
+          this.refs.refSubValue.style[key] = value;
+        });
+      }
+      catch (e) {
+        console.warn(e);
+      }
+    }
+
     setTimeout(() => {
       this.setValue('');
     }, 100);
@@ -130,7 +187,7 @@ export default class Data extends Component {
       try {
         return template.replace(/\$\{.+?}/g, (match) => {
           const path = match.substr(2, match.length - 3).trim();
-          return _.get(map,path)??'--';
+          return _.get(map, path) ?? '--';
         });
       } catch (e) {
         console.log(e);
@@ -139,7 +196,7 @@ export default class Data extends Component {
     return '{}';
   }
 
-  getField = function(url, path, callback, headers, arrayKey) {
+  getField = function (url, path, callback, headers, arrayKey) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
@@ -148,7 +205,7 @@ export default class Data extends Component {
         xhr.setRequestHeader(key, headers[`${key}`]);
       });
     }
-    xhr.onload = function() {
+    xhr.onload = function () {
       const status = xhr.status;
       let result = xhr.response;
       result = _.get(result, path);
@@ -160,8 +217,7 @@ export default class Data extends Component {
       try {
         if (!isNaN(Number(value))) {
           value = Number(value).toLocaleString();
-        }
-        else {
+        } else {
           value = result;
         }
       } catch (e) {
@@ -169,8 +225,7 @@ export default class Data extends Component {
       }
       if (status === 200) {
         callback(value);
-      }
-      else {
+      } else {
         callback(value, status);
       }
     };
@@ -217,10 +272,10 @@ export default class Data extends Component {
       let element = container.querySelector('h2');
 
       if (this.component['value-url']) {
-        let url=this.parseTpl(this.component['value-url'], { data: this.rootValue })
+        let url = this.parseTpl(this.component['value-url'], {data: this.rootValue})
         let headers = {};
         try {
-          headers = this.parseTpl(this.component['value-headers'], { data: this.rootValue });
+          headers = this.parseTpl(this.component['value-headers'], {data: this.rootValue});
           if (typeof headers === 'string') {
             headers = JSON.parse(headers);
           }
@@ -228,29 +283,27 @@ export default class Data extends Component {
           headers = {};
           console.log(e);
         }
-        if (this.component['new-value-headers']){
-          let newValueHeaders=this.component['new-value-headers'];
-          newValueHeaders.forEach(header=>{
-            if (header.key&&header.key.length>0&&header.value&&header.value.length>0){
-              headers[`${header.key}`]=this.parseTpl(header.value, { data: this.rootValue });
+        if (this.component['new-value-headers']) {
+          let newValueHeaders = this.component['new-value-headers'];
+          newValueHeaders.forEach(header => {
+            if (header.key && header.key.length > 0 && header.value && header.value.length > 0) {
+              headers[`${header.key}`] = this.parseTpl(header.value, {data: this.rootValue});
             }
           });
         }
-        this.getField(url, this.component['value-field'], function(field) {
+        this.getField(url, this.component['value-field'], function (field) {
           container.querySelector('h2').textContent = field;
         }, headers);
-      }
-      else {
+      } else {
         element.textContent = this.component['value-field'];
       }
       element = container.querySelector('.unit-container');
       if (this.component['subValue-url']) {
-        let url=this.parseTpl(this.component['subValue-url'], { data: this.rootValue })
-        this.getField(url, this.component['subValue-field'], function(field) {
+        let url = this.parseTpl(this.component['subValue-url'], {data: this.rootValue})
+        this.getField(url, this.component['subValue-field'], function (field) {
           container.querySelector('.unit-container').textContent = field;
         }, {});
-      }
-      else {
+      } else {
         element.textContent = this.component['subValue-field'];
       }
 
@@ -265,20 +318,19 @@ export default class Data extends Component {
         $(container).find('.line').peity(sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`,{data:self.rootValue})),
+          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue})),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
           width: self.component['sparkLine-width']
         });
         self.isLoadingSparkLine = false;
-      }
-      else if (self.component['sparkLine-dataSrc'] === 'url' && self.component['sparkLine-url'] && self.component['sparkLine-url'].length > 0) {
+      } else if (self.component['sparkLine-dataSrc'] === 'url' && self.component['sparkLine-url'] && self.component['sparkLine-url'].length > 0) {
         // url
-        let url=this.parseTpl(this.component['sparkLine-url'], { data: this.rootValue })
+        let url = this.parseTpl(this.component['sparkLine-url'], {data: this.rootValue})
         let headers = {};
         try {
-          headers = self.parseTpl(self.component['sparkLine-headers'], { data: self.rootValue });
+          headers = self.parseTpl(self.component['sparkLine-headers'], {data: self.rootValue});
           if (typeof headers === 'string') {
             headers = JSON.parse(headers);
           }
@@ -286,22 +338,22 @@ export default class Data extends Component {
           headers = {};
           console.log(e);
         }
-        if (this.component['new-sparkLine-headers']){
-          let newValueHeaders=this.component['new-sparkLine-headers'];
-          newValueHeaders.forEach(header=>{
-            if (header.key&&header.key.length>0&&header.value&&header.value.length>0){
-              headers[`${header.key}`]=this.parseTpl(header.value, { data: this.rootValue });
+        if (this.component['new-sparkLine-headers']) {
+          let newValueHeaders = this.component['new-sparkLine-headers'];
+          newValueHeaders.forEach(header => {
+            if (header.key && header.key.length > 0 && header.value && header.value.length > 0) {
+              headers[`${header.key}`] = this.parseTpl(header.value, {data: this.rootValue});
             }
           });
         }
-        self.getField(url, self.component['sparkLine-field'], function(field) {
+        self.getField(url, self.component['sparkLine-field'], function (field) {
           container.querySelector('.sparkline-container').innerHTML = `<span class="line">${field}</span>`;
 
           // @ts-ignore
           $(container).find('.line').peity(sparkLineType, {
             fill: fillColor,
             height: self.component['sparkLine-height'],
-            max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`,{data:self.rootValue})),
+            max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue})),
             min: 0,
             stroke: self.component['sparkLine-stroke-color'],
             strokeWidth: 2,
