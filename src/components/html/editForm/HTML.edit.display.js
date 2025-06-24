@@ -88,6 +88,198 @@ export default [
     weight: 80
   },
   {
+    type: 'panel',
+    title: '点击事件',
+    collapsible: true,
+    collapsed: false,
+    weight: 80,
+    components: [
+      {
+        key: 'click-event-type',
+        data: {
+          values: [
+            { label: '跳转新页面', value: 'newPage' },
+            { label: '打开弹窗', value: 'bottomSheet' },
+            { label: '切换标签', value: 'setTab' },
+            { label: 'Open URL', value: 'openUrl' },
+          ],
+        },
+        type: 'select',
+        input: true,
+        label: '事件类型',
+        dataSrc: 'values'
+      },
+      {
+        type: 'input',
+        label: 'Url',
+        key: 'click-event-url',
+        input: true,
+        tooltip: '',
+        conditional: {
+          json: {
+            in: [
+              { var: 'data.click-event-type' },
+              [
+                'newIntent','openUrl'
+              ],
+            ],
+          },
+        },
+        validate: {
+          required: true
+        }
+      },
+      {
+        type: 'select',
+        input: true,
+        key: 'click-event-tab-id',
+        label: '选择切换的tabs',
+        dataSrc: 'custom',
+        valueProperty: 'value',
+        data: {
+          custom(context) {
+            var values = [];
+            context.utils.eachComponent(context.instance.options.editForm.components, function(component, path) {
+              if (component.key !== context.data.key && component.type==='customTabs') {
+                values.push({
+                  label: component.label || component.key,
+                  value: path
+                });
+              }
+            },true);
+            return values;
+          }
+        },
+        conditional: {
+          json: { in: [
+              { var: 'data.click-event-type' },
+              [
+                'setTab',
+              ],
+            ], },
+        },
+      },
+      {
+        type: 'select',
+        input: true,
+        key: 'click-event-tab-key',
+        label: '选择切换到的tab位置',
+        dataSrc: 'custom',
+        valueProperty: 'value',
+        data: {
+          custom(context) {
+            var values = [];
+            context.utils.eachComponent(context.instance.options.editForm.components, function(component, path) {
+              if (component.key === context.data['click-event-tab-id']) {
+                component.components.forEach(tab=>{
+                  values.push({
+                    label: tab.label || tab.key,
+                    value: tab.key
+                  });
+                })
+              }
+            },true);
+            return values;
+          }
+        },
+        conditional: {
+          json: { in: [
+              { var: 'data.click-event-type' },
+              [
+                'setTab',
+              ],
+            ], },
+        },
+      },
+      {
+        type: 'input',
+        label: 'FormId',
+        key: 'click-event-form-id',
+        input: true,
+        tooltip: '',
+        conditional: {
+          json: {
+            in: [
+              { var: 'data.click-event-type' },
+              [
+                'newPage', 'bottomSheet'
+              ],
+            ],
+          },
+        },
+        validate: {
+          required: true
+        }
+      },
+      {
+        type: "textarea",
+        label: "Page Params",
+        key: "page_params",
+        input: true,
+        editor: "ace",
+        tooltip: "传入下个页面的参数(json)",
+        conditional: {
+          json: {
+            in: [
+              {var: "data.click-event-type"},
+              [
+                "newPage",
+                "bottomSheet",
+              ],
+            ],
+          },
+        },
+      },
+      {
+        type: 'input',
+        label: '流程定义keys',
+        key: 'click-event-process-def-keys',
+        input: true,
+        tooltip: '',
+        conditional: {
+          json: {
+            in: [
+              { var: 'data.click-event-type' },
+              [
+                'processDefList',
+                'taskListPanel',
+              ],
+            ],
+          },
+        },
+        validate: {
+          required: true
+        }
+      },
+      {
+        type: 'input',
+        label: '流程定义keys',
+        key: 'click-event-task-keys',
+        input: true,
+        tooltip: '',
+        conditional: {
+          json: { '===': [{ var: 'data.click-event-type' }, 'taskList'] },
+        },
+        validate: {
+          required: true
+        }
+      },
+      {
+        type: 'input',
+        label: '流程定义key',
+        key: 'click-event-process-def-key',
+        input: true,
+        tooltip: '',
+        conditional: {
+          json: { '===': [{ var: 'data.click-event-type' }, 'newProcessInstance'] },
+        },
+        validate: {
+          required: true
+        }
+      },
+    ]
+  },
+  {
     weight: 85,
     type: 'checkbox',
     label: 'Refresh On Change',

@@ -83,12 +83,70 @@ export default class HTMLComponent extends Component {
     });
   }
 
+  parseTpl(template, map) {
+    if (template && template.length > 0) {
+      try {
+        return template.replace(/\$\{.+?}/g, (match) => {
+          const path = match.substr(2, match.length - 3).trim();
+          return _.get(map, path) ?? '--';
+        });
+      }
+ catch (e) {
+        console.log(e);
+      }
+    }
+    return '{}';
+  }
+
   render() {
     return super.render(this.renderContent());
   }
 
   attach(element) {
+    const self=this;
     this.loadRefs(element, { html: 'single' });
+    const dataContainer = this.refs.html;
+    if (dataContainer) {
+      const clickEventType = this.component['click-event-type'];
+      if (clickEventType) {
+        this.addEventListener(dataContainer, 'click', (event) => {
+          // 点击事件
+          let params;
+          switch (clickEventType) {
+            case 'newPage':
+              try {
+                params = JSON.parse(this.parseTpl(this.component['page_params'], { data: this.rootValue }));
+              }
+ catch (e) {
+                console.log(`json转换失败:${e}`);
+              }
+              window.openNewPage(this.component['click-event-form-id'], params);
+              break;
+            case 'bottomSheet':
+              try {
+                params = JSON.parse(this.parseTpl(this.component['page_params'], { data: this.rootValue }));
+              }
+ catch (e) {
+                console.log(`json转换失败:${e}`);
+              }
+              window.openBottomSheet(this.component['click-event-form-id'], params);
+              break;
+            case 'setTab':
+              // 切换tab
+              Formio.forms[this.currentForm.id].getComponent(this.component['click-event-tab-id']).setTabByKey(this.component['click-event-tab-key']);
+              break;
+            case 'openUrl':
+              if (window.openNewUrlByQmx) {
+                window.openNewUrlByQmx(this.parseTpl(this.component['click-event-url'],{ data:this.rootValue }));
+              }
+ else {
+                window.open(this.parseTpl(this.component['click-event-url'],{ data:this.rootValue }));
+              }
+              break;
+          }
+        });
+      }
+    }
     return super.attach(element);
   }
 }
