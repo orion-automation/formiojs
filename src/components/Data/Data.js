@@ -63,6 +63,8 @@ export default class Data extends Component {
     this.loadRefs(element, refs);
     const dataContainer = this.refs.dataContainer;
     if (dataContainer) {
+      const rect = dataContainer.getBoundingClientRect();
+      this.refs.dataContainer.style['background-size']=`${rect.width}px ${rect.height}px`;
       const clickEventType = this.component['click-event-type'];
       if (clickEventType) {
         let clickEventUrl;
