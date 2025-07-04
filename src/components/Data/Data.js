@@ -57,7 +57,9 @@ export default class Data extends Component {
       refHeader: 'single',
       refSubHeader: 'single',
       refValue: 'single',
-      refSubValue: 'single'
+      refSubValue: 'single',
+      refHeaderContent: 'single',
+      refSparkLineTitle: 'single'
     };
 
     this.loadRefs(element, refs);
@@ -255,6 +257,27 @@ export default class Data extends Component {
       this.component['icon-color'] = this.component['icon-color'] ?? this.component.color;
       this.component['value-field'] = this.component['value-field'] ?? this.component.field;
       this.component['value-url'] = this.component['value-url'] ?? this.component.url;
+
+      // header
+      if (this.component['header']) {
+        let header = this.parseTpl(this.component['header'], {data: this.rootValue});
+        this.refs.refHeaderContent.textContent = header;
+      } else {
+        this.refs.refHeaderContent.textContent = '';
+      }
+      if (this.component['sub-header']) {
+        let subHeader = this.parseTpl(this.component['sub-header'], {data: this.rootValue});
+        this.refs.refSubHeader.textContent = subHeader;
+      } else {
+        this.refs.refSubHeader.textContent = '';
+      }
+      if (this.component['sparkLine-title']) {
+        let sparkLineTitle = this.parseTpl(this.component['sparkLine-title'], {data: this.rootValue});
+        this.refs.refSparkLineTitle.textContent = sparkLineTitle;
+      } else {
+        this.refs.refSparkLineTitle.textContent = '';
+      }
+
       const sparkLineType = this.component['sparkLine-type'] || 'line';
       let fillColor;
       if (self.component['sparkLine-fill-color']) {
