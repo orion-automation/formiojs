@@ -1,21 +1,44 @@
-<div class="form-check checkbox">
-  <label class="{{ctx.input.labelClass}} form-check-label">
-    <{{ctx.input.type}}
-      ref="input"
-      {% for (var attr in ctx.input.attr) { %}
-      {{attr}}="{{ctx.input.attr[attr]}}"
-      {% } %}
-      {% if (ctx.checked) { %}checked=true{% } %}
-      aria-required="{{ctx.component.validate.required}}"
-      {% if (ctx.component.description) { %}
-      aria-describedby="d-{{ctx.instance.id}}-{{ctx.component.key}}"
-      {% } %}
-      >
-    {% if (!ctx.self.labelIsHidden()) { %}<span>{{ctx.input.label}}</span>{% } %}
-    {% if (ctx.component.tooltip) { %}
-      <i ref="tooltip" tabindex="0" class="{{ctx.iconClass('question-sign')}} text-muted" data-tooltip="{{ctx.component.tooltip}}"></i>
+<div style="display: flex;flex-direction: column">
+    {% if (ctx.component.inputType==='switch') { %}
+    <div class="custom-control custom-switch">
+        <input type="checkbox"
+               ref="input"
+               {% if (ctx.checked) { %}checked=true{% } %}
+               aria-required="{{ctx.component.validate.required}}"
+               {% if (ctx.component.description) { %}
+               aria-describedby="d-{{ctx.instance.id}}-{{ctx.component.key}}"
+               {% } %}
+               {% if (ctx.self.shouldDisabled) { %}disabled{% } %}
+               class="custom-control-input" id="switch-{{ctx.instance.id}}-{{ctx.component.key}}">
+        <label class="custom-control-label"
+               for="switch-{{ctx.instance.id}}-{{ctx.component.key}}">{{ctx.input.label}}</label>
+        {% if (ctx.component.tooltip) { %}
+        <i ref="tooltip" tabindex="0" class="{{ctx.iconClass('question-sign')}} text-muted"
+           data-tooltip="{{ctx.component.tooltip}}"></i>
+        {% } %}
+    </div>
+    {% } else { %}
+    <div class="form-check checkbox">
+        <label class="{{ctx.input.labelClass}} form-check-label">
+            <{{ctx.input.type}}
+            ref="input"
+            {% for (var attr in ctx.input.attr) { %}
+            {{attr}}="{{ctx.input.attr[attr]}}"
+            {% } %}
+            {% if (ctx.checked) { %}checked=true{% } %}
+            aria-required="{{ctx.component.validate.required}}"
+            {% if (ctx.component.description) { %}
+            aria-describedby="d-{{ctx.instance.id}}-{{ctx.component.key}}"
+            {% } %}
+            >
+            {% if (!ctx.self.labelIsHidden()) { %}<span>{{ctx.input.label}}</span>{% } %}
+            {% if (ctx.component.tooltip) { %}
+            <i ref="tooltip" tabindex="0" class="{{ctx.iconClass('question-sign')}} text-muted"
+               data-tooltip="{{ctx.component.tooltip}}"></i>
+            {% } %}
+            {{ctx.input.content}}
+        </{{ctx.input.type}}>
+        </label>
+    </div>
     {% } %}
-    {{ctx.input.content}}
-    </{{ctx.input.type}}>
-  </label>
 </div>

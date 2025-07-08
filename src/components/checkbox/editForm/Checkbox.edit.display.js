@@ -42,6 +42,7 @@ export default [
       values: [
         { label: 'Checkbox', value: 'checkbox' },
         { label: 'Radio', value: 'radio' },
+        { label: 'Switch', value: 'switch' },
       ],
     },
   },
