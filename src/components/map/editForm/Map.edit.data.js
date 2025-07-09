@@ -379,6 +379,7 @@ export default [
   {
     type: 'select',
     input: true,
+    multiple: true,
     key: 'redrawOn',
     label: 'Redraw On',
     weight: 600,

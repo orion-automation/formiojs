@@ -503,6 +503,7 @@ export default [
     type: 'select',
     input: true,
     key: 'refreshOn',
+    multiple: true,
     label: 'Refresh Options On',
     weight: 19,
     tooltip: 'Refresh data when another field changes.',
