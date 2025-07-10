@@ -4,7 +4,7 @@ import NestedComponent from '../_classes/nested/NestedComponent';
 export default class CustomTabsComponent extends NestedComponent {
   static schema(...extend) {
     return NestedComponent.schema({
-      label: 'CustomTabs',
+      label: '增强标签',
       type: 'customTabs',
       input: false,
       key: 'custom_tabs',
@@ -23,7 +23,7 @@ export default class CustomTabsComponent extends NestedComponent {
 
   static get builderInfo() {
     return {
-      title: 'CustomTabs',
+      title: '增强标签',
       group: 'layout',
       icon: 'folder-o',
       weight: 50,

@@ -7,7 +7,7 @@ export default class EditTable extends EditGridComponent {
 
   static schema() {
     return EditGridComponent.schema({
-      label: 'Edit Table',
+      label: '可编辑数据表',
       'key': 'editTable',
       'type': 'editgrid',
       'modal': true,
@@ -22,7 +22,7 @@ export default class EditTable extends EditGridComponent {
 
   static get builderInfo() {
     return {
-      title: 'Edit Table',
+      title: '可编辑数据表',
       icon: 'th',
       weight: 70,
       group: 'data',

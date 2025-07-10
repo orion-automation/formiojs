@@ -8,14 +8,14 @@ export default class ButtonGroups extends FieldComponent {
 
   static schema(...extend) {
     return FieldComponent.schema({
-      label: 'ButtonGroups', key: 'buttonGroups', type: 'buttonGroups',
+      label: '标签切换按钮', key: 'buttonGroups', type: 'buttonGroups',
     }, ...extend);
   }
 
   static builderInfo = {
-    title: 'ButtonGroups',
+    title: '标签切换按钮',
     group: 'advanced',
-    icon: 'button',
+    icon: 'folders',
     weight: 70,
     documentation: 'http://help.form.io/userguide/#buttonGroups',
     schema: ButtonGroups.schema()

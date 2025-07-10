@@ -8,13 +8,13 @@ export default class DataSourceComponent extends FieldComponent {
 
   static schema(...extend) {
     return FieldComponent.schema({
-      label: 'Data Source', key: 'dataSource', type: 'dataSource', clearOnHide: false, hidden: false, hideLabel: true,
+      label: '数据源', key: 'dataSource', type: 'dataSource', clearOnHide: false, hidden: false, hideLabel: true,
     }, ...extend);
   }
 
   static get builderInfo() {
     return {
-      title: 'Data Source',
+      title: '数据源',
       icon: 'database',
       group: 'data',
       documentation: '/userguide/forms/data-components#data-source',

@@ -82,7 +82,7 @@ export default class FileDownload extends Component {
 
   static schema() {
     return Button.schema({
-      label: 'File Download',
+      label: '变量文件下载',
       key: 'fileDownload',
       type: 'fileDownload',
     });
@@ -90,10 +90,10 @@ export default class FileDownload extends Component {
 
   static get builderInfo() {
     return {
-      title: 'File Download',
+      title: '变量文件下载',
       icon: 'file',
       weight: 110,
-      group: 'basic',
+      group: 'advanced',
       schema: FileDownload.schema()
     };
   }

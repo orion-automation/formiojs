@@ -12,7 +12,7 @@ export default class NocodbFile extends FileComponent {
 
   static schema() {
     return FileComponent.schema({
-      label: 'Nocodb File',
+      label: 'nocodb文件',
       'key': 'ncoodbFile',
       'type': 'nocodbFile',
     });
@@ -20,7 +20,7 @@ export default class NocodbFile extends FileComponent {
 
   static get builderInfo() {
     return {
-      title: 'Nocodb File',
+      title: 'nocodb文件',
       icon: 'file',
       weight: 100,
       group: 'advanced',

@@ -87,7 +87,7 @@ export default class LocationInputTextField extends TextFieldComponent {
 
   static schema() {
     return TextFieldComponent.schema({
-      label: 'LocationInput TextField',
+      label: '地址解析',
       'key': 'locationInputTextField',
       'type': 'locationInputTextField',
       locationInput: true,
@@ -97,8 +97,8 @@ export default class LocationInputTextField extends TextFieldComponent {
 
   static get builderInfo() {
     return {
-      title: 'LocationInput TextField',
-      icon: 'arrows-rotate',
+      title: '地址解析',
+      icon: 'location-dot',
       weight: 0,
       group: 'basic',
       schema: LocationInputTextField.schema()

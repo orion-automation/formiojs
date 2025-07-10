@@ -10,12 +10,12 @@ export default class Map extends FieldComponent {
 
   static schema(...extend) {
     return FieldComponent.schema({
-      label: 'Map', key: 'map', type: 'map',
+      label: '地图', key: 'map', type: 'map',
     }, ...extend);
   }
 
   static builderInfo = {
-    title: 'Map',
+    title: '地图',
     group: 'advanced',
     icon: 'map',
     weight: 70,

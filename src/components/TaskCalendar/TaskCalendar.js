@@ -28,13 +28,13 @@ export default class TaskCalendar extends Component {
 
   static schema(...extend) {
     return Component.schema({
-      type: 'taskCalendar',label: 'Task Calendar'
+      type: 'taskCalendar',label: '标签切换按钮'
     }, ...extend);
   }
 
   static get builderInfo() {
     return {
-      title: 'TaskCalendar',
+      title: '标签切换按钮',
       group: 'advanced',
       icon: 'calendar-lines',
       weight: 70,

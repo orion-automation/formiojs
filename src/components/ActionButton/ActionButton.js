@@ -28,7 +28,7 @@ export default class ActionButton extends Button {
 
   static schema() {
     return Button.schema({
-      label: 'Action Button',
+      label: '动作按钮',
       key: 'actionButton',
       type: 'actionButton',
     });
@@ -36,7 +36,7 @@ export default class ActionButton extends Button {
 
   static get builderInfo() {
     return {
-      title: 'Action Button',
+      title: '动作按钮',
       icon: 'stop',
       weight: 110,
       group: 'basic',

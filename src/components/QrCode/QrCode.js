@@ -11,12 +11,12 @@ export default class QrCode extends FieldComponent {
 
   static schema(...extend) {
     return FieldComponent.schema({
-      label: 'QR Code', key: 'qrCode', type: 'qrCode',
+      label: '二维码', key: 'qrCode', type: 'qrCode',
     }, ...extend);
   }
 
   static builderInfo = {
-    title: 'QR Code',
+    title: '二维码',
     group: 'advanced',
     icon: 'qrcode',
     weight: 70,

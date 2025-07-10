@@ -8,7 +8,7 @@ export default class HtmlEditorComponent extends TextFieldComponent {
   static schema(...extend) {
     return TextFieldComponent.schema({
       type: 'htmlEditor',
-      label: 'Html Editor',
+      label: '富文本编辑',
       key: 'htmlEditor',
       rows: 3,
       wysiwyg: false,
@@ -24,7 +24,7 @@ export default class HtmlEditorComponent extends TextFieldComponent {
 
   static get builderInfo() {
     return {
-      title: 'Html editor',
+      title: '富文本编辑',
       group: 'basic',
       icon: 'font',
       documentation: '/userguide/forms/form-components#text-area',

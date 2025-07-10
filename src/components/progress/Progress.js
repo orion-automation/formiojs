@@ -9,13 +9,13 @@ export default class Progress extends FieldComponent {
 
   static schema(...extend) {
     return FieldComponent.schema({
-      label: 'Progress', key: 'progress', type: 'progress',
+      label: '进度条', key: 'progress', type: 'progress',
     }, ...extend);
   }
 
   static builderInfo = {
-    title: 'Progress',
-    group: 'advanced',
+    title: '进度条',
+    group: 'layout',
     icon: 'bars-progress',
     weight: 70,
     documentation: 'http://help.form.io/userguide/#progress',
