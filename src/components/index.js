@@ -78,8 +78,10 @@ import ProgressComponent from './progress/Progress';
 import EChartsComponent from './echarts/ECharts';
 import IconButtonComponent from './iconButton/IconButton';
 import ButtonGroupsComponent from './buttonGroups/ButtonGroups';
+import FileUDSComponent from './file_china_grid/File';
 
 export default {
+  fileUds: FileUDSComponent,
   map: MapComponent,
   locationInputTextField: LocationInputTextFieldComponent,
   taskCalendar:TaskCalendarComponent,

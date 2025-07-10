@@ -308,6 +308,47 @@
   margin-left: 5px;
 }
 
+.formio-component-fileUds .fileSelector {
+  position: relative;
+  padding: 15px;
+  border: 2px dashed #ddd;
+  text-align: center;
+
+  .loader-wrapper {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    .loader {
+      height: 45px;
+      width: 45px;
+      margin-top: -23px;
+      margin-left: -23px;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.formio-component-fileUds .fileSelector.fileDragOver {
+  border-color: #127abe;
+}
+
+.formio-component-fileUds .fileSelector .glyphicon,
+.formio-component-fileUds .fileSelector .fa {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+[dir="rtl"] .formio-component-fileUds .fileSelector .fa,
+[dir="rtl"] .formio-component-fileUds .fileSelector .glyphicon {
+  margin-right: unset;
+  margin-left: 5px;
+}
+
 .formio-component-nocodbFile .fileSelector .browse {
   cursor: pointer;
 }

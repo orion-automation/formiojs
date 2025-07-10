@@ -80,6 +80,7 @@ import echarts from './echarts';
 import iconButton from './iconButton';
 import dataSource from './dataSource';
 import buttonGroups from './buttonGroups';
+import fileUDS from './fileUDS';
 
 export default {
   transform(type, text) {
@@ -174,5 +175,6 @@ export default {
   echarts,
   iconButton,
   dataSource,
-  buttonGroups
+  buttonGroups,
+  fileUDS
 };

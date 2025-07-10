@@ -69,7 +69,9 @@ import CustomTabsForm from './CustomTabs/Tabs.form';
 import EChartsForm from './echarts/ECharts.form';
 import IconButtonForm from './iconButton/IconButton.form';
 import ButtonGroupsForm from './buttonGroups/ButtonGroups.form';
+import FileUDSForm from './file_china_grid/File.form';
 
+Components.fileUds.editForm = FileUDSForm;
 Components.buttonGroups.editForm = ButtonGroupsForm;
 Components.iconButton.editForm = IconButtonForm;
 Components.echarts.editForm = EChartsForm;
