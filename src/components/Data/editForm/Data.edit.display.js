@@ -104,7 +104,7 @@ export default [
             input: true,
             type: 'textfield',
             validate: {
-              required: true
+              required: false
             }
           },
           {
@@ -113,7 +113,7 @@ export default [
             input: true,
             type: 'textfield',
             validate: {
-              required: true
+              required: false
             }
           },
         ],
