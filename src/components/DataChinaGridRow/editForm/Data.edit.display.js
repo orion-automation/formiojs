@@ -214,7 +214,7 @@ export default [
     editor: 'ace',
     input: true,
     defaultValue: {},
-    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
     weight: 3
   },
   {

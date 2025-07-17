@@ -79,8 +79,10 @@ import EChartsComponent from './echarts/ECharts';
 import IconButtonComponent from './iconButton/IconButton';
 import ButtonGroupsComponent from './buttonGroups/ButtonGroups';
 import FileUDSComponent from './file_china_grid/File';
+import RangeComponent from './range/Range';
 
 export default {
+  // range: RangeComponent,
   fileUds: FileUDSComponent,
   map: MapComponent,
   locationInputTextField: LocationInputTextFieldComponent,

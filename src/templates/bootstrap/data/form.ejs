@@ -15,10 +15,8 @@
             <div style="color: #B1ABB6;font-size: 12px;" ref="refSubHeader">
             </div>
         </div>
-        {% if (ctx.component['icon-field']) { %}
-        <i class="fa-fw {{ctx.component['icon-field']}}"
+        <i ref="refIcon"
            style="color:{{ctx.component['icon-color']||'#000000'}};font-size: 18px;width: 32px;height: 32px;line-height: 32px;background-color: #E6E4E6;border-radius: 6px"></i>
-        {% } %}
     </div>
     <div style="flex: 1;height: 0"></div>
     <div style="display: flex;flex-direction: row;align-items: end">

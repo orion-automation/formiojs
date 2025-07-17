@@ -7,7 +7,7 @@ export default [
     input: true,
     weight: 1,
     defaultValue: "{}",
-    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
   },
   {
     key: 'labelPosition',

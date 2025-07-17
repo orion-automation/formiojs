@@ -1,0 +1,19 @@
+<div style="display: flex;flex-direction: column;width: 100%">
+    <input type="range"
+           class="custom-range"
+           min="{{ctx.component.min_val}}"
+           max="{{ctx.component.max_val}}"
+           step="{{ctx.component.step_val}}"
+           ref="input"
+           {% if (ctx.checked) { %}checked=true{% } %}
+           aria-required="{{ctx.component.validate.required}}"
+           {% if (ctx.component.description) { %}
+           aria-describedby="d-{{ctx.instance.id}}-{{ctx.component.key}}"
+           {% } %}
+           {% if (ctx.self.shouldDisabled) { %}disabled{% } %}
+           id="switch-{{ctx.instance.id}}-{{ctx.component.key}}">
+    {% if (ctx.component.tooltip) { %}
+    <i ref="tooltip" tabindex="0" class="{{ctx.iconClass('question-sign')}} text-muted"
+       data-tooltip="{{ctx.component.tooltip}}"></i>
+    {% } %}
+</div>

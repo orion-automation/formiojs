@@ -14,7 +14,7 @@ export default [
     editor: 'ace',
     input: true,
     defaultValue: '',
-    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
     weight: 1
   },
   {
@@ -32,7 +32,7 @@ export default [
     editor: 'ace',
     input: true,
     defaultValue: '',
-    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
     weight: 1
   },
   {
@@ -51,7 +51,7 @@ export default [
     editor: 'ace',
     input: true,
     defaultValue: '',
-    tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}',
+    tooltip: '自定义的style:json格式(支持变量),ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
     weight: 2
   },
   {
@@ -139,7 +139,7 @@ export default [
         editor: 'ace',
         input: true,
         defaultValue: '',
-        tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}'
+        tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}'
       },
     ]
   },
@@ -178,7 +178,7 @@ export default [
         editor: 'ace',
         input: true,
         defaultValue: '',
-        tooltip: '自定义的style:json格式,ex:{"border":"none","border-radius":"30px"}'
+        tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}'
       },
     ]
   },
@@ -373,6 +373,23 @@ export default [
         label: '锁定抽屉',
         key: 'click-event-lock-drawer',
         type: 'checkbox',
+        conditional: {
+          json: {
+            in: [
+              { var: 'data.click-event-type' },
+              [
+                'newProcessInstance',
+              ],
+            ],
+          },
+        },
+      },
+      {
+        label: '参数传递',
+        key: 'click-event-params',
+        type: 'textarea',
+        editor: 'ace',
+        tooltip: 'json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
         conditional: {
           json: {
             in: [

@@ -59,7 +59,8 @@ export default class Data extends Component {
       refValue: 'single',
       refSubValue: 'single',
       refHeaderContent: 'single',
-      refSparkLineTitle: 'single'
+      refSparkLineTitle: 'single',
+      refIcon: 'single'
     };
 
     this.loadRefs(element, refs);
@@ -96,11 +97,18 @@ export default class Data extends Component {
           // 点击事件
           switch (clickEventType) {
             case 'newProcessInstance':
+              let params=self.component['click-event-params'];
+              try {
+                params=JSON.parse(self.parseTpl(params,{data:self.rootValue}));
+              } catch (e) {
+                params={};
+              }
               window.startProcessByDrawer({
                 processKey: self.component['click-event-process-def-key'],
                 label: '启动',
                 field: self.component['key'],
-                lockDrawer: self.component['click-event-lock-drawer']
+                lockDrawer: self.component['click-event-lock-drawer'],
+                preData: params
               });
               break;
             case 'taskListPanel':
@@ -127,6 +135,7 @@ export default class Data extends Component {
     let customStyleStr = this.component['custom-style-bg'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue});
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.dataContainer.style[key] = value;
         });
@@ -138,6 +147,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-title'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue});
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refHeader.style[key] = value;
         });
@@ -149,6 +159,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-sub-title'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue});
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refSubHeader.style[key] = value;
         });
@@ -160,6 +171,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-value'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue});
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refValue.style[key] = value;
         });
@@ -171,6 +183,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-sub-value'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue});
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refSubValue.style[key] = value;
         });
@@ -260,6 +273,15 @@ export default class Data extends Component {
       this.component['value-field'] = this.component['value-field'] ?? this.component.field;
       this.component['value-url'] = this.component['value-url'] ?? this.component.url;
 
+      // icon
+      if (this.component['icon-field']){
+        let icon = this.parseTpl(this.component['icon-field'], {data: this.rootValue});
+        this.refs.refIcon.className=`fa-fw ${icon}`;
+        let iconColor = this.parseTpl(this.component['icon-color'], {data: this.rootValue});
+        this.refs.refIcon.style.color = iconColor;
+      } else {
+        this.refs.refIcon.style.display = "none";
+      }
       // header
       if (this.component['header']) {
         let header = this.parseTpl(this.component['header'], {data: this.rootValue});

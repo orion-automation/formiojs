@@ -81,6 +81,7 @@ import iconButton from './iconButton';
 import dataSource from './dataSource';
 import buttonGroups from './buttonGroups';
 import fileUDS from './fileUDS';
+import range from './range';
 
 export default {
   transform(type, text) {
@@ -176,5 +177,6 @@ export default {
   iconButton,
   dataSource,
   buttonGroups,
-  fileUDS
+  fileUDS,
+  range
 };
