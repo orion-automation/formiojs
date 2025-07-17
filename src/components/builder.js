@@ -72,7 +72,7 @@ import ButtonGroupsForm from './buttonGroups/ButtonGroups.form';
 import FileUDSForm from './file_china_grid/File.form';
 import RangeForm from './range/Range.form';
 
-Components.range.editForm = RangeForm;
+// Components.range.editForm = RangeForm;
 Components.fileUds.editForm = FileUDSForm;
 Components.buttonGroups.editForm = ButtonGroupsForm;
 Components.iconButton.editForm = IconButtonForm;
