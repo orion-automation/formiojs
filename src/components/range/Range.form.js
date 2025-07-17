@@ -11,10 +11,6 @@ export default function(...extend) {
     {
       key: 'data',
       components: RangeEditData
-    },
-    {
-      key: 'addons',
-      ignore: true
-    },
+    }
   ], ...extend);
 }
