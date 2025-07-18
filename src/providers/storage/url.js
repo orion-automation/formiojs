@@ -19,6 +19,8 @@ const url = (formio) => {
         for (const key in data) {
           fd.append(key, data[key]);
         }
+        fd.append('fileName',name);
+        fd.append('fileType',name.split('.')[name.split('.').length-1]);
       }
 
       xhr.onload = () => {
