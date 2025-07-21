@@ -712,6 +712,11 @@ export default class FileComponent extends Field {
             console.log(e);
             options = {};
           }
+          if (!options.data){
+            options.data={};
+          }
+          options.data.fileName = fileName;
+          options.data.fileType = fileName.split('.')[fileName.split('.').length-1];
           // 设置headers
           let cookies = this.readCookie();
           let token = cookies['eorion_basicToken'];
