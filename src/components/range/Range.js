@@ -34,7 +34,7 @@ export default class RangeComponent extends Field {
   parseTpl(template, map) {
     return template.replace(/\$\{.+?}/g, (match) => {
       const path = match.substr(2, match.length - 3).trim();
-      return _.get(map,path)??'--';
+      return _.get(map, path) ?? '--';
     });
   }
 
@@ -68,14 +68,14 @@ export default class RangeComponent extends Field {
   get inputInfo() {
     const info = super.elementInfo();
     info.type = 'input';
-    info.changeEvent = 'click';
+    info.changeEvent = 'input';
     info.attr.type = this.component.inputType || 'range';
     info.attr.class = 'form-range-input';
     if (this.component.name) {
       info.attr.name = `data[${this.component.name}]`;
     }
     info.attr.value = this.component.value ? this.component.value : 0;
-    info.label = this.t(this.component.label, { _userInput: true });
+    info.label = this.t(this.component.label, {_userInput: true});
     info.labelClass = this.labelClass;
     return info;
   }
@@ -84,15 +84,15 @@ export default class RangeComponent extends Field {
     return super.render(this.renderTemplate('range', {
       input: this.inputInfo,
       checked: this.checked,
-      tooltip: this.interpolate(this.t(this.component.tooltip) || '', { _userInput: true }).replace(/(?:\r\n|\r|\n)/g, '<br />')
+      tooltip: this.interpolate(this.t(this.component.tooltip) || '', {_userInput: true}).replace(/(?:\r\n|\r|\n)/g, '<br />')
     }));
   }
 
   attach(element) {
-    this.loadRefs(element, { input: 'multiple' });
-    this.input = this.refs.input[0];
+    this.loadRefs(element, {input: 'single'});
+    this.input = this.refs.input;
     if (this.refs.input) {
-      this.addEventListener(this.input, this.inputInfo.changeEvent, () => this.updateValue(null, {
+      this.addEventListener(this.input, this.inputInfo.changeEvent, () => this.updateValue(this.refs.input.value, {
         modified: true
       }));
       this.addShortcut(this.input);
@@ -119,102 +119,24 @@ export default class RangeComponent extends Field {
     return this.component.name ? this.component.name : super.key;
   }
 
-  getValueAt(index) {
-    if (this.component.name) {
-      return this.refs.input[index].checked ? this.component.value : '';
-    }
-    return !!this.refs.input[index].checked;
-  }
-
   getValue() {
-    const value = super.getValue();
-    if (this.component.name) {
-      return value ? this.setCheckedState(value) : this.setCheckedState(this.dataValue);
-    }
-    else {
-      return (value === '') ? this.dataValue : !!value;
-    }
-  }
-
-  get checked() {
-    if (this.component.name) {
-      return (this.dataValue === this.component.value);
-    }
-    return !!this.dataValue;
-  }
-
-  setCheckedState(value) {
-    if (!this.input) {
-      return;
-    }
-    if (this.component.name) {
-      this.input.value = (value === this.component.value) ? this.component.value : 0;
-      this.input.checked = (value === this.component.value) ? 1 : 0;
-    }
-    else if (value === 'on') {
-      this.input.value = 1;
-      this.input.checked = 1;
-    }
-    else if (value === 'off') {
-      this.input.value = 0;
-      this.input.checked = 0;
-    }
-    else if (value) {
-      this.input.value = 1;
-      this.input.checked = 1;
-    }
-    else {
-      this.input.value = 0;
-      this.input.checked = 0;
-    }
-    if (this.input.checked) {
-      this.input.setAttribute('checked', true);
-    }
-    else {
-      this.input.removeAttribute('checked');
-    }
-    return value;
+    return _.toNumber(this.dataValue);
   }
 
   setValue(value, flags = {}) {
-    if (
-      this.setCheckedState(value) !== undefined ||
-      (!this.input && value !== undefined && (this.visible || this.conditionallyVisible() || !this.component.clearOnHide))
-    ) {
-      const changed = this.updateValue(value, flags);
-      if (this.isHtmlRenderMode() && flags && flags.fromSubmission && changed) {
-        this.redraw();
-      }
-      return changed;
+    this.refs.input.value = value;
+    // 手动触发更新
+    this.refs.input.dispatchEvent(new Event('input'));
+    const changed = this.updateValue(value, flags);
+    if (this.isHtmlRenderMode() && flags && flags.fromSubmission && changed) {
+      this.redraw();
     }
-    return false;
-  }
-
-  getValueAsString(value) {
-    const { name: componentName, value: componentValue } = this.component;
-    const hasValue = componentName ? _.isEqual(value, componentValue) : value;
-
-    return this.t(hasValue ? 'Yes' : 'No');
+    return changed;
   }
 
   updateValue(value, flags) {
-    // If this is a radio and is alredy checked, uncheck it.
-    if (this.component.name && flags.modified && (this.dataValue === this.component.value)) {
-      this.input.checked = 0;
-      this.input.value = 0;
-      this.dataValue = '';
-    }
-
-    const changed = super.updateValue(value, flags);
-
-    // Update attributes of the input element
+    const changed = super.updateValue(_.toNumber(value), flags);
     if (changed && this.input) {
-      if (this.input.checked) {
-        this.input.setAttribute('checked', 'true');
-      }
-      else {
-        this.input.removeAttribute('checked');
-      }
     }
 
     return changed;

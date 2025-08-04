@@ -82,7 +82,7 @@ import FileUDSComponent from './file_china_grid/File';
 import RangeComponent from './range/Range';
 
 export default {
-  // range: RangeComponent,
+  range: RangeComponent,
   fileUds: FileUDSComponent,
   map: MapComponent,
   locationInputTextField: LocationInputTextFieldComponent,
