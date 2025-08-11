@@ -279,7 +279,7 @@ export default class NocodbFile extends FileComponent {
             }
             fileInfo.originalName = file.name;
             fileInfo.hash = fileUpload.hash;
-            fileInfo.url = `${url.split("/api/")[0]}/${fileInfo.data.signedPath}`;
+            fileInfo.url = `${url.split("/api/")[0]}/${fileInfo.data.path}`;
             if (!this.hasValue()) {
               this.dataValue = [];
             }
