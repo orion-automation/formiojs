@@ -41,7 +41,14 @@ export default class FileDownload extends Component {
         xhr.open('GET', `../engine-rest/history/variable-instance/${file.id}/data`, true);
         xhr.responseType = 'blob';
         let cookie = self.readCookie();
-        xhr.setRequestHeader('Authorization', cookie.basicToken);
+        let token = cookie['eorion_basicToken'];
+        if (!token || token.length === 0 || token === 'undefined' || token === 'null') {
+          token = cookie['eorion_token-extra'];
+        }
+        if (!token || token.length === 0 || token === 'undefined' || token === 'null') {
+          token = localStorage.getItem('eorion_poc-token');
+        }
+        xhr.setRequestHeader('Authorization', token);
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.onload = function() {
           const status = xhr.status;

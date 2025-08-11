@@ -721,6 +721,9 @@ export default class FileComponent extends Field {
           let cookies = this.readCookie();
           let token = cookies['eorion_basicToken'];
           if (!token || token.length === 0 || token === 'undefined' || token === 'null') {
+            token = cookies['eorion_token-extra'];
+          }
+          if (!token || token.length === 0 || token === 'undefined' || token === 'null') {
             token = localStorage.getItem('eorion_poc-token');
           }
           if (options.headers) {
