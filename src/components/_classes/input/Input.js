@@ -16,10 +16,15 @@ function isWorkWeChat() {
   return !!matched && matched.toString() === 'wxwork';
 }
 
+function isGeckoView() {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return ua.includes('gecko');
+}
+
 export default class Input extends Multivalue {
   constructor(component, options, data) {
     // 默认开启微信内扫码
-    if (component.scanInput === undefined && (isWeChat() || isWorkWeChat())) {
+    if (component.scanInput === undefined && (isWeChat() || isWorkWeChat() || isGeckoView())) {
       component.scanInput = false;
     }
     super(component, options, data);
@@ -246,9 +251,13 @@ export default class Input extends Multivalue {
       prefix: 'multiple',
       suffix: 'multiple',
       buttonScanInput: 'single',
+      buttonWeightInput: 'single',
     });
     this.addEventListener(this.refs.buttonScanInput, 'click', () => {
       window.scanCodeByFormio(this.currentForm.id, this.component.key);
+    });
+    this.addEventListener(this.refs.buttonWeightInput, 'click', () => {
+      window.scanWeightByFormio(this.currentForm.id, this.component.key);
     });
     return super.attach(element);
   }

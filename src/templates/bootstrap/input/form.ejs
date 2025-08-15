@@ -1,4 +1,4 @@
-{% if (ctx.prefix || ctx.suffix || ctx.component.scanInput || ctx.component.locationInput) { %}
+{% if (ctx.prefix || ctx.suffix || ctx.component.scanInput || ctx.component.weightInput || ctx.component.locationInput) { %}
 <div class="input-group">
   {% } %}
   {% if (ctx.prefix) { %}
@@ -33,7 +33,7 @@
 {% if (ctx.component.type === 'datetime') { %}
 <span aria-live="assertive" id="{{ctx.instance.id}}-liveRegion" class="sr-only" ref="liveRegion"></span>
 {% } %}
-{% if (ctx.suffix || ctx.component.scanInput || ctx.component.locationInput) { %}
+{% if (ctx.suffix || ctx.component.scanInput || ctx.component.weightInput || ctx.component.locationInput) { %}
   <div class="input-group-append" ref="suffix">
       {% if (ctx.suffix) { %}
     <span class="input-group-text {{ctx.component.disabled ? 'readonly-input' : ''}}">
@@ -47,12 +47,15 @@
       {% if (ctx.component.scanInput) { %}
       <button class="btn btn-outline-secondary" type="button" ref="buttonScanInput"><i class="fa fa-barcode-read"></i></button>
       {% } %}
+      {% if (ctx.component.weightInput) { %}
+      <button class="btn btn-outline-secondary" type="button" ref="buttonWeightInput"><i class="fa fa-weight-scale"></i></button>
+      {% } %}
       {% if (ctx.component.locationInput) { %}
       <button class="btn btn-outline-secondary" style="background-color: {{ctx.component.disabled ? '#e9ecef' : ''}}" type="button" ref="buttonLocationInput"><i class="fa-solid fa-arrows-rotate"></i></button>
       {% } %}
   </div>
 {% } %}
-{% if (ctx.prefix || ctx.suffix  || ctx.component.scanInput || ctx.component.locationInput) { %}
+{% if (ctx.prefix || ctx.suffix  || ctx.component.scanInput || ctx.component.weightInput || ctx.component.locationInput) { %}
   </div>
 {% } %}
 {% if (ctx.component.showCharCount || ctx.component.showWordCount) { %}

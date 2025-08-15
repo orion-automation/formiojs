@@ -63,6 +63,7 @@ import FlexComponent from './Flex/Flex';
 import NewsDataComponent from './NewsData/NewsData';
 import QrCodeComponent from './QrCode/QrCode';
 import ScanInputTextFieldComponent from './ScanInputTextField/ScanInputTextField';
+import WeightInputTextFieldComponent from './WeightInputTextField/WeightInputTextField';
 import ActionButtonComponent from './ActionButton/ActionButton';
 import HtmlEditorComponent from './wysiwyg/HtmlEditor';
 import FileDownloadComponent from './FileDownload/FileDownload';
@@ -89,6 +90,7 @@ export default {
   taskCalendar:TaskCalendarComponent,
   fileDownload:FileDownloadComponent,
   htmlEditor: HtmlEditorComponent,
+  weightInputTextField: WeightInputTextFieldComponent,
   scanInputTextField: ScanInputTextFieldComponent,
   qrCode: QrCodeComponent,
   newsData: NewsDataComponent,
