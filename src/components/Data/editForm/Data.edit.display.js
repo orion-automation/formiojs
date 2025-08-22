@@ -13,8 +13,11 @@ export default [
     key: 'custom-style-title',
     editor: 'ace',
     input: true,
-    defaultValue: '',
-    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
+    placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+    tooltip: '自定义的style:json格式',
     weight: 1
   },
   {
@@ -31,8 +34,11 @@ export default [
     key: 'custom-style-sub-title',
     editor: 'ace',
     input: true,
-    defaultValue: '',
-    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
+    placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+    tooltip: '自定义的style:json格式',
     weight: 1
   },
   {
@@ -50,8 +56,11 @@ export default [
     key: 'custom-style-bg',
     editor: 'ace',
     input: true,
-    defaultValue: '',
-    tooltip: '自定义的style:json格式(支持变量),ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
+    placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+    tooltip: '自定义的style:json格式(支持变量)',
     weight: 2
   },
   {
@@ -136,10 +145,13 @@ export default [
         type: 'textarea',
         label: '自定义样式',
         key: 'custom-style-value',
+        placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
         editor: 'ace',
         input: true,
-        defaultValue: '',
-        tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}'
+        tooltip: '自定义的style:json格式'
       },
     ]
   },
@@ -177,8 +189,11 @@ export default [
         key: 'custom-style-sub-value',
         editor: 'ace',
         input: true,
-        defaultValue: '',
-        tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}'
+        placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+        tooltip: '自定义的style:json格式'
       },
     ]
   },
@@ -389,7 +404,11 @@ export default [
         key: 'click-event-params',
         type: 'textarea',
         editor: 'ace',
-        tooltip: 'json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
+        placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+        tooltip: 'json格式',
         conditional: {
           json: {
             in: [

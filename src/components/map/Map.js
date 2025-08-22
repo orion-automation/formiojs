@@ -19,7 +19,6 @@ export default class Map extends FieldComponent {
     group: 'advanced',
     icon: 'map',
     weight: 70,
-    documentation: 'http://help.form.io/userguide/#map',
     schema: Map.schema()
   };
 

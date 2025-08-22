@@ -32,9 +32,9 @@ export default [
         input: true,
         weight: 4,
         placeholder: `{
-        "ignoreCache": true,
-        "headers": {"Authorization": "\${data.token"}
-      }`,
+ "ignoreCache": true,
+ "headers": {"Authorization": "\${data.token}"}
+}`,
     },
     {
         type: 'textarea',
@@ -43,8 +43,8 @@ export default [
         input: true,
         weight: 4,
         placeholder: `{
-        "token": "\${data.token}"
-      }`,
+ &quot;token&quot;: &quot;\${data.token}&quot;
+}`,
         tooltip: '输入请求的body(json)',
     },
     {

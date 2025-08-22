@@ -39,7 +39,6 @@ export default class DataChinaGrid extends Component {
       group: 'advanced',
       icon: 'square-info',
       weight: 70,
-      documentation: 'http://help.form.io/userguide/#table',
       schema: DataChinaGrid.schema()
     };
   }

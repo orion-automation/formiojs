@@ -22,6 +22,21 @@ export default [
     editor: 'ace',
     input: true,
     tooltip: 'echarts配置项(json格式)',
+    placeholder: `{
+ "xAxis": {
+    "type": "category",
+    "data": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+ },
+ "yAxis": {
+    "type": "value"
+ },
+ "series": [
+    {
+      "data": \${data.yData},
+      "type": "line"
+    }
+ ]
+}`,
     weight: 1,
     validate: {
       required: true

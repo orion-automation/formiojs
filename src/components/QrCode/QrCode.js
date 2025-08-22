@@ -20,7 +20,6 @@ export default class QrCode extends FieldComponent {
     group: 'advanced',
     icon: 'qrcode',
     weight: 70,
-    documentation: 'http://help.form.io/userguide/#table',
     schema: QrCode.schema()
   };
 

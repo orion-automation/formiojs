@@ -33,7 +33,9 @@ export default [
     input: true,
     weight:0,
     tooltip: '',
-    placeholder: '{"token": "\${data.token}"}',
+    placeholder: `{
+ &quot;token&quot;: &quot;\${data.token}&quot;
+}`,
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'url'] },
     },

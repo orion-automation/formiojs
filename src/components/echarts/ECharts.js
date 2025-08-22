@@ -19,7 +19,6 @@ export default class ECharts extends FieldComponent {
     group: 'advanced',
     icon: 'chart-line',
     weight: 70,
-    documentation: 'http://help.form.io/userguide/#echarts',
     schema: ECharts.schema()
   };
 

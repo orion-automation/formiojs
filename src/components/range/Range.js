@@ -21,7 +21,6 @@ export default class RangeComponent extends Field {
       group: 'basic',
       icon: 'dot-circle-o',
       weight: 80,
-      documentation: '/userguide/forms/form-components#range',
       schema: RangeComponent.schema()
     };
   }

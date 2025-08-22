@@ -34,7 +34,6 @@ export default class ProcessTable extends FieldComponent {
       group: 'basic',
       icon: 'table',
       weight: 70,
-      documentation: 'http://help.form.io/userguide/#table',
       schema: ProcessTable.schema()
     };
   }

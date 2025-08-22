@@ -238,6 +238,7 @@ export default [
         type: "input",
         label: "ID Key",
         key: "result_id_key",
+        tooltip: 'ID字段对应的key',
         input: true,
         validate: {
           required: true
@@ -247,6 +248,7 @@ export default [
         type: "input",
         label: "Title Key",
         key: "result_title_key",
+        tooltip: 'Title字段对应的key',
         input: true,
         validate: {
           required: true
@@ -256,6 +258,7 @@ export default [
         type: "input",
         label: "Start Key",
         key: "result_start_key",
+        tooltip: 'Start字段对应的key',
         input: true,
         validate: {
           required: true
@@ -265,6 +268,7 @@ export default [
         type: "input",
         label: "End Key",
         key: "result_end_key",
+        tooltip: 'End字段对应的key',
         input: true,
         validate: {
           required: true

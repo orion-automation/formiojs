@@ -30,8 +30,8 @@ export default [
     input: true,
     weight: 11,
     placeholder: `{
-        "token": "\${data.token}"
-      }`,
+ &quot;token&quot;: &quot;\${data.token}&quot;
+}`,
     tooltip: '输入请求的body(json)',
     conditional: {
       json: {

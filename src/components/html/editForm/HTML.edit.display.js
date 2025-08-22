@@ -218,6 +218,10 @@ export default [
         input: true,
         editor: "ace",
         tooltip: "传入下个页面的参数(json)",
+        placeholder: `{
+ "ignoreCache": true,
+ "headers": {"Authorization": "\${data.token}"}
+}`,
         conditional: {
           json: {
             in: [

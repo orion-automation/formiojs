@@ -42,7 +42,6 @@ export default class Data extends Component {
       group: 'advanced',
       icon: 'rectangle-code',
       weight: 70,
-      documentation: 'http://help.form.io/userguide/#table',
       schema: Data.schema()
     };
   }

@@ -18,7 +18,6 @@ export default class IconButton extends FieldComponent {
     group: 'advanced',
     icon: 'icons',
     weight: 70,
-    documentation: 'http://help.form.io/userguide/#iconButton',
     schema: IconButton.schema()
   };
 

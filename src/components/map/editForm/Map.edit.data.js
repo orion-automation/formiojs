@@ -11,6 +11,7 @@ export default [
         label: 'key',
         key: 'amap-key',
         input: true,
+        placeholder: 'Web端开发者Key',
         validate: {
           required: true
         }
@@ -18,6 +19,7 @@ export default [
         type: 'input',
         label: 'securityJsCode',
         key: 'amap-code',
+        placeholder: '安全密钥',
         input: true,
         validate: {
           required: true
@@ -177,8 +179,8 @@ export default [
             input: true,
             editor: "ace",
             placeholder: `{
-        "token": "\${data.token}"
-      }`,
+ "token": "\${data.token}"
+}`,
             tooltip: "输入请求的body(json)",
             conditional: {
               json: {
@@ -197,6 +199,7 @@ export default [
             input: true,
             label: "Data Path",
             key: "request.dataPath",
+            placeholder: '所取接口返回数据字段: ex:position',
             description: "The object path to the iterable items.",
             tooltip: "The property within the source data, where iterable items reside. For example: results.items or results[0].items",
             conditional: {
@@ -251,6 +254,7 @@ export default [
             label: "经纬度 Key",
             key: "key_lnglat",
             tooltip: "lng,lat",
+            placeholder: '经纬度字段: ex:position',
             validate: {
               required: true
             },
@@ -270,6 +274,7 @@ export default [
             input: true,
             label: "经度 Key",
             key: "key_lng",
+            placeholder: '经度字段: ex:position.lng',
             validate: {
               required: true
             },
@@ -288,6 +293,7 @@ export default [
             type: "input",
             input: true,
             label: "纬度 Key",
+            placeholder: '纬度字段: ex:position.lat',
             key: "key_lat",
             validate: {
               required: true
@@ -308,6 +314,7 @@ export default [
             input: true,
             label: "标题 Key",
             key: "key_marker_title",
+            placeholder: '标题字段: ex:title',
             validate: {
               required: true
             },
@@ -337,6 +344,7 @@ export default [
           {
             label: "相关流程Key",
             key: "operate_process_key",
+            placeholder: '流程定义: ex:process_def_demo',
             input: true,
             type: "textfield",
           },

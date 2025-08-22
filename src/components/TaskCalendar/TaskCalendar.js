@@ -28,17 +28,16 @@ export default class TaskCalendar extends Component {
 
   static schema(...extend) {
     return Component.schema({
-      type: 'taskCalendar',label: '标签切换按钮'
+      type: 'taskCalendar',label: '任务日历'
     }, ...extend);
   }
 
   static get builderInfo() {
     return {
-      title: '标签切换按钮',
+      title: '任务日历',
       group: 'advanced',
       icon: 'calendar-lines',
       weight: 70,
-      documentation: 'http://help.form.io/userguide/#taskCalendar',
       schema: TaskCalendar.schema()
     };
   }

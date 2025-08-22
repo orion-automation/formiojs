@@ -34,7 +34,6 @@ export default class NewsData extends Component {
       group: 'advanced',
       icon: 'newspaper',
       weight: 70,
-      documentation: 'http://help.form.io/userguide/#table',
       schema: NewsData.schema()
     };
   }

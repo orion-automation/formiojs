@@ -31,7 +31,6 @@ export default class Data extends FieldComponent {
       group: 'basic',
       icon: 'code-branch',
       weight: 70,
-      documentation: '',
       schema: Data.schema()
     };
   }

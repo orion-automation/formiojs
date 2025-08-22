@@ -31,7 +31,6 @@ export default class FlexComponent extends NestedComponent {
     title: 'Flex',
     icon: 'columns',
     group: 'layout',
-    documentation: '/userguide/forms/layout-components#columns',
     weight: 11,
     schema: FlexComponent.schema()
   };

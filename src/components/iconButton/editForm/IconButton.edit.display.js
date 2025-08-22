@@ -6,8 +6,12 @@ export default [
     editor: 'ace',
     input: true,
     weight: 1,
-    defaultValue: "{}",
-    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
+    defaultValue: '{}',
+    placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+    tooltip: '自定义的style:json格式',
   },
   {
     type: 'panel',
@@ -56,8 +60,12 @@ export default [
         key: 'title-custom-style',
         editor: 'ace',
         input: true,
-        defaultValue: "{}",
-        tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
+        defaultValue: '{}',
+        placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+        tooltip: '自定义的style:json格式',
       },
     ]
   },
@@ -110,6 +118,10 @@ export default [
         input: true,
         editor: "ace",
         tooltip: "传入下个页面的参数(json)",
+        placeholder: `{
+ "ignoreCache": true,
+ "headers": {"Authorization": "\${data.token}"}
+}`,
         conditional: {
           json: {
             in: [

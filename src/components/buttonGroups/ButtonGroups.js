@@ -17,7 +17,6 @@ export default class ButtonGroups extends FieldComponent {
     group: 'advanced',
     icon: 'folders',
     weight: 70,
-    documentation: 'http://help.form.io/userguide/#buttonGroups',
     schema: ButtonGroups.schema()
   };
 

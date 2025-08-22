@@ -40,7 +40,6 @@ export default class DataChinaGridRow extends Component {
       group: 'advanced',
       icon: 'square-info',
       weight: 70,
-      documentation: 'http://help.form.io/userguide/#table',
       schema: DataChinaGridRow.schema()
     };
   }

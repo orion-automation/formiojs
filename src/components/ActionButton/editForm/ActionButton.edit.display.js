@@ -141,6 +141,10 @@ export default [
     weight: 140,
     editor: "ace",
     tooltip: "传入下个页面的参数(json)",
+    placeholder: `{
+ "ignoreCache": true,
+ "headers": {"Authorization": "\${data.token}"}
+}`,
     conditional: {
       json: {
         in: [

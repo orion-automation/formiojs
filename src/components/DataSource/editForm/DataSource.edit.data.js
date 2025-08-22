@@ -114,8 +114,9 @@ export default [
         input: true,
         editor: "ace",
         placeholder: `{
-        "token": "\${data.token}"
-      }`,
+ "ignoreCache": true,
+ "headers": {"Authorization": "\${data.token}"}
+}`,
         tooltip: "输入请求的body(json)",
         conditional: {
           json: {

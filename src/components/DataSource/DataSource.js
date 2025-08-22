@@ -17,7 +17,6 @@ export default class DataSourceComponent extends FieldComponent {
       title: '数据源',
       icon: 'database',
       group: 'data',
-      documentation: '/userguide/forms/data-components#data-source',
       weight: 20,
       schema: DataSourceComponent.schema()
     };

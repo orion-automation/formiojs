@@ -54,9 +54,9 @@ export default [
         input: true,
         weight: 4,
         placeholder: `{
-        "ignoreCache": true,
-        "headers": {"Authorization": "\${data.token"}
-      }`,
+ "ignoreCache": true,
+ "headers": {"Authorization": "\${data.token}"}
+}`,
         conditional: {
             json: { '===': [{ var: 'data.defaultValueSrc' }, 'url'] },
         },
@@ -68,8 +68,8 @@ export default [
         input: true,
         weight: 4,
         placeholder: `{
-        "token": "\${data.token}"
-      }`,
+ &quot;token&quot;: &quot;\${data.token}&quot;
+}`,
         tooltip: '输入请求的body(json)',
         conditional: {
             json: { '===': [{ var: 'data.methods' }, 'POST'] },

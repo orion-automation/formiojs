@@ -10,7 +10,8 @@ export default [
         type: 'input',
         label: '显示值',
         key: 'title-content',
-        tooltip: '可输入html元素 ex:${data.Id}-<a>${data.Name}</a>',
+        placeholder: '${data.Id}-<a>${data.Name}</a>',
+        tooltip: '可输入html元素',
         input: true,
       },
       {
@@ -62,7 +63,8 @@ export default [
         type: 'input',
         label: '显示值',
         key: 'value-content',
-        tooltip: '可输入html元素 ex:${data.Id}-<a>${data.Name}</a>',
+        placeholder: '${data.Id}-<a>${data.Name}</a>',
+        tooltip: '可输入html元素',
         input: true,
       },
       {
@@ -114,14 +116,16 @@ export default [
         type: 'input',
         label: '显示值1',
         key: 'footer-content1',
-        tooltip: '可输入html元素 ex:${data.Id}-<a>${data.Name}</a>',
+        placeholder: '${data.Id}-<a>${data.Name}</a>',
+        tooltip: '可输入html元素',
         input: true,
       },
       {
         type: 'input',
         label: '显示值2',
         key: 'footer-content2',
-        tooltip: '可输入html元素 ex:${data.Id}-<a>${data.Name}</a>',
+        placeholder: '${data.Id}-<a>${data.Name}</a>',
+        tooltip: '可输入html元素',
         input: true,
       },
       {
@@ -135,7 +139,8 @@ export default [
             type: 'input',
             label: '内容',
             key: 'footer-content3',
-            tooltip: '可输入html元素 ex:${data.Id}-<a>${data.Name}</a>',
+            placeholder: '${data.Id}-<a>${data.Name}</a>',
+            tooltip: '可输入html元素',
             input: true,
           },
           {
@@ -214,7 +219,11 @@ export default [
     editor: 'ace',
     input: true,
     defaultValue: {},
-    tooltip: '自定义的style:json格式,ex:{&quot;border&quot;:&quot;none&quot;,&quot;border-radius&quot;:&quot;30px&quot;}',
+    placeholder: `{
+ "border": "none",
+ "border-radius": "30px"
+}`,
+    tooltip: '自定义的style:json格式',
     weight: 3
   },
   {
@@ -443,6 +452,10 @@ export default [
         input: true,
         editor: "ace",
         tooltip: "传入下个页面的参数(json)",
+        placeholder: `{
+ "ignoreCache": true,
+ "headers": {"Authorization": "\${data.token}"}
+}`,
         conditional: {
           json: {
             in: [

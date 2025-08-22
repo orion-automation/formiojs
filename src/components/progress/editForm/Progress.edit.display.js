@@ -28,7 +28,7 @@ export default [
     editor: 'ace',
     input: true,
     tooltip: '配置项(json格式)',
-    placeholder: `[{"value":10,"title":"demo","color":"black","unit":"个"}]`,
+    placeholder: '[{"value":10,"title":"demo","color":"black","unit":"个"}]',
     weight: 1,
     validate: {
       required: true

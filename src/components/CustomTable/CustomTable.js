@@ -28,7 +28,6 @@ export default class CustomTableComponent extends FieldComponent {
     title: 'CustomTable',
     icon: 'table',
     group: 'basic',
-    documentation: '/userguide/forms/layout-components#columns',
     weight: 11,
     schema: CustomTableComponent.schema()
   };

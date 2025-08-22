@@ -40,7 +40,9 @@ export default [
         input: true,
         editor: 'ace',
         weight: 4,
-        placeholder: `{\n  "token": "\${data.token}"\n}`,
+        placeholder: `{
+ &quot;token&quot;: &quot;\${data.token}&quot;
+}`,
         tooltip: '输入请求的body(json)',
     },
     {

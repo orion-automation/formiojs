@@ -18,7 +18,6 @@ export default class Progress extends FieldComponent {
     group: 'layout',
     icon: 'bars-progress',
     weight: 70,
-    documentation: 'http://help.form.io/userguide/#progress',
     schema: Progress.schema()
   };
 
