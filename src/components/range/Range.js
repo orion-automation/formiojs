@@ -91,9 +91,14 @@ export default class RangeComponent extends Field {
     this.loadRefs(element, {input: 'single'});
     this.input = this.refs.input;
     if (this.refs.input) {
-      this.addEventListener(this.input, this.inputInfo.changeEvent, () => this.updateValue(this.refs.input.value, {
-        modified: true
-      }));
+      // 设置值
+      this.refs.input.value=this.dataValue;
+      this.refs.input.dispatchEvent(new Event('input'));
+      this.addEventListener(this.input, this.inputInfo.changeEvent, () => {
+        this.updateValue(this.refs.input.value, {
+          modified: true
+        });
+      });
       this.addShortcut(this.input);
     }
     return super.attach(element);
@@ -107,11 +112,11 @@ export default class RangeComponent extends Field {
   }
 
   get emptyValue() {
-    return this.component.inputType === 'radio' ? null : false;
+    return this.component.inputType === 'radio' ? null : -1;
   }
 
   isEmpty(value = this.dataValue) {
-    return super.isEmpty(value) || value === false;
+    return super.isEmpty(value) || value <0;
   }
 
   get key() {
@@ -124,10 +129,10 @@ export default class RangeComponent extends Field {
 
   setValue(value, flags = {}) {
     this.refs.input.value = value;
-    // 手动触发更新
-    this.refs.input.dispatchEvent(new Event('input'));
     const changed = this.updateValue(value, flags);
     if (this.isHtmlRenderMode() && flags && flags.fromSubmission && changed) {
+      // 手动触发更新
+      // this.refs.input.dispatchEvent(new Event('input'));
       this.redraw();
     }
     return changed;
