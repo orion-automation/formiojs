@@ -405,8 +405,8 @@ export default [
         type: 'textarea',
         editor: 'ace',
         placeholder: `{
- "border": "none",
- "border-radius": "30px"
+ "deviceId": "\${data.id}",
+ "status": true
 }`,
         tooltip: 'json格式',
         conditional: {

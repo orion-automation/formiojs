@@ -219,8 +219,8 @@ export default [
         editor: "ace",
         tooltip: "传入下个页面的参数(json)",
         placeholder: `{
- "ignoreCache": true,
- "headers": {"Authorization": "\${data.token}"}
+ "deviceId": "\${data.id}",
+ "status": true
 }`,
         conditional: {
           json: {
