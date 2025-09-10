@@ -93,15 +93,15 @@ export default class Data extends Component {
             break;
         }
         this.addEventListener(dataContainer, 'click', (event) => {
+          let params=self.component['click-event-params'];
+          try {
+            params=JSON.parse(self.parseTpl(params,{data:self.rootValue}));
+          } catch (e) {
+            params={};
+          }
           // 点击事件
           switch (clickEventType) {
             case 'newProcessInstance':
-              let params=self.component['click-event-params'];
-              try {
-                params=JSON.parse(self.parseTpl(params,{data:self.rootValue}));
-              } catch (e) {
-                params={};
-              }
               window.startProcessByDrawer({
                 processKey: self.component['click-event-process-def-key'],
                 label: '启动',
@@ -121,7 +121,8 @@ export default class Data extends Component {
               window.openNewTab({
                 formId: self.component['click-event-form-id'],
                 label: '',
-                field: self.component['key']
+                field: self.component['key'],
+                preData: params
               });
               break;
             default:

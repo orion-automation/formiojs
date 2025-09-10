@@ -415,6 +415,7 @@ export default [
               { var: 'data.click-event-type' },
               [
                 'newProcessInstance',
+                'newTab',
               ],
             ],
           },
@@ -439,6 +440,7 @@ export default [
         key: 'click-event-form-id',
         input: true,
         tooltip: '',
+        placeholder: 'form的时间戳key',
         conditional: {
           json: { '===': [{ var: 'data.click-event-type' }, 'newTab'] },
         },
