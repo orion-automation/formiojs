@@ -56,6 +56,7 @@ export default function(...extend) {
           label: 'Layout',
           key: 'layout',
           weight: 60,
+          ignore: true,
           components: ComponentEditLayout
         },
         {

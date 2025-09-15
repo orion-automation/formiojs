@@ -15,6 +15,7 @@ export default [
     weight: 100,
     type: 'checkbox',
     label: 'Unique',
+    ignore: true,
     tooltip: 'Makes sure the data submitted for this field is unique, and has not been submitted before.',
     key: 'unique',
     input: true

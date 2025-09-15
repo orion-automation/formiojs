@@ -24,6 +24,7 @@ export default [
     label: 'Persistent',
     tooltip: 'A persistent field will be stored in database when the form is submitted.',
     key: 'persistent',
+    ignore: true,
     input: true,
     inline: true,
     defaultValue: true,
@@ -37,6 +38,7 @@ export default [
     weight: 150,
     type: 'checkbox',
     label: 'Protected',
+    ignore: true,
     tooltip: 'A protected field will not be returned when queried via API.',
     key: 'protected',
     input: true
@@ -46,6 +48,7 @@ export default [
     input: true,
     weight: 200,
     key: 'dbIndex',
+    ignore: true,
     label: 'Database Index',
     tooltip: 'Set this field as an index within the database. Increases performance for submission queries.'
   },
@@ -153,6 +156,7 @@ export default [
     type: 'checkbox',
     input: true,
     weight: 1100,
+    ignore: true,
     key: 'calculateServer',
     label: 'Calculate Value on server',
     tooltip: 'Checking this will run the calculation on the server. This is useful if you wish to override the values submitted with the calculations performed on the server.'
