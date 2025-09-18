@@ -67,7 +67,7 @@ export default class Data extends Component {
     if (dataContainer) {
       const rect = dataContainer.getBoundingClientRect();
       this.refs.dataContainer.style['background-size']=`${rect.width}px ${rect.height}px`;
-      const clickEventType = this.component['click-event-type'];
+      const clickEventType = self.component['click-event-type'];
       if (clickEventType) {
         let clickEventUrl;
         let url = window.location.href;
@@ -83,19 +83,19 @@ export default class Data extends Component {
         }
         switch (clickEventType) {
           case 'url':
-            clickEventUrl = this.component['click-event-url'];
+            clickEventUrl = self.parseTpl(self.component['click-event-url'],{ data:self.rootValue });
             break;
           case 'processDefList':
-            clickEventUrl = `${url}/task/index.html#/application/list?defaultSearchProcessDefinitionKeyIn=${this.component['click-event-process-def-keys']}`;
+            clickEventUrl = `${url}/task/index.html#/application/list?defaultSearchProcessDefinitionKeyIn=${self.parseTpl(self.component['click-event-process-def-keys'],{ data:self.rootValue })}`;
             break;
           case 'taskList':
-            clickEventUrl = `${url}/task/index.html#/task/list?defaultSearchProcessDefinitionKeyIn=${this.component['click-event-task-keys']}`;
+            clickEventUrl = `${url}/task/index.html#/task/list?defaultSearchProcessDefinitionKeyIn=${self.parseTpl(self.component['click-event-task-keys'],{ data:self.rootValue })}`;
             break;
         }
         this.addEventListener(dataContainer, 'click', (event) => {
           let params=self.component['click-event-params'];
           try {
-            params=JSON.parse(self.parseTpl(params,{data:self.rootValue},'{}'));
+            params=JSON.parse(self.parseTpl(params,{ data:self.rootValue },'{}'));
           } catch (e) {
             params={};
           }
@@ -103,7 +103,7 @@ export default class Data extends Component {
           switch (clickEventType) {
             case 'newProcessInstance':
               window.startProcessByDrawer({
-                processKey: self.component['click-event-process-def-key'],
+                processKey: self.parseTpl(self.component['click-event-process-def-key'],{ data:self.rootValue }),
                 label: '启动',
                 field: self.component['key'],
                 lockDrawer: self.component['click-event-lock-drawer'],
@@ -112,14 +112,14 @@ export default class Data extends Component {
               break;
             case 'taskListPanel':
               window.openTaskListByDrawer({
-                processKey: self.component['click-event-process-def-keys'],
+                processKey: self.parseTpl(self.component['click-event-process-def-keys'],{ data:self.rootValue }),
                 label: '',
                 field: self.component['key']
               });
               break;
             case 'newTab':
               window.openNewTab({
-                formId: self.component['click-event-form-id'],
+                formId: self.parseTpl(self.component['click-event-form-id'],{ data:self.rootValue }),
                 label: '',
                 field: self.component['key'],
                 preData: params
