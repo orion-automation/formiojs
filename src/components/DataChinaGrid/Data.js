@@ -75,7 +75,7 @@ export default class DataChinaGrid extends Component {
               } catch (e) {
                 console.log(`json转换失败:${e}`);
               }
-              window.openNewPage(this.component['click-event-form-id'], params);
+              window.openNewPage(self.parseTpl(self.component['click-event-form-id'],{ data:self.rootValue }), params);
               break;
             case 'bottomSheet':
               try {
@@ -83,11 +83,11 @@ export default class DataChinaGrid extends Component {
               } catch (e) {
                 console.log(`json转换失败:${e}`);
               }
-              window.openBottomSheet(this.component['click-event-form-id'], params);
+              window.openBottomSheet(self.parseTpl(self.component['click-event-form-id'],{ data:self.rootValue }), params);
               break;
             case 'setTab':
               // 切换tab
-              Formio.forms[this.currentForm.id].getComponent(this.component['click-event-tab-id']).setTabByKey(this.component['click-event-tab-key']);
+              Formio.forms[this.currentForm.id].getComponent(self.parseTpl(self.component['click-event-tab-id'],{ data:self.rootValue })).setTabByKey(self.parseTpl(self.component['click-event-tab-key'],{ data:self.rootValue }));
               break;
             case 'openUrl':
               if (window.openNewUrlByQmx){
