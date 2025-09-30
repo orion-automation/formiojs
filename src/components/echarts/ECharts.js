@@ -1,6 +1,7 @@
 import FieldComponent from '../_classes/field/Field';
 import _ from 'lodash';
 import * as echarts from 'echarts';
+import 'echarts-gl';
 
 export default class ECharts extends FieldComponent {
 
@@ -79,6 +80,20 @@ export default class ECharts extends FieldComponent {
     try {
       // 使用配置项渲染图表
       chartInstance.resize();
+      // chartInstance.setOption({
+      //   grid3D: {},
+      //   xAxis3D: {},
+      //   yAxis3D: {},
+      //   zAxis3D: {},
+      //   series: [{
+      //     type: 'scatter3D',
+      //     symbolSize: 50,
+      //     data: [[-1, -1, -1], [0, 0, 0], [1, 1, 1]],
+      //     itemStyle: {
+      //       opacity: 1
+      //     }
+      //   }]
+      // },true,true);
       chartInstance.setOption(JSON.parse(optionsStr), true,true);
     } catch (e) {
       console.log(`json解析错误:${e}`);
