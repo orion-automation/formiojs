@@ -159,7 +159,7 @@ export default class TaskCalendar extends Component {
         }
       }
       if (self.component['data-source-url']) {
-        let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue });
+        let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue,row: self.data });
         if (url.startsWith('http')) {
           url = new URL(url);
         }
@@ -170,7 +170,7 @@ export default class TaskCalendar extends Component {
         let params = {};
         let headers = {};
         self.component.request['headers'].forEach(header => {
-          headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue });
+          headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue,row: self.data });
         });
         // 搜索
         if (self.component['dataSource'] === 'url') {
@@ -180,7 +180,7 @@ export default class TaskCalendar extends Component {
             let where = '';
             self.component.data['noco_db_conditions'].forEach((item, index) => {
               if (item.value && item.value.length > 0) {
-                let conditionVal = self.parseTpl(item.value, { data: self.rootValue });
+                let conditionVal = self.parseTpl(item.value, { data: self.rootValue,row: self.data });
                 if (index === 0 && item.logical_operator === '~not') {
                   where += `(${item.name},${item.operator},${conditionVal})`;
                 }

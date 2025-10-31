@@ -707,7 +707,7 @@ export default class FileComponent extends Field {
           const {storage} = this.component;
           let {options = {}} = this.component;
           try {
-            options = JSON.parse(this.parseTpl(options, {data: this.rootValue}));
+            options = JSON.parse(this.parseTpl(options, {data: this.rootValue,row: this.data}));
           } catch (e) {
             console.log(e);
             options = {};

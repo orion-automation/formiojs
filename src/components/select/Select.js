@@ -644,7 +644,8 @@ export default class SelectComponent extends ListComponent {
       url = JSON.parse(this.parseTpl(JSON.stringify({
         url: url
       }), {
-        data: this.rootValue
+        data: this.rootValue,
+        row: this.data
       })).url;
     }catch (e) {
 

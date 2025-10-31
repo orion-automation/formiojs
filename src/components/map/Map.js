@@ -92,7 +92,7 @@ export default class Map extends FieldComponent {
           // 获取标记点
           if (self.component['dataSource'] === 'url'){
             if (self.component['data-source-url']) {
-              let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue });
+              let url = self.parseTpl(self.component['data-source-url'], { data: self.rootValue,row: self.data });
               if (url.startsWith('http')) {
                 url = new URL(url);
               }
@@ -104,7 +104,7 @@ export default class Map extends FieldComponent {
               let headers = {};
               if (self.component.request && self.component.request['headers']) {
                 self.component.request['headers'].forEach(header => {
-                  headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue });
+                  headers[`${header.key}`] = self.parseTpl(header.value, { data: self.rootValue,row: self.data });
                 });
               }
               // 搜索
@@ -115,7 +115,7 @@ export default class Map extends FieldComponent {
                   let where = '';
                   self.component.data['noco_db_conditions'].forEach((item, index) => {
                     if (item.value && item.value.length > 0) {
-                      let conditionVal = self.parseTpl(item.value, { data: self.rootValue });
+                      let conditionVal = self.parseTpl(item.value, { data: self.rootValue,row: self.data });
                       if (index === 0 && item.logical_operator === '~not') {
                         where += `(${item.name},${item.operator},${conditionVal})`;
                       }
@@ -254,7 +254,7 @@ export default class Map extends FieldComponent {
                       }
                       else if (self.component["customCenter"]&&self.component["customCenter"].length>0){
                         // 自定义中心点
-                        let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue});
+                        let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue,row: self.data});
                         if (customCenter && customCenter.length > 0 && customCenter.split(',').length === 2) {
                           let lng, lat;
                           lng = customCenter.split(',')[0];
@@ -286,7 +286,7 @@ export default class Map extends FieldComponent {
                   xhr.send();
                 }
                 else if (reqMethod === 'POST') {
-                  let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue }));
+                  let reqData = JSON.parse(this.parseTpl(JSON.stringify(self.component.request['body']) || '{}', { data: self.rootValue,row: self.data }));
                   xhr.send(JSON.stringify(reqData));
                 }
               } catch (e) {
@@ -299,12 +299,12 @@ export default class Map extends FieldComponent {
               try {
                 // 添加点
                 let lng, lat;
-                let lnglat = self.parseTpl(self.component["data-source-value"],{data:self.rootValue});
+                let lnglat = self.parseTpl(self.component["data-source-value"],{data:self.rootValue,row: self.data});
                 if (lnglat && lnglat.length > 0 && lnglat.split(',').length === 2) {
                   lng = lnglat.split(',')[0];
                   lat = lnglat.split(',')[1];
                 }
-                let lnglatTitle = self.parseTpl(self.component["data-source-value-title"],{data:self.rootValue});
+                let lnglatTitle = self.parseTpl(self.component["data-source-value-title"],{data:self.rootValue,row: self.data});
                 let markerList=[new AMap.Marker({
                   position: new AMap.LngLat(lng, lat), //经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
                   extData: lnglat,
@@ -375,7 +375,7 @@ export default class Map extends FieldComponent {
                 }
                 else if (self.component["customCenter"]&&self.component["customCenter"].length>0){
                   // 自定义中心点
-                  let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue});
+                  let customCenter=self.parseTpl(self.component["customCenter"],{data:self.rootValue,row: self.data});
                   if (customCenter && customCenter.length > 0 && customCenter.split(',').length === 2) {
                     let lng, lat;
                     lng = customCenter.split(',')[0];

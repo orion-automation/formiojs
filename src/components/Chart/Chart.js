@@ -87,7 +87,7 @@ export default class Data extends Component {
     element = container.querySelector('iframe');
 
     let url;
-    url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.url}), {data: this.rootValue})).url;
+    url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.url}), {data: this.rootValue,row: this.data})).url;
     if (element) {
       element.src = url;
       element.height = this.component.height + "";
@@ -104,7 +104,7 @@ export default class Data extends Component {
     const isSetting = this.element.parentElement.parentElement.parentElement.className === 'component-preview';
     if (!isSetting && this.component.interval && this.component.interval.trim().length>0 && this.component.interval !== "0") {
       const interval = window.setInterval(function() {
-        element.src = JSON.parse(self.parseTpl(JSON.stringify({url:self.component.url}), {data: self.rootValue})).url;
+        element.src = JSON.parse(self.parseTpl(JSON.stringify({url:self.component.url}), {data: self.rootValue,row: self.data})).url;
       }, this.component.interval * 1000);
       this.interval = interval;
     }

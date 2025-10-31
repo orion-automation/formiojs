@@ -96,8 +96,8 @@ export default class CustomSelect extends SelectComponent {
     let parsedOptions = { header: null };
     let parsedBody = {};
     try {
-      parsedOptions = JSON.parse(this.parseTpl(JSON.stringify(options), { data: this.rootValue }));
-      parsedBody = JSON.parse(this.parseTpl(JSON.stringify(body), { data: this.rootValue }));
+      parsedOptions = JSON.parse(this.parseTpl(JSON.stringify(options), { data: this.rootValue,row: this.data }));
+      parsedBody = JSON.parse(this.parseTpl(JSON.stringify(body), { data: this.rootValue,row: this.data }));
     }
       // eslint-disable-next-line no-empty
     catch (e) {
@@ -105,7 +105,7 @@ export default class CustomSelect extends SelectComponent {
     // Make the request.
     const self = this;
     headers.forEach(function(value, name) {
-      headers.set(name, self.parseTpl(value, { data: self.rootValue }));
+      headers.set(name, self.parseTpl(value, { data: self.rootValue,row: self.data }));
     });
     parsedOptions.header = headers;
     this.loading = true;
@@ -113,7 +113,8 @@ export default class CustomSelect extends SelectComponent {
       url = JSON.parse(this.parseTpl(JSON.stringify({
         url: url
       }), {
-        data: this.rootValue
+        data: this.rootValue,
+        row: this.data
       })).url;
     } catch (e) {
 

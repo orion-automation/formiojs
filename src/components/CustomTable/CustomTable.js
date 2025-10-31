@@ -539,7 +539,7 @@ export default class CustomTableComponent extends FieldComponent {
     else if (this.component.dataSrc === 'url') {
       let headers = {};
       try {
-        headers = this.parseTpl(this.component.data.headers, { data: this.rootValue });
+        headers = this.parseTpl(this.component.data.headers, { data: this.rootValue,row: this.data });
         if (typeof headers === 'string') {
           headers = JSON.parse(headers);
         }
@@ -550,7 +550,7 @@ export default class CustomTableComponent extends FieldComponent {
       if (!this.component.data.url) {
         return true;
       }
-      let url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.data.url}), {data: self.rootValue})).url;
+      let url=JSON.parse(this.parseTpl(JSON.stringify({url:this.component.data.url}), {data: self.rootValue,row: self.data})).url;
       this.getField(url, function(data) {
         self.setTableByData(data);
       }, headers);

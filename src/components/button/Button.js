@@ -404,7 +404,7 @@ export default class ButtonComponent extends Field {
         break;
       case 'openPage':
         try {
-          params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+          params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue,row: this.data}))
         }catch (e) {
           console.log(`json转换失败:${e}`);
         }
@@ -412,7 +412,7 @@ export default class ButtonComponent extends Field {
         break;
       case 'bottomSheet':
         try {
-          params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+          params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue,row: this.data}))
         }catch (e) {
           console.log(`json转换失败:${e}`);
         }
@@ -422,15 +422,15 @@ export default class ButtonComponent extends Field {
         const elink = document.createElement('a');
         elink.style.display = 'none';
         elink.target = "_blank";
-        elink.href = this.parseTpl(this.component["url"],{data:this.rootValue});
+        elink.href = this.parseTpl(this.component["url"],{data:this.rootValue,row: this.data});
         document.body.appendChild(elink);
         elink.click();
         break;
       case 'openUrl':
         if (window.openNewUrlByQmx){
-          window.openNewUrlByQmx(this.parseTpl(this.component['url'],{data:this.rootValue}))
+          window.openNewUrlByQmx(this.parseTpl(this.component['url'],{data:this.rootValue,row: this.data}))
         } else {
-          window.open(this.parseTpl(this.component['url'],{data:this.rootValue}))
+          window.open(this.parseTpl(this.component['url'],{data:this.rootValue,row: this.data}))
         }
         break;
     }

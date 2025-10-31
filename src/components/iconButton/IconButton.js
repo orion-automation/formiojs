@@ -48,7 +48,7 @@ export default class IconButton extends FieldComponent {
           switch (clickEventType) {
             case 'newPage':
               try {
-                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue,row: this.data}))
               }catch (e) {
                 console.log(`json转换失败:${e}`);
               }
@@ -56,7 +56,7 @@ export default class IconButton extends FieldComponent {
               break;
             case 'bottomSheet':
               try {
-                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue}))
+                params=JSON.parse(this.parseTpl(this.component['page_params'],{data:this.rootValue,row: this.data}))
               }catch (e) {
                 console.log(`json转换失败:${e}`);
               }
@@ -66,15 +66,15 @@ export default class IconButton extends FieldComponent {
               const elink = document.createElement('a');
               elink.style.display = 'none';
               elink.target = "_blank";
-              elink.href = this.parseTpl(this.component['click-event-url'],{data:this.rootValue});
+              elink.href = this.parseTpl(this.component['click-event-url'],{data:this.rootValue,row: this.data});
               document.body.appendChild(elink);
               elink.click();
               break;
             case 'openUrl':
               if (window.openNewUrlByQmx){
-                window.openNewUrlByQmx(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+                window.openNewUrlByQmx(this.parseTpl(this.component['click-event-url'],{data:this.rootValue,row: this.data}))
               } else {
-                window.open(this.parseTpl(this.component['click-event-url'],{data:this.rootValue}))
+                window.open(this.parseTpl(this.component['click-event-url'],{data:this.rootValue,row: this.data}))
               }
               break;
           }
@@ -134,7 +134,7 @@ export default class IconButton extends FieldComponent {
     }catch (e) {
     }
     if (this.refs.titleContainer){
-      this.refs.titleContainer.innerText=this.parseTpl(this.component['title'],{data:this.rootValue});
+      this.refs.titleContainer.innerText=this.parseTpl(this.component['title'],{data:this.rootValue,row: this.data});
     }
     return true;
   }

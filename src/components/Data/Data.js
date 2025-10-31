@@ -83,19 +83,19 @@ export default class Data extends Component {
         }
         switch (clickEventType) {
           case 'url':
-            clickEventUrl = self.parseTpl(self.component['click-event-url'],{ data:self.rootValue });
+            clickEventUrl = self.parseTpl(self.component['click-event-url'],{ data:self.rootValue,row: self.data });
             break;
           case 'processDefList':
-            clickEventUrl = `${url}/task/index.html#/application/list?defaultSearchProcessDefinitionKeyIn=${self.parseTpl(self.component['click-event-process-def-keys'],{ data:self.rootValue })}`;
+            clickEventUrl = `${url}/task/index.html#/application/list?defaultSearchProcessDefinitionKeyIn=${self.parseTpl(self.component['click-event-process-def-keys'],{ data:self.rootValue,row: self.data })}`;
             break;
           case 'taskList':
-            clickEventUrl = `${url}/task/index.html#/task/list?defaultSearchProcessDefinitionKeyIn=${self.parseTpl(self.component['click-event-task-keys'],{ data:self.rootValue })}`;
+            clickEventUrl = `${url}/task/index.html#/task/list?defaultSearchProcessDefinitionKeyIn=${self.parseTpl(self.component['click-event-task-keys'],{ data:self.rootValue,row: self.data })}`;
             break;
         }
         this.addEventListener(dataContainer, 'click', (event) => {
           let params=self.component['click-event-params'];
           try {
-            params=JSON.parse(self.parseTpl(params,{ data:self.rootValue },'{}'));
+            params=JSON.parse(self.parseTpl(params,{ data:self.rootValue,row: self.data },'{}'));
           } catch (e) {
             params={};
           }
@@ -103,7 +103,7 @@ export default class Data extends Component {
           switch (clickEventType) {
             case 'newProcessInstance':
               window.startProcessByDrawer({
-                processKey: self.parseTpl(self.component['click-event-process-def-key'],{ data:self.rootValue }),
+                processKey: self.parseTpl(self.component['click-event-process-def-key'],{ data:self.rootValue,row: self.data }),
                 label: '启动',
                 field: self.component['key'],
                 lockDrawer: self.component['click-event-lock-drawer'],
@@ -112,14 +112,14 @@ export default class Data extends Component {
               break;
             case 'taskListPanel':
               window.openTaskListByDrawer({
-                processKey: self.parseTpl(self.component['click-event-process-def-keys'],{ data:self.rootValue }),
+                processKey: self.parseTpl(self.component['click-event-process-def-keys'],{ data:self.rootValue,row: self.data }),
                 label: '',
                 field: self.component['key']
               });
               break;
             case 'newTab':
               window.openNewTab({
-                formId: self.parseTpl(self.component['click-event-form-id'],{ data:self.rootValue }),
+                formId: self.parseTpl(self.component['click-event-form-id'],{ data:self.rootValue,row: self.data }),
                 label: '',
                 field: self.component['key'],
                 preData: params
@@ -135,7 +135,7 @@ export default class Data extends Component {
     let customStyleStr = this.component['custom-style-bg'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
-        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue},'{}');
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue,row: this.data},'{}');
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.dataContainer.style[key] = value;
         });
@@ -147,7 +147,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-title'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
-        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue},'{}');
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue,row: this.data},'{}');
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refHeader.style[key] = value;
         });
@@ -159,7 +159,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-sub-title'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
-        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue},'{}');
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue,row: this.data},'{}');
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refSubHeader.style[key] = value;
         });
@@ -171,7 +171,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-value'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
-        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue},'{}');
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue,row: this.data},'{}');
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refValue.style[key] = value;
         });
@@ -183,7 +183,7 @@ export default class Data extends Component {
     customStyleStr = this.component['custom-style-sub-value'];
     if (customStyleStr && customStyleStr.length > 0) {
       try {
-        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue},'{}');
+        customStyleStr=this.parseTpl(customStyleStr,{data:this.rootValue,row: this.data},'{}');
         _.forEach(JSON.parse(customStyleStr), (value, key) => {
           this.refs.refSubValue.style[key] = value;
         });
@@ -275,17 +275,17 @@ export default class Data extends Component {
 
       // icon
       if (this.component['icon-field']){
-        let icon = this.parseTpl(this.component['icon-field'], {data: this.rootValue});
+        let icon = this.parseTpl(this.component['icon-field'], {data: this.rootValue,row: this.data});
         this.refs.refIcon.className=`fa-fw ${icon}`;
-        let iconColor = this.parseTpl(this.component['icon-color'], {data: this.rootValue});
+        let iconColor = this.parseTpl(this.component['icon-color'], {data: this.rootValue,row: this.data});
         this.refs.refIcon.style.color = iconColor;
       } else {
         this.refs.refIcon.style.display = 'none';
       }
       // header
-      this.refs.refHeaderContent.innerHTML = self.interpolate(self.parseTpl(self.component['header'], {data: self.rootValue}), {data: self.rootValue});
-      this.refs.refSubHeader.innerHTML = self.interpolate(self.parseTpl(self.component['sub-header'], {data: self.rootValue}), {data: self.rootValue});
-      this.refs.refSparkLineTitle.innerHTML = self.interpolate(self.parseTpl(self.component['sparkLine-title'], {data: self.rootValue}), {data: self.rootValue});
+      this.refs.refHeaderContent.innerHTML = self.interpolate(self.parseTpl(self.component['header'], {data: self.rootValue,row: self.data}), {data: self.rootValue,row: self.data});
+      this.refs.refSubHeader.innerHTML = self.interpolate(self.parseTpl(self.component['sub-header'], {data: self.rootValue,row: self.data}), {data: self.rootValue,row: self.data});
+      this.refs.refSparkLineTitle.innerHTML = self.interpolate(self.parseTpl(self.component['sparkLine-title'], {data: self.rootValue,row: self.data}), {data: self.rootValue,row: self.data});
 
       const sparkLineType = this.component['sparkLine-type'] || 'line';
       let fillColor;
@@ -304,10 +304,10 @@ export default class Data extends Component {
       let element = container.querySelector('h2');
 
       if (this.component['value-url']) {
-        let url = this.parseTpl(this.component['value-url'], {data: this.rootValue})
+        let url = this.parseTpl(this.component['value-url'], {data: this.rootValue,row: this.data})
         let headers = {};
         try {
-          headers = this.parseTpl(this.component['value-headers'], {data: this.rootValue},'{}');
+          headers = this.parseTpl(this.component['value-headers'], {data: this.rootValue,row: this.data},'{}');
           if (typeof headers === 'string') {
             headers = JSON.parse(headers);
           }
@@ -319,7 +319,7 @@ export default class Data extends Component {
           let newValueHeaders = this.component['new-value-headers'];
           newValueHeaders.forEach(header => {
             if (header.key && header.key.length > 0 && header.value && header.value.length > 0) {
-              headers[`${header.key}`] = this.parseTpl(header.value, {data: this.rootValue});
+              headers[`${header.key}`] = this.parseTpl(header.value, {data: this.rootValue,row: this.data});
             }
           });
         }
@@ -327,16 +327,16 @@ export default class Data extends Component {
           container.querySelector('h2').textContent = field;
         }, headers);
       } else {
-        element.innerHTML = self.interpolate(self.parseTpl(self.component['value-field'], {data: self.rootValue}),{data: self.rootValue});;
+        element.innerHTML = self.interpolate(self.parseTpl(self.component['value-field'], {data: self.rootValue,row: self.data}),{data: self.rootValue});;
       }
       element = container.querySelector('.unit-container');
       if (this.component['subValue-url']) {
-        let url = this.parseTpl(this.component['subValue-url'], {data: this.rootValue})
+        let url = this.parseTpl(this.component['subValue-url'], {data: this.rootValue,row: this.data})
         this.getField(url, this.component['subValue-field'], function (field) {
           container.querySelector('.unit-container').textContent = field;
         }, {});
       } else {
-        element.innerHTML = self.interpolate(self.parseTpl(self.component['subValue-field'], {data: self.rootValue}),{data: self.rootValue});;
+        element.innerHTML = self.interpolate(self.parseTpl(self.component['subValue-field'], {data: self.rootValue,row: self.data}),{data: self.rootValue});;
       }
 
       if (self.isLoadingSparkLine) {
@@ -350,7 +350,7 @@ export default class Data extends Component {
         $(container).find('.line').peity(sparkLineType, {
           fill: fillColor,
           height: self.component['sparkLine-height'],
-          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue})),
+          max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue,row: self.data})),
           min: 0,
           stroke: self.component['sparkLine-stroke-color'],
           strokeWidth: 2,
@@ -359,10 +359,10 @@ export default class Data extends Component {
         self.isLoadingSparkLine = false;
       } else if (self.component['sparkLine-dataSrc'] === 'url' && self.component['sparkLine-url'] && self.component['sparkLine-url'].length > 0) {
         // url
-        let url = this.parseTpl(this.component['sparkLine-url'], {data: this.rootValue})
+        let url = this.parseTpl(this.component['sparkLine-url'], {data: this.rootValue,row: this.data})
         let headers = {};
         try {
-          headers = self.parseTpl(self.component['sparkLine-headers'], {data: self.rootValue},'{}');
+          headers = self.parseTpl(self.component['sparkLine-headers'], {data: self.rootValue,row: self.data},'{}');
           if (typeof headers === 'string') {
             headers = JSON.parse(headers);
           }
@@ -374,7 +374,7 @@ export default class Data extends Component {
           let newValueHeaders = this.component['new-sparkLine-headers'];
           newValueHeaders.forEach(header => {
             if (header.key && header.key.length > 0 && header.value && header.value.length > 0) {
-              headers[`${header.key}`] = this.parseTpl(header.value, {data: this.rootValue});
+              headers[`${header.key}`] = this.parseTpl(header.value, {data: this.rootValue,row: this.data});
             }
           });
         }
@@ -385,7 +385,7 @@ export default class Data extends Component {
           $(container).find('.line').peity(sparkLineType, {
             fill: fillColor,
             height: self.component['sparkLine-height'],
-            max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue})),
+            max: _.toNumber(self.parseTpl(`${self.component['sparkLine-max-value-count']}`, {data: self.rootValue,row: self.data})),
             min: 0,
             stroke: self.component['sparkLine-stroke-color'],
             strokeWidth: 2,

@@ -19,7 +19,7 @@ export default class CustomTextArea extends TextAreaComponent {
     const self = this;
     setTimeout(()=>{
       if (self.component.defaultValueSrc === 'value' && self.component.defaultValue) {
-        let defaultValue = this.parseTpl(self.component.defaultValue, { data: this.rootValue });
+        let defaultValue = this.parseTpl(self.component.defaultValue, { data: this.rootValue,row: this.data });
         if (!self.hasSetValue || (self.getValue() === self.component.defaultValue)) {
           self.setValue(defaultValue, { resetValue: true });
         }
@@ -30,8 +30,8 @@ export default class CustomTextArea extends TextAreaComponent {
       let parsedOptions = { ignoreCache: true };
       let parsedBody = {};
       try {
-        parsedOptions = JSON.parse(this.parseTpl(options || '{"headers":{}}', { data: this.rootValue }));
-        parsedBody = JSON.parse(this.parseTpl(body || '{}', { data: this.rootValue }));
+        parsedOptions = JSON.parse(this.parseTpl(options || '{"headers":{}}', { data: this.rootValue,row: this.data }));
+        parsedBody = JSON.parse(this.parseTpl(body || '{}', { data: this.rootValue,row: this.data }));
       } catch (e) {
         console.log(e);
       }

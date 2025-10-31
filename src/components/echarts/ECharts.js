@@ -2,6 +2,8 @@ import FieldComponent from '../_classes/field/Field';
 import _ from 'lodash';
 import * as echarts from 'echarts';
 import 'echarts-gl';
+import { Scatter3DChart } from 'echarts-gl/charts';
+echarts.use([Scatter3DChart]);
 
 export default class ECharts extends FieldComponent {
 
@@ -76,7 +78,7 @@ export default class ECharts extends FieldComponent {
       chartInstance = echarts.init(canvas);
     }
     let optionsStr = this.component['option-value'];
-    optionsStr = this.parseTpl(optionsStr, { data: this.rootValue });
+    optionsStr = this.parseTpl(optionsStr, { data: this.rootValue,row: this.data });
     try {
       // 使用配置项渲染图表
       chartInstance.resize();

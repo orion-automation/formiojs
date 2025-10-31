@@ -86,11 +86,11 @@ export default class Progress extends FieldComponent {
     }
     let optionsStr = this.component['option-value'];
     try {
-      optionsStr = this.parseTpl(optionsStr, { data: this.rootValue });
+      optionsStr = this.parseTpl(optionsStr, { data: this.rootValue,row: this.data });
       optionsStr = JSON.parse(optionsStr);
       let sum = _.sumBy(optionsStr, 'value');
       if (this.component['max-value'] && this.component['max-value'].trim().length > 0) {
-        sum = _.toNumber(this.parseTpl(this.component['max-value'], { data: this.rootValue }));
+        sum = _.toNumber(this.parseTpl(this.component['max-value'], { data: this.rootValue,row: this.data }));
       }
       optionsStr.forEach(item => {
         let percent = _.floor(_.divide(item.value, sum) * 100, 1);

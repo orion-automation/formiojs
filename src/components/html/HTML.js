@@ -115,7 +115,7 @@ export default class HTMLComponent extends Component {
           switch (clickEventType) {
             case 'newPage':
               try {
-                params = JSON.parse(this.parseTpl(this.component['page_params'], { data: this.rootValue }));
+                params = JSON.parse(this.parseTpl(this.component['page_params'], { data: this.rootValue,row: this.data }));
               }
  catch (e) {
                 console.log(`json转换失败:${e}`);
@@ -124,7 +124,7 @@ export default class HTMLComponent extends Component {
               break;
             case 'bottomSheet':
               try {
-                params = JSON.parse(this.parseTpl(this.component['page_params'], { data: this.rootValue }));
+                params = JSON.parse(this.parseTpl(this.component['page_params'], { data: this.rootValue,row: this.data }));
               }
  catch (e) {
                 console.log(`json转换失败:${e}`);
@@ -137,10 +137,10 @@ export default class HTMLComponent extends Component {
               break;
             case 'openUrl':
               if (window.openNewUrlByQmx) {
-                window.openNewUrlByQmx(this.parseTpl(this.component['click-event-url'],{ data:this.rootValue }));
+                window.openNewUrlByQmx(this.parseTpl(this.component['click-event-url'],{ data:this.rootValue,row: this.data }));
               }
  else {
-                window.open(this.parseTpl(this.component['click-event-url'],{ data:this.rootValue }));
+                window.open(this.parseTpl(this.component['click-event-url'],{ data:this.rootValue,row: this.data }));
               }
               break;
           }

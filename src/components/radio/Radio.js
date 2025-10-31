@@ -227,7 +227,8 @@ export default class RadioComponent extends ListComponent {
     options.header = headers;
     try {
       url=this.parseTpl(url,{
-        data: this.rootValue
+        data: this.rootValue,
+        row: this.data
       });
     }catch (e) {
       console.log(e);

@@ -1,6 +1,6 @@
 {
   "name": "formiojs-eorion",
-  "version": "0.1.59",
+  "version": "0.1.60",
   "description": "JavaScript powered Forms with JSON Form Builder",
   "main": "index.js",
   "types": "index.d.ts",
@@ -68,7 +68,7 @@
     "dompurify": "^2.3.4",
     "downloadjs": "^1.4.7",
     "dragula": "^3.7.3",
-    "echarts": "^5.4.3",
+    "echarts": "^5.1.2",
     "echarts-gl": "^2.0.9",
     "eventemitter3": "^4.0.7",
     "fast-deep-equal": "^3.1.3",

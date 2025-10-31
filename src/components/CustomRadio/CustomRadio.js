@@ -15,8 +15,8 @@ export default class CustomRadio extends RadioComponent {
             let parsedOptions = { ignoreCache: true };
             let parsedBody = {};
             try {
-                parsedOptions = JSON.parse(this.parseTpl(defaultValueOptions || '{"headers":{}}', { data: this.rootValue }, null));
-                parsedBody = JSON.parse(this.parseTpl(defaultValueBody || '{}', { data: this.rootValue }, null));
+                parsedOptions = JSON.parse(this.parseTpl(defaultValueOptions || '{"headers":{}}', { data: this.rootValue,row: this.data }, null));
+                parsedBody = JSON.parse(this.parseTpl(defaultValueBody || '{}', { data: this.rootValue,row: this.data }, null));
             }
             catch (e) {
                 console.log(e);
@@ -79,8 +79,8 @@ export default class CustomRadio extends RadioComponent {
         let parsedOptions = { header: null };
         let parsedBody = {};
         try {
-            parsedOptions = JSON.parse(this.parseTpl(JSON.stringify(options), { data: this.rootValue }));
-            parsedBody = JSON.parse(this.parseTpl(JSON.stringify(body), { data: this.rootValue }));
+            parsedOptions = JSON.parse(this.parseTpl(JSON.stringify(options), { data: this.rootValue,row: this.data }));
+            parsedBody = JSON.parse(this.parseTpl(JSON.stringify(body), { data: this.rootValue,row: this.data }));
         }
           // eslint-disable-next-line no-empty
  catch (e) {
@@ -88,7 +88,7 @@ export default class CustomRadio extends RadioComponent {
         // Make the request.
         const self = this;
         headers.forEach(function(value, name) {
-            headers.set(name, self.parseTpl(value, { data: self.rootValue }));
+            headers.set(name, self.parseTpl(value, { data: self.rootValue,row: self.data }));
         });
         parsedOptions.header = headers;
         if (this.shouldLoad) {

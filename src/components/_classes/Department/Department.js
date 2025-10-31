@@ -55,8 +55,8 @@ export default class Data extends FieldComponent {
       let parsedOptions = { ignoreCache: true };
       let parsedBody = {};
       try {
-        parsedOptions = JSON.parse(this.parseTpl(options || '{"headers":{}}', { data: this.rootValue }));
-        parsedBody = JSON.parse(this.parseTpl(body || '{}', { data: this.rootValue }));
+        parsedOptions = JSON.parse(this.parseTpl(options || '{"headers":{}}', { data: this.rootValue,row: this.data }));
+        parsedBody = JSON.parse(this.parseTpl(body || '{}', { data: this.rootValue,row: this.data }));
       }
       catch (e) {
         console.log(e);

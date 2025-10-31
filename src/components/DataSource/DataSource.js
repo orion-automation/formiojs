@@ -140,7 +140,7 @@ export default class DataSourceComponent extends FieldComponent {
         return true;
       }
       if (self.component['data-source-url']) {
-        let url = self.parseTpl(self.component['data-source-url'], {data: self.rootValue},true);
+        let url = self.parseTpl(self.component['data-source-url'], {data: self.rootValue,row: self.data},true);
         if (!url){
           return true;
         }
@@ -153,7 +153,7 @@ export default class DataSourceComponent extends FieldComponent {
         let params = {};
         let headers = {};
         self.component.request['headers'].forEach(header => {
-          headers[`${header.key}`] = self.parseTpl(header.value, {data: self.rootValue});
+          headers[`${header.key}`] = self.parseTpl(header.value, {data: self.rootValue,row: self.data});
         });
         // 搜索
         if (self.component['dataSource'] === 'url') {
@@ -162,7 +162,7 @@ export default class DataSourceComponent extends FieldComponent {
             let where = '';
             self.component.data['noco_db_conditions'].forEach((item, index) => {
               if (item.value && item.value.length > 0) {
-                let conditionVal = self.parseTpl(item.value, {data: self.rootValue});
+                let conditionVal = self.parseTpl(item.value, {data: self.rootValue,row: self.data});
                 if (index === 0 && item.logical_operator === '~not') {
                   where += `(${item.name},${item.operator},${conditionVal})`;
                 } else {
@@ -219,7 +219,7 @@ export default class DataSourceComponent extends FieldComponent {
           } else if (reqMethod === 'POST') {
             if (self.component.request['body'] && self.component.request['body'].length > 0) {
               try {
-                let reqDataStr=this.parseTpl(self.component.request['body'], {data: self.rootValue},true);
+                let reqDataStr=this.parseTpl(self.component.request['body'], {data: self.rootValue,row: self.data},true);
                 if (!reqDataStr){
                   return true;
                 }

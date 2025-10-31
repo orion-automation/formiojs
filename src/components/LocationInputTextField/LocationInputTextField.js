@@ -34,7 +34,7 @@ export default class LocationInputTextField extends TextFieldComponent {
               var geocoder = new AMap.Geocoder({
               });
 
-              let address = self.parseTpl(self.component['source-form'], { data: self.rootValue });
+              let address = self.parseTpl(self.component['source-form'], { data: self.rootValue,row: self.data });
 
               geocoder.getLocation(address, function (status, result) {
                 if (status === "complete" && result.info === "OK") {
@@ -64,7 +64,7 @@ export default class LocationInputTextField extends TextFieldComponent {
             var geocoder = new AMap.Geocoder({
             });
 
-            let address = self.parseTpl(self.component['source-form'], { data: self.rootValue });
+            let address = self.parseTpl(self.component['source-form'], { data: self.rootValue,row: self.data });
 
             geocoder.getLocation(address, function (status, result) {
               if (status === "complete" && result.info === "OK") {

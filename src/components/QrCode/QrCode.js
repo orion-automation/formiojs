@@ -69,7 +69,7 @@ export default class QrCode extends FieldComponent {
     var canvas = this.element.querySelector('#qr-code-container');
     canvas.innerHTML = '';
     new QRCode(canvas, {
-      text: this.parseTpl(this.component.value, {data: this.rootValue}),
+      text: this.parseTpl(this.component.value, {data: this.rootValue,row: this.data}),
       width: this.component.width,
       height: this.component.width,
       colorDark: '#000000',
