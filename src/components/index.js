@@ -81,8 +81,10 @@ import IconButtonComponent from './iconButton/IconButton';
 import ButtonGroupsComponent from './buttonGroups/ButtonGroups';
 import FileUDSComponent from './file_china_grid/File';
 import RangeComponent from './range/Range';
+import DateTimeRangeComponent from './datetimeRange/DateTimeRange';
 
 export default {
+  datetimeRange: DateTimeRangeComponent,
   range: RangeComponent,
   fileUds: FileUDSComponent,
   map: MapComponent,
