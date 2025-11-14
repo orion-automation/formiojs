@@ -124,7 +124,6 @@ export default class CalendarWidget extends InputWidget {
     this.settings.dateFormat = convertFormatToFlatpickr(this.settings.dateFormat);
     this.settings.position = 'auto center';
     this.settings.onChange = () => {
-      console.log('flatpickr onChange',this.settings.manualInputValue);
       if (this.settings.allowInput) {
         if (this.settings.isManuallyOverriddenValue && this.settings.enableTime) {
           this.calendar._input.value = this.settings.manualInputValue;
@@ -359,7 +358,6 @@ export default class CalendarWidget extends InputWidget {
    * @param value
    */
   setValue(value) {
-    console.log('setValue',value);
     const saveAsText = (this.settings.saveAs === 'text');
     if (!this.calendar) {
       value = value ? formatDate(this.timezonesUrl, value, convertFormatToMoment(this.settings.format), this.timezone, convertFormatToMoment(this.valueMomentFormat)) : value;
@@ -434,7 +432,6 @@ export default class CalendarWidget extends InputWidget {
     // Create a new flatpickr.
     this.calendar = new Flatpickr(this._input, { ...this.settings, disableMobile: true });
     this.calendar.altInput.addEventListener('input', (event) => {
-      console.log('inputValue altInput input',event.target.value,this.settings.currentValue,this.calendar.selectedDates);
       if (this.settings.allowInput && this.settings.currentValue !== event.target.value) {
         this.settings.manualInputValue = event.target.value;
         this.settings.isManuallyOverriddenValue = true;

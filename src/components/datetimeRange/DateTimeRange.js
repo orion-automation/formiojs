@@ -120,7 +120,6 @@ export default class DateTimeRangeComponent extends Input {
 
   get defaultValue() {
     const defaultValue = super.defaultValue;
-    console.log('get defaultValue 0',defaultValue);
     if (!defaultValue||defaultValue.length===0) {
       const tmpVal=[];
       if (this.component.defaultStartDate) {
@@ -135,7 +134,6 @@ export default class DateTimeRangeComponent extends Input {
           tmpVal.push(parsedVal.toISOString());
         }
       }
-      console.log('get defaultValue',tmpVal);
       return tmpVal;
     }
     return defaultValue;
