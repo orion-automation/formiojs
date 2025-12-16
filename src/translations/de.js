@@ -1,4 +1,5 @@
 export default {
+  subtotal:'Zwischensumme',
   "News Info Block":"新闻信息",
   "ScanInput TextField":"扫码输入",
   "Iframe Content":"嵌入式内容",

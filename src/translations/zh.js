@@ -1,5 +1,5 @@
 export default {
-  "sumRow":"小计",
+  "subtotal":"小计",
   "Yes, delete it":"确认删除",
   "Do you want to clear data?":"你是否需要清除该数据？",
   "News Info Block":"新闻信息",

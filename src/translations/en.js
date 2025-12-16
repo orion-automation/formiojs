@@ -1,5 +1,5 @@
 export default {
-  "sumRow":"Sum",
+  subtotal:'Subtotal',
   unsavedRowsError: 'Please save all rows before proceeding.',
   invalidRowsError: 'Please correct invalid rows before proceeding.',
   invalidRowError: 'Invalid row. Please correct it or delete.',

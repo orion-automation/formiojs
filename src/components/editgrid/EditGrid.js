@@ -405,9 +405,9 @@ export default class EditGridComponent extends NestedArrayComponent {
       if (component.type === 'number' && component.tableView && component.sumRow) {
         hasSumRow = true;
         sumRowData.push(_.sumBy(dataValue, component.key).toLocaleString(undefined,{
-          minimumFractionDigits:component.decimalCountMin,
-          maximumFractionDigits:component.decimalCountMax,
-          useGrouping: component.showLocale,
+          minimumFractionDigits:component.requireDecimal?component.decimalLimit:0,
+          maximumFractionDigits:component.decimalLimit??0,
+          useGrouping: !!component.delimiter,
         })
         );
       } else {
