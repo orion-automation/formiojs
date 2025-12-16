@@ -36,6 +36,18 @@
           {% } %}
         </tr>
         {% }) %}
+        {% if(ctx.hasSumRow){ %}
+        <tr style="font-weight: 600" ref="refSumRow">
+            {% ctx.sumRow.forEach(function(row) { %}
+            <td class="editgrid-table-column">{{ row }}</td>
+            {% }) %}
+            <td class="editgrid-table-column">
+                <div style="display: flex;flex-direction: column;align-items: center;">
+                    {{ ctx.t("sumRow") }}
+                </div>
+            </td>
+        </tr>
+        {% } %}
       </tbody>
       {% if (ctx.footer) { %}
       <tfoot>
