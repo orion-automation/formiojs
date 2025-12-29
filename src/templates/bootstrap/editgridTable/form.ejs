@@ -36,7 +36,7 @@
           {% } %}
         </tr>
         {% }) %}
-        {% if(ctx.hasSumRow){ %}
+        {% if(ctx.hasSumRow && ((document.getElementsByClassName("editgrid-table-body").length && ctx.component.displayAsPc && document.getElementsByClassName("editgrid-table-body")[0].clientWidth<=500) || !(document.getElementsByClassName("editgrid-table-body").length && document.getElementsByClassName("editgrid-table-body")[0].clientWidth<=500))){ %}
         <tr style="font-weight: 600" ref="refSumRow">
             {% ctx.sumRow.forEach(function(row) { %}
             <td class="editgrid-table-column">{{ row }}</td>

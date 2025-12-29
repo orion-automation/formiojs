@@ -154,6 +154,28 @@ export default class EditGridComponent extends NestedArrayComponent {
         : _.get(this.component, 'templates.row', this.defaultRowTemplate);
     }
 
+    if (this.component.displayAsPc) {
+      rowTemplate = `
+      {% util.eachComponent(components, function(component) { %}
+          {% if (!component.hasOwnProperty('tableView') || component.tableView) { %}
+            <td class="editgrid-table-column">
+              {{ getView(component, row[component.key]) }}
+            </td>
+          {% } %}
+        {% }) %}
+        {% if (!instance.options.readOnly && !instance.disabled) { %}
+          <td class="editgrid-table-column">
+            <div class="btn-group">
+              <button class="btn btn-default btn-light btn-sm editRow" aria-label="{{ t('Edit row') }}"><i class="{{ iconClass('edit') }}"></i></button>
+              {% if (!instance.hasRemoveButtons || instance.hasRemoveButtons()) { %}
+              <button class="btn btn-danger btn-sm removeRow" aria-label="{{ t('Remove row') }}"><i class="{{ iconClass('trash') }}"></i></button>
+              {% } %}
+            </div>
+          </td>
+        {% } %}
+    `;
+    }
+
     return rowTemplate;
   }
 
@@ -167,6 +189,22 @@ export default class EditGridComponent extends NestedArrayComponent {
       headerTemplate = this.displayAsTable ?
         _.get(this.component, 'templates.tableHeader', this.defaultHeaderTemplate)
         : _.get(this.component, 'templates.header', this.defaultHeaderTemplate);
+    }
+
+    if (this.component.displayAsPc) {
+      // 强制pc模式
+      headerTemplate = `
+      <tr>
+        {% util.eachComponent(components, function(component) { %}
+          {% if (!component.hasOwnProperty('tableView') || component.tableView) { %}
+            <td class="editgrid-table-column">{{ component.label }}</td>
+          {% } %}
+        {% }) %}
+        {% if (!instance.options.readOnly && !instance.disabled) { %}
+          <td class="editgrid-table-column">Actions</td>
+        {% } %}
+      </tr>
+    `;
     }
 
     return headerTemplate;
@@ -400,15 +438,15 @@ export default class EditGridComponent extends NestedArrayComponent {
     const templateName = this.displayAsTable ? 'editgridTable' : 'editgrid';
 
     const sumRowData = [];
-    let hasSumRow=false;
-    this.component.components.forEach(component=>{
+    let hasSumRow = false;
+    this.component.components.forEach(component => {
       if (component.type === 'number' && component.tableView && component.sumRow) {
         hasSumRow = true;
-        sumRowData.push(_.sumBy(dataValue, component.key).toLocaleString(undefined,{
-          minimumFractionDigits:component.requireDecimal?component.decimalLimit:0,
-          maximumFractionDigits:component.decimalLimit??0,
-          useGrouping: !!component.delimiter,
-        })
+        sumRowData.push(_.sumBy(dataValue, component.key).toLocaleString(undefined, {
+            minimumFractionDigits: component.requireDecimal ? component.decimalLimit : 0,
+            maximumFractionDigits: component.decimalLimit ?? 0,
+            useGrouping: !!component.delimiter,
+          })
         );
       } else {
         sumRowData.push('');
@@ -436,6 +474,7 @@ export default class EditGridComponent extends NestedArrayComponent {
       openRows: this.editRows.map((row) => this.isOpen(row)),
       sumRow: sumRowData,
       hasSumRow: hasSumRow,
+      displayAsPc: this.component.displayAsPc,
       t,
       errors: this.editRows.map((row) => row.error),
       hasAddButton: this.hasAddButton(),

@@ -38,6 +38,14 @@ export default [
     },
   },
   {
+    type: 'checkbox',
+    label: '强制桌面端显示模式',
+    key: 'displayAsPc',
+    weight: 1002,
+    input: false,
+    defaultValue: false,
+  },
+  {
     weight: 1010,
     type: 'textarea',
     input: true,
