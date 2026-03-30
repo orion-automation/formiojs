@@ -48,6 +48,11 @@ export default class CustomSelect extends SelectComponent {
       limit,
       skip,
     };
+    const queryObj=this.component.disableLimit ? {} : {
+      limit,
+      skip,
+      page: Math.abs(Math.floor(skip / limit))
+    };
 
     // Allow for url interpolation.
     url = this.interpolate(url, {
@@ -62,9 +67,11 @@ export default class CustomSelect extends SelectComponent {
     if (this.component.searchField && search) {
       if (Array.isArray(search)) {
         query[`${this.component.searchField}`] = search.join(',');
+        queryObj[`${this.component.searchField}`] = search.join(',');
       }
       else {
         query[`${this.component.searchField}`] = search;
+        queryObj[`${this.component.searchField}`] = search;
       }
     }
 
@@ -72,12 +79,14 @@ export default class CustomSelect extends SelectComponent {
     if (this.component.selectFields) {
       // @ts-ignore
       query.select = this.component.selectFields;
+      queryObj.select = this.component.selectFields;
     }
 
     // Add sort capability
     if (this.component.sort) {
       // @ts-ignore
       query.sort = this.component.sort;
+      queryObj.sort = this.component.sort;
     }
 
     if (!_.isEmpty(query)) {
@@ -97,10 +106,15 @@ export default class CustomSelect extends SelectComponent {
     let parsedBody = {};
     try {
       parsedOptions = JSON.parse(this.parseTpl(JSON.stringify(options), { data: this.rootValue,row: this.data }));
-      parsedBody = JSON.parse(this.parseTpl(JSON.stringify(body), { data: this.rootValue,row: this.data }));
+      if (!body||body.length===0||body.trim().length===0){
+        body="{}";
+      }
+      parsedBody = JSON.parse(this.parseTpl(body, { data: this.rootValue,row: this.data }));
+    } catch (e) {
+      console.error('转换token报错');
     }
-      // eslint-disable-next-line no-empty
-    catch (e) {
+    if (method.toUpperCase() === 'POST') {
+      parsedBody = JSON.stringify(Object.assign(parsedBody,queryObj));
     }
     // Make the request.
     const self = this;
@@ -128,7 +142,6 @@ export default class CustomSelect extends SelectComponent {
       .catch((err) => {
         console.log(err);
         if (this.itemsFromUrl) {
-          console.log('err');
           this.setItems([], null);
           this.disableInfiniteScroll();
         }
