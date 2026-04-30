@@ -2,6 +2,11 @@
 $dialog-z-index: 10000;
 $autocomplete-in-dialog-z-index: $dialog-z-index + 1000;
 
+.amap-container{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .formio-form {
   position: relative;
   min-height: 80px;
