@@ -38,53 +38,66 @@ export default class NocodbFile extends FileComponent {
   attach(element) {
     const refs = {
       fileLinkDiv: 'multi',
+      filePdf: 'multiple'
     };
     this.loadRefs(element, refs);
-    this.refs.fileLinkDiv.forEach(fileLink => {
-      // 点击事件
-      fileLink.addEventListener('click', (event) => {
-        let currentIndex = this.dataValue.findIndex(item => {
-          return fileLink.href.endsWith(encodeURI(item.url));
+    if (this.refs.filePdf){
+      this.refs.filePdf.forEach((image, index) => {
+        this.addEventListener(image, 'click', (event) => {
+          event.preventDefault();
+          // 预览pdf
+          window.previewPdf(this.dataValue[Number.parseInt(image.id)].url);
         });
-        let file = this.dataValue[currentIndex];
-        let { options = {} } = this.component;
-        try {
-          options = JSON.parse(this.parseTpl(options, { data: this.rootValue,row: this.data }));
-        } catch (e) {
-          console.log(e);
-        }
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', fileLink.href, true);
-        //设置请求头参数的方式,如果没有可忽略此行代码
-        if (options && options.headers) {
-          Object.keys(options.headers).forEach(headerKey => {
-            xhr.setRequestHeader(headerKey, options.headers[`${headerKey}`]);
-          });
-        }
-        //设置响应类型为 blob   xhr.open必须为 异步
-        xhr.responseType = 'blob';
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-        //关键部分
-        xhr.onload = function(e) {
-          //如果请求执行成功
-          if (this.status == 200) {
-            let blob = this.response;
-            let a = document.createElement('a');
-            // blob.type = "application/octet-stream";
-            let url = window.URL.createObjectURL(blob);
-            a.href = url;
-            a.download = file.originalName || file.name;
-            document.body.appendChild(a); // 火狐浏览器 必须把元素插入body中
-            a.click();
-            document.body.removeChild(a);
-            //释放之前创建的URL对象
-            window.URL.revokeObjectURL(url);
-          }
-        };
-        xhr.send(); // 发送ajax请求
-        event.returnValue = false;
       });
-    });
+    }
+    if(this.refs.fileLinkDiv){
+      this.refs.fileLinkDiv.forEach(
+        fileLink => {
+        // 点击事件
+        fileLink.addEventListener('click', (event) => {
+          let currentIndex = this.dataValue.findIndex(item => {
+            return fileLink.href.endsWith(encodeURI(item.url));
+          });
+          let file = this.dataValue[currentIndex];
+          let { options = {} } = this.component;
+          try {
+            options = JSON.parse(this.parseTpl(options, { data: this.rootValue,row: this.data }));
+          } catch (e) {
+            console.log(e);
+          }
+          let xhr = new XMLHttpRequest();
+          xhr.open('GET', fileLink.href, true);
+          //设置请求头参数的方式,如果没有可忽略此行代码
+          if (options && options.headers) {
+            Object.keys(options.headers).forEach(headerKey => {
+              xhr.setRequestHeader(headerKey, options.headers[`${headerKey}`]);
+            });
+          }
+          //设置响应类型为 blob   xhr.open必须为 异步
+          xhr.responseType = 'blob';
+          xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+          //关键部分
+          xhr.onload = function(e) {
+            //如果请求执行成功
+            if (this.status == 200) {
+              let blob = this.response;
+              let a = document.createElement('a');
+              // blob.type = "application/octet-stream";
+              let url = window.URL.createObjectURL(blob);
+              a.href = url;
+              a.download = file.originalName || file.name;
+              document.body.appendChild(a); // 火狐浏览器 必须把元素插入body中
+              a.click();
+              document.body.removeChild(a);
+              //释放之前创建的URL对象
+              window.URL.revokeObjectURL(url);
+            }
+          };
+          xhr.send(); // 发送ajax请求
+          event.returnValue = false;
+        });
+      });
+    }
     // Allow basic component functionality to attach like field logic and tooltips.
     return super.attach(element);
   }

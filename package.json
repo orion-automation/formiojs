@@ -1,6 +1,6 @@
 {
   "name": "formiojs-eorion",
-  "version": "0.1.80",
+  "version": "0.1.81",
   "description": "JavaScript powered Forms with JSON Form Builder",
   "main": "index.js",
   "types": "index.d.ts",
@@ -87,6 +87,7 @@
     "native-promise-only": "^0.8.1",
     "papaparse": "^5.5.2",
     "patch-package": "^8.0.0",
+    "pdfjs-dist": "^2.16.105",
     "peity": "3.3.0",
     "qrcodejs2-fix": "^0.0.1",
     "quill": "^2.0.0-dev.3",
