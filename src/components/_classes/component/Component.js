@@ -1317,6 +1317,12 @@ export default class Component extends Element {
     if (component.data === this.data) {
       return true;
     }
+    try {
+      // vue3方式下this是一个MutableReactiveHandler对象，所以以上this.data可能会错误判定为false
+      if (JSON.stringify(component.data) === JSON.stringify(this.data)) {
+        return true;
+      }
+    } catch (e) {}
     let parent = this.parent;
     while (parent) {
       if (parent.data === component.data) {
