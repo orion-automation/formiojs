@@ -482,8 +482,8 @@ export default class FileComponent extends Field {
         this.filesReadyResolve = resolve;
         this.filesReadyReject = reject;
       });
-      this.refs.fileImage.forEach((image, index) => {
-        loadingImages.push(this.loadImage(this.dataValue[index]).then((url) => (image.src = url)));
+      this.refs.fileImage.forEach(image => {
+        loadingImages.push(this.loadImage(this.dataValue[Number.parseInt(image.id)]).then((url) => (image.src = url)));
       });
       if (loadingImages.length) {
         NativePromise.all(loadingImages).then(() => {

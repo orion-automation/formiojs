@@ -68,7 +68,7 @@
             {% if (file.type === 'application/pdf' && ctx.component.type==='nocodbFile' && ctx.component.storage==='url') { %}
                 <span ref="filePdf" id="{{ index }}">{{file.originalName || file.name}}</span>
             {% } else { %}
-               <img ref="fileImage" class="previewable" src="" alt="{{file.originalName || file.name}}" style="width:{{ctx.component.imageSize}}px">
+               <img ref="fileImage" id="{{ index }}" class="previewable" src="" alt="{{file.originalName || file.name}}" style="width:{{ctx.component.imageSize}}px">
             {% } %}
           {% if (!ctx.disabled) { %}
             <i tabindex="0" class="{{ctx.iconClass('remove')}}" ref="removeLink"></i>
