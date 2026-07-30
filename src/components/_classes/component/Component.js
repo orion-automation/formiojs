@@ -706,6 +706,7 @@ export default class Component extends Element {
     `;
     const contentStyles = `
       flex: ${100 - this.labelWidth - this.labelMargin};
+      min-width: 0;
       ${contentMargin};
       ${this.component.hideLabel ? `max-width: ${100 - this.labelWidth - this.labelMargin}` : ''};
     `;
